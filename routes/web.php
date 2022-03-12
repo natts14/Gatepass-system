@@ -41,6 +41,14 @@ Route::get('/admin-parking-space', function () {
     return view('admin-parking-space');
 });
 
+Route::get('/admin-parking-space-add', function () {
+    return view('admin-parking-space-add');
+});
+
+Route::get('/admin-parking-space-update', function () {
+    return view('admin-parking-space-update');
+});
+
 Route::get('/admin-request', function () {
     return view('admin-request');
 });
@@ -65,4 +73,26 @@ Route::get('/admin-add-user', function () {
     return view('admin-userpage-addUser');
 });
 
+Route::get('/admin-userpage-records', function () {
+    return view('admin-userpage-records');
+});
 
+Route::get('/admin-user-record-info-update', function () {
+    return view('admin-user-info-update');
+});
+
+Route::get('/admin-user-record-license-update', function () {
+    return view('admin-user-license-update');
+});
+
+Route::get('/admin-user-record-vehicle-update', function () {
+    return view('admin-user-vehicle-update');
+});
+
+Route::get('/guard-homepage', function () {
+    return view('guard-homepage');
+});
+
+Route::get('/guard-profile', function () {
+    return view('guard-profile');
+});
