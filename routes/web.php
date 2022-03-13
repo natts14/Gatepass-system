@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+//use Illuminate\Auth\Middleware\Authenticate;
+//use App\Http\Controllers\RegisterController;
+//use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +21,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin-homepage', function () {
-    return view('admin-homepage');
-});
+Route::get('admin-homepage', [AuthController::class, 'adminDashboard']); 
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom'); 
+Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
+Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom'); 
+//Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
+
+//Route::get('/admin-homepage', function () {
+//    return view('admin-homepage');
+//});
 
 Route::get('/admin-profile', function () {
     return view('admin-profile');
