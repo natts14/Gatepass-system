@@ -18,81 +18,81 @@ Route::get('/', function () {
 });
 
 Route::get('/admin-homepage', function () {
-    return view('admin-homepage');
+    return view('admin/dashboard/homepage');
 });
 
 Route::get('/admin-profile', function () {
-    return view('admin-profile');
+    return view('admin/profile/profile');
 });
 
 Route::get('/admin-events', function () {
-    return view('admin-events');
+    return view('admin/events/events');
 });
 
 Route::get('/admin-events-add', function () {
-    return view('admin-events-add');
+    return view('admin/events/add');
 });
 
 Route::get('/admin-events-update', function () {
-    return view('admin-events-update');
+    return view('admin/events/update');
 });
 
 Route::get('/admin-parking-space', function () {
-    return view('admin-parking-space');
+    return view('admin/parking/parking_space');
 });
 
 Route::get('/admin-parking-space-add', function () {
-    return view('admin-parking-space-add');
+    return view('admin/parking/add');
 });
 
 Route::get('/admin-parking-space-update', function () {
-    return view('admin-parking-space-update');
+    return view('admin/parking/update');
 });
 
 Route::get('/admin-request', function () {
-    return view('admin-request');
+    return view('admin/request/request');
 });
 
 Route::get('/admin-request-renewal', function () {
-    return view('admin-request-renewal');
+    return view('admin/request/renewal');
 });
 
 Route::get('/admin-request-event', function () {
-    return view('admin-request-event');
+    return view('admin/request/event');
 });
 
 Route::get('/admin-request-license', function () {
-    return view('admin-request-license');
+    return view('admin/request/license');
 });
 
 Route::get('/admin-userpage', function () {
-    return view('admin-userpage');
+    return view('admin/user/userpage');
 });
 
 Route::get('/admin-add-user', function () {
-    return view('admin-userpage-addUser');
+    return view('admin/user/add_user');
 });
 
 Route::get('/admin-userpage-records', function () {
-    return view('admin-userpage-records');
+    return view('admin/user/records');
 });
 
 Route::get('/admin-user-record-info-update', function () {
-    return view('admin-user-info-update');
+    return view('admin/user/info_update');
 });
 
 Route::get('/admin-user-record-license-update', function () {
-    return view('admin-user-license-update');
+    return view('admin/user/license_update');
 });
 
 Route::get('/admin-user-record-vehicle-update', function () {
-    return view('admin-user-vehicle-update');
+    return view('admin/user/vehicle_update');
 });
 
 Route::get('/guard-homepage', function () {
-    return view('guard-homepage');
+    return view('guard/homepage');
 });
 
 Route::get('/guard-profile', function () {
-    return view('guard-profile');
+    return view('guard/profile');
 });
