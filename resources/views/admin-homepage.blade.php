@@ -26,8 +26,6 @@
 
 <body>
 
-
-
     <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: #000080;">
         <a class="navbar-brand text-white" href="#">JOSHUA GARCIA</a>
@@ -95,7 +93,6 @@
             <form action="/action_page.php">
                 <input class="form-control" type="date" id="" name="date">
             </form>
-
         </div>
 
         <!--SEARCH-->

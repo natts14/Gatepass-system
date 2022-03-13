@@ -58,71 +58,50 @@
         </div>
     </nav>
 
-    <!--EVENT UPDATE -->
-    <form method="POST" class="needs-validation" id="updateEvent">
-        <div class="container bg-light p-4 mt-4" style="width: 540px;">
-            <p class="h3 text-center">ADD EVENT</p>
-            <input type="hidden" value="" name="id" required>
-
-            <p class="font-weight-bold">EVENT TITLE</p>
-            <input type="text" name="eventTitle" class="eventTitle form-control" id="eventTitleInputBox" value="" required>
-
-            <br/>
-            <p class="font-weight-bold">EVENT TIME & DATE</p>
-            <div class="row">
-                <div class="col">
-                    <p class="text-center">START ON:</p>
-                    <div class="col-md-11 d-inline-flex addEventDate">
-                        <form action="/action_page.php">
-                            <input class="form-control" type="date" id="" name="" required>
-                        </form>
-                    </div><br>
-
-                    <p class="text-center">START TIME:</p>
-                    <div class="col-md-11 d-inline-flex addEventDate">
-                        <form action="/action_page.php">
-                            <input class="form-control text-center" type="time" id="" name="time" style="width: 180px;" required>
-                        </form>
-                    </div><br>
-                </div>
-
-                <div class="col">
-                    <p class="text-center">ENDS ON:</p>
-                    <div class="col-md-11 d-inline-flex">
-                        <form action="/action_page.php">
-                            <input class="form-control" type="date" id="" name="" required>
-                        </form>
-                    </div><br>
-
-                    <p class="text-center">END TIME:</p>
-                    <div class="col-md-11 d-inline-flex ">
-                        <form action="/action_page.php">
-                            <input class="form-control text-center" type="time" id="" name="time" style="width: 190px;" required>
-                        </form>
-                    </div><br>
-                </div>
-
-
+    <div class="container-fluid" id="">
+        <form class="needs-validation p-4" method="POST" id="updateUserLicense" required>
+            <div class="d-flex">
+                <h4>LICENSE DETAILS</h4>
             </div>
 
-            <div class="addEventButton mt-3 text-center">
+            <div class="d-inline-flex w-100 ml-1">
+                <div class="form-group col-sm-3">
+                    <label for="DriversLicenseNo" class="font-weight-bold">DRIVERS LICENSE NUMBER</label>
+                    <input type="text" class="form-control" value="" required>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="DriversLicenseExpiry" class="font-weight-bold">DRIVERS LICENSE EXPIRY</label>
+                    <div class="form-row">
+                        <form action="/action_page.php">
+                            <input class="form-control" type="date" id="" name="date">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="licenseType" class="font-weight-bold">TYPE</label>
+                    <select class="form-control" name="licenseType" value="" id="select" required>
+                        <option></option>
+                        <option value="">Student Permit</option>
+                        <option value="">Non-Professional</option>
+                        <option value="">Professional</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
+                    <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                    <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                </div>
+            </div>
+            <div class=" mt-3 text-right">
                 <button type="submit" class="btn btn-success"> SUBMIT </button>
                 <button type="button" class="btn btn-danger" id="cancelEventButton" onclick="javascript:window.history.back();"> BACK </button>
             </div>
-        </div>
-    </form>
+        </form>
+
+    </div>
+
 </body>
-
-<script>
-    $('#timepicker').timepicker({
-        uiLibrary: 'bootstrap4'
-    });
-
-    $(function() {
-        $('#datetimepicker3').datetimepicker({
-            format: 'LT'
-        });
-    });
-</script>
 
 </html>
