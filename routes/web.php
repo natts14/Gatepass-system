@@ -40,10 +40,19 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          */
         Route::get('/logout', 'Auth\LogoutController@perform')->name('logout.perform');
         /**
-         * Admin Dashboard
+         * Admin Homepage Dashboard
          */
         Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');
+        
+        Route::get('/admin-profile', 'Admin\Profile\ProfileController@index')->name('admin.profile');
 
+        Route::get('/admin-events', 'Admin\Events\EventsController@index')->name('admin.events');
+
+        Route::get('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@index')->name('admin.parking-space');
+        
+        Route::get('/admin-request', 'Admin\Request\RequestController@index')->name('admin.request');
+  
+        Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
     });
 });
 
