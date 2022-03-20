@@ -86,7 +86,7 @@
 
                         <div class="form-group col-sm-3">
                             <label for="userID" class="font-weight-bold">STUDENT/EMPLOYEE ID</label>
-                            <input type="text" name="userID" value="" class="form-control" id="userID" required>
+                            <input type="text" name="user_id" value="" class="form-control" id="userID" required>
                         </div>
                     </div>
 
@@ -103,7 +103,7 @@
 
                         <div class="form-group col-sm-3">
                             <label for="username" class="font-weight-bold">USERNAME</label>
-                            <input type="text" name="username" value="" class="form-control" id="username" required>
+                            <input type="text" name="name" value="" class="form-control" id="username" required>
                         </div>
 
                         <div class="form-group col-sm-3">

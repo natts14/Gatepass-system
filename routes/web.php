@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +17,47 @@ use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin-homepage', [AuthController::class, 'adminDashboard']); 
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom'); 
-Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
-Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom'); 
-//Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 
-//Route::get('/admin-homepage', function () {
-//    return view('admin-homepage');
-//});
+ 
+Route::group(['namespace'=> 'App\Http\Controllers'],function()
+{  
+    /**
+    *  Register 
+    */
+    Route::get('/register','Auth\RegisterController@show')->name('register.show');
+    Route::post('/register', 'Auth\RegisterController@register')->name('register.perform');
+
+    /**
+    * Login Routes
+    */
+    Route::get('/login', 'Auth\LoginController@show')->name('login.show');
+    Route::post('/login', 'Auth\LoginController@login')->name('login.perform');
+   
+
+    Route::group(['middleware' => ['auth']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('/logout', 'Auth\LogoutController@perform')->name('logout.perform');
+        /**
+         * Admin Dashboard
+         */
+        Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');
+
+    });
+});
 
 
 /*
+
+//Route::get('/admin-add-user', function () {
+    //return view('admin/user-add_user');
+//});
+
+Route::get('/admin-homepage', function () {
+    return view('admin-homepage');
+});
+
 Route::get('/admin-profile', function () {
     return view('admin/profile');
 });
@@ -47,40 +75,33 @@ Route::get('/admin-events-update', function () {
 });
 
 Route::get('/admin-parking-space', function () {
-    return view('admin/parking/parking_space');
+    return view('admin/parking_space');
 });
 
 Route::get('/admin-parking-space-add', function () {
-    return view('admin/parking/add');
+    return view('admin/parking-add');
 });
 
 Route::get('/admin-parking-space-update', function () {
-    return view('admin/parking/update');
+    return view('admin/parking-update');
 });
 
 Route::get('/admin-request', function () {
-    return view('admin/request/request');
+    return view('admin/request');
 });
 
 Route::get('/admin-request-renewal', function () {
-    return view('admin/request/renewal');
+    return view('admin/request-renewal');
 });
 
 Route::get('/admin-request-event', function () {
-    return view('admin/request/event');
+    return view('admin/request-event');
 });
 
 Route::get('/admin-request-license', function () {
-    return view('admin/request/license');
+    return view('admin/request-license');
 });
 
-Route::get('/admin-userpage', function () {
-    return view('admin/user/userpage');
-});
-
-Route::get('/admin-add-user', function () {
-    return view('admin/user/add_user');
-});
 
 Route::get('/admin-userpage-records', function () {
     return view('admin/user/records');
@@ -105,5 +126,5 @@ Route::get('/guard-homepage', function () {
 Route::get('/guard-profile', function () {
     return view('guard/profile');
 });
-
 */
+

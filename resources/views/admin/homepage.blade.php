@@ -56,7 +56,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-white" href="/logout">LOGOUT</a>
+                    <a class="nav-link text-white" href="{{ route('logout.perform') }}">LOGOUT</a>
                 </li>
             </ul>
         </div>
