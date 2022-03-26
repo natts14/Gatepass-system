@@ -96,7 +96,7 @@
 
                 <div class="addParkingSlotButton text-center">
                     <button type="button" class="btn btn-success" id="submitAddedParkingSpace" onclick="addParkingSlotSubmit()"> SUBMIT </button>
-                    <button type="button" class="btn btn-danger" id="cancelAddedParkingSpace" onclick="addParkingSlotCancel()"> CANCEL </button>
+                    <button type="button" class="btn btn-danger" id="cancelAddedParkingSpace" onclick="javascript:window.history.back();""> CANCEL </button>
                 </div>
             </div>
         </div>

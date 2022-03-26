@@ -11,4 +11,14 @@ class EventsController extends Controller
     {
         return view('admin.events');
     }
+
+    public function create() 
+    {
+        return view('admin.event-add');
+    }
+
+    public function edit() 
+    {
+        return view('admin.events-update');
+    }
 }

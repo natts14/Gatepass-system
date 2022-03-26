@@ -103,7 +103,7 @@
                     </select>
 
                     <div>
-                        <a class="btn btn-primary w-100" id="addUserButton" href="/admin-add-user">Add User</a>
+                        <a class="btn btn-primary w-100" id="addUserButton" href="/admin-user-add">Add User</a>
                     </div>
                 </form>
 
