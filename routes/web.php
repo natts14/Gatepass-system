@@ -54,7 +54,10 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          */
         Route::get('/admin-events', 'Admin\Events\EventsController@index')->name('admin.events');
         Route::get('/admin-events-add', 'Admin\Events\EventsController@create');
-        Route::get('/admin-events-update', 'Admin\Events\EventsController@edit');
+        Route::post('/admin-events', 'Admin\Events\EventsController@store');
+        Route::get('/admin-events/{event}/edit', 'Admin\Events\EventsController@edit');
+        Route::put('/admin-events/{event}', 'Admin\Events\EventsController@update');
+        Route::get('/admin-events/{event}', 'Admin\Events\EventsController@destroy');
 
         /**
          * Admin Parking Space

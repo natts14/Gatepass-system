@@ -21,16 +21,9 @@
                     <input class="form-check-input" type="radio" name="" id="" value="option1" checked>
                     <label class="form-check-label mb-3">VEHICLE</label>
                 </div>
-<<<<<<< HEAD
-
-                <div class="addParkingSlotButton text-center">
-                    <button type="button" class="btn btn-success" id="submitAddedParkingSpace" onclick="addParkingSlotSubmit()"> SUBMIT </button>
-                    <button type="button" class="btn btn-danger" id="cancelAddedParkingSpace" onclick="javascript:window.history.back();""> CANCEL </button>
-=======
                 <div class="ml-4">
                     <input class="form-check-input" type="radio" name="" id="" value="option2" checked>
                     <label class="form-check-label">MOTORCYCLE</label>
->>>>>>> 3c021bb7541cb7accc5cd37162c87782fee771c0
                 </div>
             </div>
             <div class="col-sm">
