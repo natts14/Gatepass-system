@@ -11,4 +11,9 @@ class UsersController extends Controller
     {
         return view('admin.userpage');
     }
+
+    public function create() 
+    {
+        return view('admin.user-add');
+    }
 }
