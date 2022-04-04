@@ -11,4 +11,14 @@ class ParkingSpaceController extends Controller
     {
         return view('admin.parking-space');
     }
+
+    public function create() 
+    {
+        return view('admin.parking-add');
+    }
+
+    public function edit() 
+    {
+        return view('admin.parking-update');
+    }
 }

@@ -42,17 +42,41 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         /**
          * Admin Homepage Dashboard
          */
-        Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');
-        
+        Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');        
+
+        /**
+         * Admin Profile
+         */
         Route::get('/admin-profile', 'Admin\Profile\ProfileController@index')->name('admin.profile');
 
+        /**
+         * Admin Events
+         */
         Route::get('/admin-events', 'Admin\Events\EventsController@index')->name('admin.events');
+        Route::get('/admin-events-add', 'Admin\Events\EventsController@create');
+        Route::post('/admin-events', 'Admin\Events\EventsController@store');
+        Route::get('/admin-events/{event}/edit', 'Admin\Events\EventsController@edit');
+        Route::put('/admin-events/{event}', 'Admin\Events\EventsController@update');
+        Route::get('/admin-events/{event}', 'Admin\Events\EventsController@destroy');
 
+        /**
+         * Admin Parking Space
+         */
         Route::get('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@index')->name('admin.parking-space');
-        
+        Route::get('/admin-parking-space-add', 'Admin\ParkingSpace\ParkingSpaceController@create');
+        Route::get('/admin-parking-space-update', 'Admin\ParkingSpace\ParkingSpaceController@edit');
+
+         /**
+         * Admin Request
+         */
         Route::get('/admin-request', 'Admin\Request\RequestController@index')->name('admin.request');
-  
+        Route::get('/admin-request-event', 'Admin\Request\RequestController@event');
+        Route::get('/admin-request-license', 'Admin\Request\RequestController@license');
+        Route::get('/admin-request-renewal', 'Admin\Request\RequestController@renewal');
+
+
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
+        Route::get('/admin-user-add', 'Admin\Users\UsersController@create');
     });
 });
 
