@@ -76,11 +76,17 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
 
 
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
-        Route::get('/admin-user-add', 'Admin\Users\UsersController@create');
+        Route::get('/admin-add-user', 'Admin\Users\UsersController@create');
     });
 });
 
+Route::get('/guard-homepage', function () {
+    return view('guard/homepage');
+});
 
+Route::get('/guard-profile', function () {
+    return view('guard/profile');
+});
 /*
 
 //Route::get('/admin-add-user', function () {

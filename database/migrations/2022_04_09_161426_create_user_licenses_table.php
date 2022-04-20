@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsTable extends Migration
+class CreateUserLicensesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('user_licenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->nullable();
-            $table->string('event_title');
-            $table->date('date_started_at');
-            $table->time('time_started_at');
-            $table->date('date_ended_at');
-            $table->time('time_ended_at');
-            $table->string('restrictions')->nullable();
+            $table->string('drivers_license_number');
+            $table->date('drivers_license_expiry');
+            $table->string('license_type');
+            $table->string('documents');
             $table->tinyInteger('status')->nullable();
+            $table->string('remarks');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('user_licenses');
     }
 }
