@@ -1,17 +1,18 @@
 @extends('layouts.default')
 @section('content')
+
 <div>
     <div class="text-right p-2">
         <a href="/admin-events-add"><button type="button" class="btn btn-success" id="eventHistry"> ADD EVENT </button></a>
-        <a href=""><button type="button" class="btn btn-success" id="eventHistry"> HISTORY </button></a>
+        <a href="/admin-events-history"><button type="button" class="btn btn-success" id="eventHistry"> HISTORY </button></a>
     </div>
 </div>
 
 <!--EVENT CARD-->
 <div class="">
-     @foreach($events as $event)
-    <div class="col d-inline-flex">
 
+    <div class="card-columns pl-5 pr-3" style="column-count: 4;">
+        @foreach($events as $event)
         <div class="card mt-3 border border-primary p-2" id="" style="width: 280px;">
             <div class="text-right">
                 <a href="/admin-events/{{$event->id}}/edit">
@@ -27,7 +28,7 @@
                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                     </svg>
                 </a>
-              
+
 
             </div>
             <p class="card-title h2" style="margin: 0; padding: 0;">{{ $event->event_title }}</p>
@@ -38,18 +39,17 @@
                 <div class="col">
                     <p class="font-weight-bold">START</p>
                     <p class="eventDate">{{ Carbon\Carbon::parse ($event->date_started_at)->format('Y-m-d') }}</p>
-                    <p class="eventTime" style="margin: 0; padding: 0;">{{ Carbon\Carbon::parse ($event->time_started_at)->format('h-i') }}</p>
+                    <p class="eventTime" style="margin: 0; padding: 0;">{{ Carbon\Carbon::parse ($event->time_started_at)->format('h : i') }}</p>
                 </div>
                 <div class="col">
                     <p class="font-weight-bold">END</p>
                     <p class="eventDate">{{ Carbon\Carbon::parse ($event->date_ended_at)->format('Y-m-d') }}</p>
-                    <p class="eventTime" style="margin: 0; padding: 0;">{{ Carbon\Carbon::parse ($event->time_ended_at)->format('h-i')}}</p>
+                    <p class="eventTime" style="margin: 0; padding: 0;">{{ Carbon\Carbon::parse ($event->time_ended_at)->format('h : i')}}</p>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
-
 </div>
 
 @stop

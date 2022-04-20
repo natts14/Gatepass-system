@@ -69,4 +69,11 @@ class EventsController extends Controller
 
         return redirect('/admin-events');
     }
+
+    public function history() 
+    {
+        $events = Event::all();
+
+        return view('admin.event-history');
+    }
 }
