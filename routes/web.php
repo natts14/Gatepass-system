@@ -58,6 +58,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::get('/admin-events/{event}/edit', 'Admin\Events\EventsController@edit');
         Route::put('/admin-events/{event}', 'Admin\Events\EventsController@update');
         Route::get('/admin-events/{event}', 'Admin\Events\EventsController@destroy');
+        Route::get('/admin-events-history', 'Admin\Events\EventsController@history');
 
         /**
          * Admin Parking Space
