@@ -30,7 +30,7 @@
     <div>
         <nav class="navbar navbar-light p-3" style="background: #000080;">
             <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 440px;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" id="userSearch" aria-label="Search" style="width: 440px;">
 
                 <select class="homepageSort form-control mr-2" placeholder="" id="select">
                     <option>Sort</option>
@@ -60,7 +60,7 @@
 
     <!--TABLE-->
     <div>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="userTable">
             <thead class="thead-dark ">
                 <tr>
                     <th scope="col">NAME</th>
@@ -94,5 +94,37 @@
 
 
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        dTable = $('#userTable').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "dom": "lrtip"
+        });
+        $('#userSearch').keyup(function() {
+            dTable.search($(this).val()).draw(); // this  is for customized searchbox with datatable search feature.
+        });
+
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+
+        window.onload = setInterval(clock, 1000);
+
+        function clock() {
+            var d = new Date();
+            var hour = d.getHours();
+            var min = d.getMinutes();
+            var sec = d.getSeconds();
+
+            document.getElementById("time").innerHTML = hour + ":" + min;
+        };
+
+
+    });
+</script>
 
 @stop
