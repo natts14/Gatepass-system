@@ -110,30 +110,16 @@
                 </tr>
             </thead>
             <tbody>
+            @foreach ($users as $user)
                 <tr>
-                    <td id="clickableName" onclick="popUserInfo()">Sheryl Kate Monserrat</td>
+                    <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">{{ $user->name }}</td>
                     <td>Student</td>
                     <td>7:00 AM</td>
                     <td>4-9-2021</td>
                     <td>5:00 PM</td>
                     <td>4-9-2021</td>
                 </tr>
-                <tr>
-                    <td>Nathalie Butic</td>
-                    <td>Student</td>
-                    <td>7:00 AM</td>
-                    <td>4-9-2021</td>
-                    <td>7:00 PM</td>
-                    <td>4-9-2021</td>
-                </tr>
-                <tr>
-                    <td>Riza Titar</td>
-                    <td>Employee</td>
-                    <td>9:08 AM</td>
-                    <td>4-9-2021</td>
-                    <td>6:00 PM</td>
-                    <td>4-9-2021</td>
-                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
