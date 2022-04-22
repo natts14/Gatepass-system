@@ -112,7 +112,7 @@
             <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td id="clickableName" onclick="popUserInfo()">{{ $user->name }}</td>
+                    <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">{{ $user->name }}</td>
                     <td>Student</td>
                     <td>7:00 AM</td>
                     <td>4-9-2021</td>
