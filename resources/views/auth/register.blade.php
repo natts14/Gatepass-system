@@ -40,6 +40,7 @@
         <div class="signUpForm">
             <form action="{{ route('register.perform') }}" method="POST" class="needs-validation"  id="signup" required>
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            <input type="hidden" name="status" value="1" />
 
     
                 <div class="input-group mb-3 w-75 mx-auto">

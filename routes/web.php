@@ -65,8 +65,10 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          */
         Route::get('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@index')->name('admin.parking-space');
         Route::get('/admin-parking-space-add', 'Admin\ParkingSpace\ParkingSpaceController@create');
-        Route::get('/admin-parking-space-update', 'Admin\ParkingSpace\ParkingSpaceController@edit');
-
+        Route::post('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@store');
+        Route::get('/admin-parking-space/{parking}/edit', 'Admin\ParkingSpace\ParkingSpaceController@edit');
+        Route::put('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@update');
+        Route::get('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@destroy');
          /**
          * Admin Request
          */
@@ -77,7 +79,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
 
 
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
-        Route::get('/admin-add-user', 'Admin\Users\UsersController@create');
+        Route::get('/admin-user-add', 'Admin\Users\UsersController@create');
     });
 });
 
