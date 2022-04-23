@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\ParkingLogs;
 
 class HomepageController extends Controller
 {
     public function index() 
     {
-        $user = User::all();
-        $vehicles['active'] = Vehicle::where(['user_id' => $user->id, 'status' => 1])->get();
-        $vehicles['inactive'] = Vehicle::where(['user_id' => $user->id, 'status' => 0])->get();
-        return view('admin.homepage', ['user' => $user, 'vehicles' => $vehicles]);
+        /* $parking_logs = ParkingLogs::with(['vehicle' => function($query) { //get vehicle relationshihp with logs
+            $query->with('user'); //get user relationship with vehicle
+        }])->get(); */
+        $parking_logs = ParkingLogs::all();
+        return view('admin.homepage', ['parking_logs' => $parking_logs]);
     }
 }

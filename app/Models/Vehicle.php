@@ -10,7 +10,7 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vehicle_id',
+        'user_id',
         'vehicle_plate_number',
         'vehicle_registration_number',
         'vehicle_registration_expiry',
@@ -19,5 +19,15 @@ class Vehicle extends Model
         'color',
         'documents'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function parking_Logs()
+    {
+        return $this->hasMany(ParkingLogs::class, 'vehicle_id', 'id');
+    }
 }
     

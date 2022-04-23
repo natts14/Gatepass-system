@@ -25,10 +25,6 @@ class User extends Authenticatable
         'category'
     ];
 
-    public function detail()
-    {
-        return $this->hasOne(UserDetail::class,'user_id','id');
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -57,5 +53,20 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'user_id', 'id');
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class,'user_id','id');
+    }
+
+    public function licenses()
+    {
+        return $this->hasMany(UserLicense::class,'user_id','id');
     }
 }

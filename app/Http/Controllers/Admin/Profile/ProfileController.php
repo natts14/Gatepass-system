@@ -11,6 +11,20 @@ class ProfileController extends Controller
     public function index() 
     {
         $user = Auth::user();
-        return view('admin.profile', ['user' => $user]);
+        //use in blade 
+        // $user->detail; $user->licenses;  $user->vehicles
+        $vehicles = [
+            'active' => $user->vehicles->filter(function ($vehicle) {
+                return $vehicle->status == 1;
+            }),
+            'inactive' => $user->vehicles->filter(function ($vehicle) {
+                return $vehicle->status == 0;
+            }),
+        ];
+        return view('admin.profile', ['user' => $user, 'vehicles' => $vehicles]);
+    }
+
+    public function update(Request $request) {
+        
     }
 }

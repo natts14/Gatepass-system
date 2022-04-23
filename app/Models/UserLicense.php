@@ -15,4 +15,9 @@ class UserLicense extends Model
         'license_type',
         'documents',
     ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

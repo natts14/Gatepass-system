@@ -110,14 +110,14 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($users as $user)
+            @foreach ($parking_logs as $log)
                 <tr>
-                    <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">{{ $user->name }}</td>
-                    <td>Student</td>
-                    <td>7:00 AM</td>
-                    <td>4-9-2021</td>
-                    <td>5:00 PM</td>
-                    <td>4-9-2021</td>
+                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">{{ $log->vehicle->user->name }}</td>
+                    <td>{{ ucfirst($log->vehicle->user->category) }}</td>
+                    <td>{{ $log->login_time }}</td>
+                    <td>{{ $log->login_date }}</td>
+                    <td>{{ $log->logout_time }}</td>
+                    <td>{{ $log->logout_date }}</td>
                 </tr>
             @endforeach
             </tbody>
