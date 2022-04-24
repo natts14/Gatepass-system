@@ -47,8 +47,14 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         /**
          * Admin Profile
          */
-        Route::get('/admin-profile', 'Admin\Profile\ProfileController@index')->name('admin.profile');
-
+        
+        Route::prefix('admin-profile')->name('admin.profile.')->group(function () {
+            Route::get('/', 'Admin\Profile\ProfileController@index')->name('index');
+            Route::put('/update/{profile}', 'Admin\Profile\ProfileController@update')->name('update');
+            Route::post('/vehicles/store', 'Admin\Users\VehicleController@store')->name('vehicles.store');
+            Route::put('/vehicles/update/{vehicle}', 'Admin\Users\VehicleController@update')->name('vehicles.update');
+            Route::delete('/vehicles/delete/{vehicle}', 'Admin\Users\VehicleController@store')->name('vehicles.destroy');
+        });
         /**
          * Admin Events
          */
@@ -68,7 +74,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::post('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@store');
         Route::get('/admin-parking-space/{parking}/edit', 'Admin\ParkingSpace\ParkingSpaceController@edit');
         Route::put('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@update');
-        Route::get('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@destroy');
+        Route::delete('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@destroy');
          /**
          * Admin Request
          */

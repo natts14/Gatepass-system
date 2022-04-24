@@ -14,6 +14,8 @@ class Event extends Model
         'date_started_at',
         'time_started_at',
         'date_ended_at',
-        'time_ended_at'
+        'time_ended_at',
+        'restrictions',
+        'status'
     ];
 }

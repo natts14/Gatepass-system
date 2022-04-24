@@ -15,10 +15,9 @@ class CreateParkingLotsTable extends Migration
     {
         Schema::create('parking_lots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parking_id')->nullable();
             $table->string('area_code');
             $table->integer('capacity');
-            $table->enum('parking_type',['motorcyle','vehicle']);
+            $table->enum('parking_type',['motorcycle','vehicle']);
             $table->enum('sensor_id',['ABC','DEF']);
             $table->string('slot_color');
             $table->timestamps();

@@ -10,10 +10,12 @@ class UserLicense extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'drivers_license_number',
         'drivers_license_expiry',
         'license_type',
         'documents',
+        'status'
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

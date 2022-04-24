@@ -10,8 +10,7 @@ class EventsController extends Controller
 {
     public function index() 
     {
-        $events = Event::all();
-
+        $events = Event::whereDate('date_ended_at', '>=', now())->get();
         return view('admin.events',['events'=>$events]);
     }
 
@@ -50,15 +49,25 @@ class EventsController extends Controller
             'date_started_at'=> 'required',
             'time_started_at' => 'required',
             'date_ended_at' => 'required',
-            'time_ended_at'=> 'required',
+            'time_ended_at'=> 'required'
         ]);
-        $event::update([
+
+        $event_data = [
             'event_title'=> request('event_title'),
             'date_started_at'=> request('date_started_at'),
             'time_started_at'=> request('time_started_at'),
             'date_ended_at' => request('date_ended_at'),
             'time_ended_at' => request ('time_ended_at')
-        ]);
+        ];
+
+        if (isset($request->restrictions)) {
+            $event_data[] = $request->restrictions;
+        }
+
+        if (isset($request->status)) {
+            $event_data[] = $request->status;
+        }
+        $event->update($event_data);
 
         return redirect('/admin-events');
     }
@@ -70,10 +79,19 @@ class EventsController extends Controller
         return redirect('/admin-events');
     }
 
-    public function history() 
+    public function history(Request $request) 
     {
-        $events = Event::all();
+        if (isset($request->search)) {
+            $events = Event::where('event_title', 'like', "%".$request->search."%")->whereDate('date_ended_at', '<', now())->get();
+        }else {
+            $events = Event::whereDate('date_ended_at', '<', now())->get();
+        }
 
-        return view('admin.event-history');
+        if (isset($request->sortBy)) {
+            $events = $events->sortBy($request->sortBy, SORT_NATURAL);
+        }
+        
+        // return view('admin.event-history', ['events' => $events]);
+        return view('develop.event-history', ['events' => $events]);
     }
 }

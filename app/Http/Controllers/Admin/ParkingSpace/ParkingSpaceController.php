@@ -42,7 +42,8 @@ class ParkingSpaceController extends Controller
 
     public function edit(ParkingLot $parking) 
     {
-        return view('admin.parking-update',['parking' => $parking]);
+        // return view('admin.parking-update',['parking' => $parking]);
+        return view('develop.parking-update',['parking' => $parking]);
     }
 
     public function update(ParkingLot $parking)
@@ -54,14 +55,16 @@ class ParkingSpaceController extends Controller
             'sensor_id' => 'required',
             'slot_color' => 'required'
         ]);
-        $parking::update([
-            'area_code'=>request('area_code'),
-            'capacity'=>request('capacity'),
-            'parking_type'=>request('parking_type'),
+
+        $parking->update([
+            'area_code'=> request('area_code'),
+            'capacity'=> request('capacity'),
+            'parking_type' => request('parking_type'),
             'sensor_id' => request ('sensor_id'),
             'slot_color' => request ('slot_color')
         ]);
-         return redirect ('/admin-parking-space');
+
+        return redirect ('/admin-parking-space');
     }
     
     public function destroy(ParkingLot $parking) 

@@ -10,7 +10,6 @@ class ParkingLot extends Model
     use HasFactory;
 
     protected $fillable = [
-        'parking_id',
         'area_code',
         'capacity',
         'parking_type',

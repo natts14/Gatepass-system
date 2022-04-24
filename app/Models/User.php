@@ -65,8 +65,8 @@ class User extends Authenticatable
         return $this->hasOne(UserDetail::class,'user_id','id');
     }
 
-    public function licenses()
+    public function license()
     {
-        return $this->hasMany(UserLicense::class,'user_id','id');
+        return $this->hasOne(UserLicense::class,'user_id','id');
     }
 }

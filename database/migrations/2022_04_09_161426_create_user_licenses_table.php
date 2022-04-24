@@ -18,9 +18,9 @@ class CreateUserLicensesTable extends Migration
             $table->string('drivers_license_number');
             $table->date('drivers_license_expiry');
             $table->string('license_type');
-            $table->string('documents');
+            $table->string('documents')->nullable();
             $table->tinyInteger('status')->nullable();
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

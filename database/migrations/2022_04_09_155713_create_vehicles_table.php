@@ -22,7 +22,7 @@ class CreateVehiclesTable extends Migration
             $table->string('model');
             $table->string('type');
             $table->string('color');
-            $table->string('documents');
+            $table->string('documents')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
