@@ -15,4 +15,9 @@ class ParkingLogs extends Model
     {
         return $this->belongsTo(Vehicle::class, 'parking_id', 'id');
     }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

@@ -2,7 +2,8 @@
 @section('content')
 
 <div class="wholeContainer">
-    <!-- LOGS -->
+
+    <!--LOGS-->
     <div class="container mt-4">
         <!-- CARD -->
         <div class="row gx-5 mb-3">
@@ -12,7 +13,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">USERS</label>
-                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">70/350</p>
+                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login.'/'.$users_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col-6 my-auto">
@@ -28,7 +29,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">PARKING SLOTS</label>
-                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">65/70</p>
+                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login.'/'.$parking_slots }}</p>
                                 <label class="">PARKED USER</label>
                             </div>
                             <div class="col my-auto">
@@ -44,7 +45,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">VISITORS</label>
-                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">10/50</p>
+                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $visitors_login.'/'.$visitors_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col my-auto">
@@ -56,47 +57,48 @@
             </div>
         </div>
     </div>
-    <br>
+    <br />
 
-    <div class="p-2" style="background: #000080; width: 300px; margin: 0; padding: 0;">
+    <!--DATE-->
+    <div class="p-3" style="background: #000080; width: 300px;">
         <p class="h3 text-white">USER LOGS <span id="time"></span></p>
+
+        <form action="/action_page.php">
+            <input class="form-control" type="date" id="" name="date" value="<?php echo date('Y-m-d'); ?>">
+        </form>
     </div>
 
     <!--SEARCH-->
     <div>
         <nav class="navbar navbar-light p-3" style="background: #000080;">
             <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" id="userSearch" aria-label="Search" style="width: 440px;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="homepageSearch">
 
                 <select class="homepageSort form-control mr-2" placeholder="" id="select">
                     <option>Sort</option>
-                    <option>Logged In</option>
-                    <option>Logged Out</option>
+                    <option value="logged in">Logged In</option>
+                    <option value="logged out">Logged Out</option>
                 </select>
 
-                <select class="homepageShow form-control mr-2" placeholder="" id="select">
+                <select class="homepageShow form-control mr-2" placeholder="" id="show">
                     <option>Show</option>
-                    <option>Employees</option>
-                    <option>Students</option>
-                    <option>Visitors</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Student">Student</option>
+                    <option value="Visitor">Visitor</option>
                 </select>
-
-                <div>
-                    <a class="btn btn-primary w-100" id="addUserButton" href="/admin-user-add">Add User</a>
-                </div>
             </form>
 
             <div class="downloadButton">
-                <button type="button" class="btn" id="download"></button>
-            </div>
+                <button type="button" class="btn download" id="download"> </button>
 
+            </div>
 
         </nav>
     </div>
 
     <!--TABLE-->
     <div class="table-responsive">
-        <table class="table table-borderless table-hover" id="userTable">
+        <table class="table table-borderless table-hover" id="homepageTable">
             <thead class="thead-dark ">
                 <tr>
                     <th scope="col">NAME</th>
@@ -110,9 +112,7 @@
             <tbody>
             @foreach ($parking_logs as $log)
                 <tr>
-                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
-                        {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
-                    </td>
+                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">{{ $log->vehicle->user->name }}</td>
                     <td>{{ ucfirst($log->vehicle->user->category) }}</td>
                     <td>{{ $log->login_time }}</td>
                     <td>{{ $log->login_date }}</td>
@@ -123,7 +123,6 @@
             </tbody>
         </table>
     </div>
-
 
 </div>
 
@@ -141,7 +140,7 @@
     };
 
     $(document).ready(function() {
-        dTable = $('#userTable').DataTable({
+        dTable = $('#homepageTable').DataTable({
             "paging": false,
             "ordering": false,
             "info": false,
@@ -152,33 +151,35 @@
                 text: 'Download',
                 className: 'btn btn-success',
                 extend: 'excelHtml5',
-            }, ],
+            }],
             initComplete: function() {
                 var btns = $('.dt-button');
                 btns.addClass('btn btn-success');
                 btns.removeClass('dt-button');
-
             },
-            "columnDefs": [{
-                "targets": [0, 2],
-                "orderable": false
-            }],
-            "order": [
-                [1, "asc"]
-            ]
+            filterDropDown: {
+                    columns: [
+                        1
+                    ]
+                }
+            // dom: 'Q',
+            // searchBuilder: {
+            //     columns: [1]
+            // }
         });
 
 
         dTable.buttons().container().appendTo($('#download'))
 
-
-        $('#userSearch').keyup(function() {
+        // SEARCH
+        $('#homepageSearch').keyup(function() {
             dTable.search($(this).val()).draw(); // this  is for customized searchbox with datatable search feature.
         });
 
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4'
         });
+
     });
 </script>
 

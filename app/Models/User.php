@@ -55,6 +55,11 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function parking_logs()
+    {
+        return $this->hasMany(ParkingLogs::class, 'user_id', 'id');
+    }
+
     public function vehicles()
     {
         return $this->hasMany(Vehicle::class, 'user_id', 'id');

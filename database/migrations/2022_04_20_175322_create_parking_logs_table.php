@@ -19,8 +19,8 @@ class CreateParkingLogsTable extends Migration
             $table->foreignId('vehicle_id')->nullable();
             $table->time('login_time');
             $table->date('login_date');
-            $table->time('logout_time');
-            $table->date('logout_date');
+            $table->time('logout_time')->nullable();
+            $table->date('logout_date')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });
