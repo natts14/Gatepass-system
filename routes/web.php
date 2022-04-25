@@ -104,6 +104,9 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
     });
 });
 
+Route::get('/user-profile', function () {
+    return view('user/profile');
+});
 /*
 
 //Route::get('/admin-add-user', function () {
