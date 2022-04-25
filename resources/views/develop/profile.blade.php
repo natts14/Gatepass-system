@@ -358,11 +358,19 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label class="font-weight-bold">TYPE</label>
+                                        @if(isset($user->license))   
                                         <select class="form-control mb-2" name="license_type">
                                             <option {{ $user->license->license_type == 'student' ? 'selected' : '' }} value="student">Student Permit</option>
                                             <option {{ $user->license->license_type == 'non-prof' ? 'selected': '' }} value="non-prof">Non-Professional</option>
                                             <option {{ $user->license->license_type == 'prof' ? 'selected': '' }} value="prof">Professional</option>
                                         </select>
+                                        @else
+                                        <select class="form-control mb-2" name="license_type">
+                                            <option value="student">Student Permit</option>
+                                            <option value="non-prof">Non-Professional</option>
+                                            <option value="prof">Professional</option>
+                                        </select>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-row">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRenewalsTable extends Migration
+class AddRfidColumnToVehiclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRenewalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('renewals', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vehicle_id')->nullable();
-            $table->string('specification')->nullable();
-            $table->timestamps();
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->string('rfid')->nullable()->after('id');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateRenewalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('renewals');
+        Schema::table('vehicles', function (Blueprint $table) {
+            //
+        });
     }
 }

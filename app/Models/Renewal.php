@@ -10,7 +10,12 @@ class Renewal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'renewal_id',
+        'vehicle_id',
         'specification'
     ];
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
+    }
 }

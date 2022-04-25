@@ -52,6 +52,12 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user) 
     {
-        return redirect()->intended('/admin-homepage');
+        if ($user->category == 'guard') {
+            return redirect()->intended('/guard-homepage');
+        }elseif ($user->category == 'admin') {
+            return redirect()->intended('/admin-homepage');
+        } else {
+            return redirect()->intended('/user-profile');
+        }
     }
 }

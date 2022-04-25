@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Profile;
 
 use App\Models\UserDetail;
 use App\Models\UserLicense;
+use App\Models\Document;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -80,6 +81,22 @@ class ProfileController extends Controller
                         'license_type' => request('license_type')
                     ]
                 );
+
+                if (isset($request->document)) {
+                    $request->validate([
+                        'document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    ]);
+                    $imageName = time().'.'.$request->document->extension(); 
+        
+                    $request->document->move(public_path('image/documents'), $imageName);
+                    //save to table
+                    Document::create([
+                        'user_id' => $user->id,
+                        'document_id' => $license->id,
+                        'name' => $imageName,
+                        'type' => 'license'
+                    ]);
+                }
                 break;
             default:
                 dd("something is wrong");

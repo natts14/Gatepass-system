@@ -17,7 +17,7 @@ class Vehicle extends Model
         'model',
         'type',
         'color',
-        'documents'
+        'rfid'
     ];
 
     public function user()
@@ -28,6 +28,16 @@ class Vehicle extends Model
     public function parking_Logs()
     {
         return $this->hasMany(ParkingLogs::class, 'vehicle_id', 'id');
+    }
+
+    public function renewal()
+    {
+        return $this->hasOne(Vehicle::class,'vehicle_id','id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'document_id', 'id')->where('type', 'vehicle');
     }
 }
     

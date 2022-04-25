@@ -14,6 +14,12 @@ class EventsController extends Controller
         return view('admin.events',['events'=>$events]);
     }
 
+    public function today_events()  //for guard events
+    {
+        $events = Event::whereDate('date_started_at', '=', now())->get();
+        return view('guard.events',['events'=>$events]);
+    }
+
     public function create() 
     {
         return view('admin.event-add');
@@ -33,7 +39,8 @@ class EventsController extends Controller
             'date_started_at'=> request('date_started_at'),
             'time_started_at'=> request('time_started_at'),
             'date_ended_at' => request('date_ended_at'),
-            'time_ended_at' => request ('time_ended_at')
+            'time_ended_at' => request ('time_ended_at'),
+            'status' => 2
         ]);
         return  redirect('/admin-events');
     }

@@ -16,12 +16,8 @@ class CreateRenewalTransactionHistoriesTable extends Migration
         Schema::create('renewal_transaction_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();
-            $table->foreignId('transaction_id')->nullable();
             $table->foreignId('renewal_id')->nullable();
             $table->foreignId('vehicle_id')->nullable();
-            $table->string('specification')->nullable();
-            $table->string('admin_incharge_id')->nullable();
-            $table->time('date')->nullable();
             $table->timestamps();
         });
     }

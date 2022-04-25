@@ -43,7 +43,10 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          * Admin Homepage Dashboard
          */
         Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');        
-
+        
+        Route::get('/guard-homepage', 'Admin\Home\HomepageController@index');//same homepage
+        Route::get('/guard-profile', 'Admin\Profile\ProfileController@index');//same admin profile
+        Route::get('/guard-events', 'Admin\Events\EventsController@today_events');
         /**
          * Admin Profile
          */
@@ -53,6 +56,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
             Route::put('/update/{profile}', 'Admin\Profile\ProfileController@update')->name('update');
             Route::post('/vehicles/store', 'Admin\Users\VehicleController@store')->name('vehicles.store');
             Route::put('/vehicles/update/{vehicle}', 'Admin\Users\VehicleController@update')->name('vehicles.update');
+            Route::put('/vehicles/renew/{vehicle}', 'Admin\Users\VehicleController@renew')->name('vehicles.renew');
             Route::delete('/vehicles/delete/{vehicle}', 'Admin\Users\VehicleController@store')->name('vehicles.destroy');
         });
         /**
@@ -79,23 +83,27 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          * Admin Request
          */
         Route::get('/admin-request', 'Admin\Request\RequestController@index')->name('admin.request');
-        Route::get('/admin-request-event', 'Admin\Request\RequestController@event');
-        Route::get('/admin-request-license', 'Admin\Request\RequestController@license');
-        Route::get('/admin-request-renewal', 'Admin\Request\RequestController@renewal');
+        Route::put('/admin-request-vehicle/{id}', 'Admin\Request\RequestController@approve_vehicle');
+        Route::delete('/admin-request-vehicle/{id}', 'Admin\Request\RequestController@decline_vehicle');
 
+        Route::get('/admin-request-event', 'Admin\Request\RequestController@event')->name('event.request');
+        Route::put('/admin-request-event/{id}', 'Admin\Request\RequestController@approve_event');
+        Route::delete('/admin-request-event/{id}', 'Admin\Request\RequestController@decline_event');
+
+        Route::get('/admin-request-license', 'Admin\Request\RequestController@license')->name('license.request');
+        Route::put('/admin-request-license/{id}', 'Admin\Request\RequestController@approve_license');
+        Route::delete('/admin-request-license/{id}', 'Admin\Request\RequestController@decline_license');
+
+        Route::get('/admin-request-renewal', 'Admin\Request\RequestController@renewal')->name('renewal.request');
+        Route::put('/admin-request-renewal/{id}', 'Admin\Request\RequestController@approve_renewal');
+        Route::delete('/admin-request-renewal/{id}', 'Admin\Request\RequestController@decline_renewal');
 
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
         Route::get('/admin-user-add', 'Admin\Users\UsersController@create');
+        Route::post('/admin-userpage/register', 'Admin\Users\UsersController@store')->name('admin.register');
     });
 });
 
-Route::get('/guard-homepage', function () {
-    return view('guard/homepage');
-});
-
-Route::get('/guard-profile', function () {
-    return view('guard/profile');
-});
 /*
 
 //Route::get('/admin-add-user', function () {

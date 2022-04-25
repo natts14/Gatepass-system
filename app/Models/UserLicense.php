@@ -14,12 +14,16 @@ class UserLicense extends Model
         'drivers_license_number',
         'drivers_license_expiry',
         'license_type',
-        'documents',
         'status'
     ];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'document_id', 'id')->where('type', 'license');
     }
 }

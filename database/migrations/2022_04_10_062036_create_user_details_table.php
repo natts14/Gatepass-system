@@ -21,7 +21,6 @@ class CreateUserDetailsTable extends Migration
             $table->string('lastname');
             $table->string('address');
             $table->integer('contact_number');
-            $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
     }
