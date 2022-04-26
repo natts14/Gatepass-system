@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use App\Models\Event;
 use App\Models\UserLicense;
 use App\Models\Renewal;
+use App\Models\Notification;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -75,15 +76,24 @@ class RequestController extends Controller
         return redirect(route('license.request'));
     }
 
-    public function approve_renewal(Renewal $renewal) {
-        $vehicle = Vehicle::find($renewal->vehicle_id);
-        $vehicle->update([
-            'status' => 1
-        ]);
-        RenewalTransactionHistory::create([
-            'user_id' => Auth::user()->id,
+    public function approve_renewal(Reqeust $request, Renewal $renewal) {
+        if ($renewal->type == 'license') {
+            $user_license = UserLicense::find($renewal->user_id);
+            $user_license->update([
+                'status' => 1
+            ]);
+        }else {
+            $vehicle = Vehicle::find($renewal->vehicle_id);
+            $vehicle->update([
+                'status' => 1
+            ]);
+        }
+        
+        Notification::create([
+            'user_id' => $renewal->user_id,
+            'admin_id' => Auth::user()->id,
             'renewal_id' => $renewal->id,
-            'vehicle_id' => $vehicle->id
+            'remarks' => $request->remarks ?? 'Approve'
         ]);
         $renewal->update(['status' => 0]);
         return redirect(route('renewal.request'));

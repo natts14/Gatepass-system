@@ -5,14 +5,23 @@ namespace App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Vehicle;
 use App\Models\ParkingLogs;
 use App\Models\ParkingLot;
+
+use Illuminate\Support\Facades\Auth;
 
 class HomepageController extends Controller
 {
     public function index(Request $request) 
     {
+        $user = Auth::user();
+        //check if user has access
+        if ($user->category != 'admin' && $user->category != 'guard') {
+            return redirect('user-profile');
+        }
+
         if (isset($request->search)) {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->whereHas('detail', function($query) use ($request) {
@@ -45,18 +54,29 @@ class HomepageController extends Controller
             $parking_logs = $parking_logs->sortBy($request->sortBy, SORT_NATURAL);
         }
 
-        $parking_slots = ParkingLot::sum('capacity');
-        $users_login = ParkingLogs::whereHas('user', function($query){
-            $query->where('category', '!=', 'admin');
-        })->where('logout_date', null)->count();
-        $users_count = User::where('category', '!=', 'admin')->count();
+        $parking_lots = ParkingLot::with(['parking_logs' => function ($query) { //all parking lots
+            $query->where('logout_date', null); //logged per parking area
+        }])->get();
+        $parking_slots = $parking_lots->sum('capacity');//total parking capacity
+
+        $users_login = ParkingLogs::where('logout_date', null)->count(); //all users login
+        $users_count = User::count(); //all users count
+
         $visitors_login = ParkingLogs::whereHas('user', function($query) {
             $query->where('category', 'visitor');
         })->where('logout_date', null)->count();
+
         $visitors_count = User::where('category', 'visitor')->count();
 
-        return view('develop.homepage', [
+        $todays_events = Event::whereDate('date_started_at', '=', now())->get(); //for guaards event
+
+        $view = $user->category; //guard or admin view
+
+        return view($view.'.homepage', [
+            'user' => $user,
+            'todays_events' => $todays_events,
             'parking_logs' => $parking_logs, 
+            'parking_lots' => $parking_lots,
             'parking_slots' => $parking_slots,
             'users_login' => $users_login,
             'users_count' => $users_count,
@@ -64,4 +84,5 @@ class HomepageController extends Controller
             'visitors_count' => $visitors_count
         ]);
     }
+
 }

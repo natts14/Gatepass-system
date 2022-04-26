@@ -11,6 +11,7 @@ class Violation extends Model
 
     protected $fillable = [
         'violation_id',
+        'specification',
         'amount'
     ];
 }

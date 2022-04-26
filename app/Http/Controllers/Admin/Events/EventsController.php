@@ -14,11 +14,11 @@ class EventsController extends Controller
         return view('admin.events',['events'=>$events]);
     }
 
-    public function today_events()  //for guard events
+    /* public function today_events()  //for guard events
     {
         $events = Event::whereDate('date_started_at', '=', now())->get();
         return view('guard.events',['events'=>$events]);
-    }
+    } */
 
     public function create() 
     {
@@ -98,7 +98,6 @@ class EventsController extends Controller
             $events = $events->sortBy($request->sortBy, SORT_NATURAL);
         }
         
-        // return view('admin.event-history', ['events' => $events]);
-        return view('develop.event-history', ['events' => $events]);
+        return view('admin.event-history', ['events' => $events]);
     }
 }

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin\Profile;
 use App\Models\UserDetail;
 use App\Models\UserLicense;
 use App\Models\Document;
+use App\Models\Renewal;
+use App\Models\Notification;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use App\Http\Requests\Auth\RegisterRequest;
 
@@ -28,8 +29,18 @@ class ProfileController extends Controller
                 return $vehicle->status == 0;
             }),
         ];
-        // return view('admin.profile', ['user' => $user, 'vehicles' => $vehicles]);
-        return view('develop.profile', ['user' => $user, 'vehicles' => $vehicles]);
+        
+        //user $notification->renewal to access renewal
+        $notifications = Notification::whereUserId($user->id)->get(); 
+        //pending renewals status = 1
+        $transactions = Renewal::whereUserId($user->id)->whereStatus(1)->get();
+
+        if ($user->category == 'guard' || $user->category == 'admin') {
+            $view = $user->category;
+        }else {
+            $view = 'user';
+        }
+        return view($view.'.profile', ['user' => $user, 'vehicles' => $vehicles, 'transactions' => $transactions, 'notifications' => $notifications]);
     }
 
     public function update(Request $request, $profile) {
@@ -102,8 +113,12 @@ class ProfileController extends Controller
                 dd("something is wrong");
                 break;
         }
-
-        return redirect(route('admin.profile.index'));
+        if ($user->category == 'guard' || $user->category == 'admin') {
+            $view = $user->category;
+        }else {
+            $view = 'user';
+        }
+        return redirect(route($view.'.profile.index'));
         
     }
 

@@ -11,13 +11,19 @@ class ParkingLogs extends Model
 
     protected $guarded = [];
 
-    public function vehicle(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function vehicle()
     {
         return $this->belongsTo(Vehicle::class, 'parking_id', 'id');
     }
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function parking_lot()
+    {
+        return $this->belongsTo(ParkingLot::class, 'parking_id', 'id');
+    }
+
 }

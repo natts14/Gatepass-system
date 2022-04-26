@@ -16,4 +16,9 @@ class ParkingLot extends Model
         'sensor_id',
         'slot_color'
     ];
+
+    public function parking_logs()
+    {
+        return $this->hasMany(ParkingLogs::class, 'parking_id', 'id');
+    }
 }

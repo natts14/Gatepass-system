@@ -39,14 +39,20 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          * Logout Routes
          */
         Route::get('/logout', 'Auth\LogoutController@perform')->name('logout.perform');
+        
+        //User Profile
+        Route::get('/user-profile', 'Admin\Profile\ProfileController@index')->name('user.profile.index');
         /**
          * Admin Homepage Dashboard
          */
         Route::get('/admin-homepage', 'Admin\Home\HomepageController@index')->name('admin.homepage');        
-        
-        Route::get('/guard-homepage', 'Admin\Home\HomepageController@index');//same homepage
-        Route::get('/guard-profile', 'Admin\Profile\ProfileController@index');//same admin profile
+        /**
+         * Guard Homepage Dashboard
+         */
+        Route::get('/guard-homepage', 'Admin\Home\HomepageController@index')->name('guard.homepage');//same homepage
+        Route::get('/guard-profile', 'Admin\Profile\ProfileController@index')->name('guard.profile.index');//same admin profile
         Route::get('/guard-events', 'Admin\Events\EventsController@today_events');
+        Route::post('/guard-violation', 'Guard\ViolationController@report');
         /**
          * Admin Profile
          */
@@ -104,9 +110,6 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
     });
 });
 
-Route::get('/user-profile', function () {
-    return view('user/profile');
-});
 /*
 
 //Route::get('/admin-add-user', function () {

@@ -42,8 +42,7 @@ class ParkingSpaceController extends Controller
 
     public function edit(ParkingLot $parking) 
     {
-        // return view('admin.parking-update',['parking' => $parking]);
-        return view('develop.parking-update',['parking' => $parking]);
+        return view('admin.parking-update',['parking' => $parking]);
     }
 
     public function update(ParkingLot $parking)
