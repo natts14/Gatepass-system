@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ViolationController extends Controller
 {
     public function report(Request $request) {
-        $request->validate([
+        $request->validateWithBag('report', [
             'violation_id'=> 'required'
         ]);
         

@@ -48,7 +48,7 @@ class ProfileController extends Controller
 
         switch ($profile) {
             case 'personal':
-                $request->validate([
+                $request->validateWithBag('personal', [
                     'name'=> 'required',
                     'email' => 'required',
                     'firstname' => 'required',
@@ -78,7 +78,7 @@ class ProfileController extends Controller
                 
                 break;
             case 'license':
-                request()->validate([
+                request()->validateWithBag('license', [
                     'drivers_license_number'=> 'required',
                     'drivers_license_expiry' => 'required',
                     'license_type' => 'required'
