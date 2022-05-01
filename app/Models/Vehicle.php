@@ -40,5 +40,10 @@ class Vehicle extends Model
         return $this->hasMany(Document::class, 'document_id', 'id')->where('type', 'vehicle');
     }
 
+    public function violations()
+    {
+        return $this->hasMany(Violation::class, 'violation_id', 'vehicle_plate_number');
+    }
+
 }
     

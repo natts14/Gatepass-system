@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Guard\ViolationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::get('/guard-homepage', 'Admin\Home\HomepageController@index')->name('guard.homepage');//same homepage
         Route::get('/guard-profile', 'Admin\Profile\ProfileController@index')->name('guard.profile.index');//same admin profile
         Route::get('/guard-events', 'Admin\Events\EventsController@today_events');
-        Route::post('/guard-violation', 'Guard\ViolationController@report');
+        Route::post('/guard-violation', [ViolationController::class, 'report']);
         /**
          * Admin Profile
          */

@@ -22,7 +22,7 @@ class HomepageController extends Controller
             return redirect('user-profile');
         }
 
-        if (isset($request->search)) {
+        if (isset($request->search) || $request->search != '') {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->whereHas('detail', function($query) use ($request) {
                     //search 
@@ -30,7 +30,7 @@ class HomepageController extends Controller
                         ->orWhere('middlename', 'like', "%".$request->search."%")
                         ->orWhere('lastname', 'like', "%".$request->search."%");
                     });
-                if (isset($request->category)) {
+                if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
             })->where(function ($query) use ($request) {
@@ -40,17 +40,20 @@ class HomepageController extends Controller
             })->get();
         } else {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
-                if (isset($request->category)) {
+                if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
             })->where(function ($query) use ($request) {
                 if (isset($request->date_logs)) {
                     $query->whereDate('login_date', '=', date($request->date_logs));
+                }else {
+                    //default logs today
+                    $query->whereDate('login_date', '=', now());
                 }
             })->get();
         }
 
-        if (isset($request->sortBy)) {
+        if (isset($request->sortBy) || $request->sortBy != '') {
             $parking_logs = $parking_logs->sortBy($request->sortBy, SORT_NATURAL);
         }
 
@@ -71,7 +74,7 @@ class HomepageController extends Controller
         $todays_events = Event::whereDate('date_started_at', '=', now())->get(); //for guaards event
 
         $view = $user->category; //guard or admin view
-
+        
         return view($view.'.homepage', [
             'user' => $user,
             'todays_events' => $todays_events,
@@ -81,7 +84,8 @@ class HomepageController extends Controller
             'users_login' => $users_login,
             'users_count' => $users_count,
             'visitors_login' => $visitors_login,
-            'visitors_count' => $visitors_count
+            'visitors_count' => $visitors_count,
+            'request' => $request
         ]);
     }
 

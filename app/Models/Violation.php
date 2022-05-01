@@ -14,4 +14,9 @@ class Violation extends Model
         'specification',
         'amount'
     ];
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'violation_id', 'vehicle_plate_number');
+    }
 }

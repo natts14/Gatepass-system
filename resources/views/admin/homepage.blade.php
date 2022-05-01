@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">USERS</label>
-                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">70/350</p>
+                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login.'/'.$users_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col-6 my-auto">
@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">PARKING SLOTS</label>
-                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">65/70</p>
+                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login.'/'.$parking_slots }}</p>
                                 <label class="">PARKED USER</label>
                             </div>
                             <div class="col my-auto">
@@ -45,7 +45,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">VISITORS</label>
-                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">10/50</p>
+                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $visitors_login.'/'.$visitors_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col my-auto">
@@ -58,44 +58,45 @@
         </div>
     </div>
     <br />
+    <form method="GET" action="/admin-homepage">
+        <!--DATE-->
+        <div class="p-3" style="background: #000080; width: 300px;">
+            <p class="h3 text-white">USER LOGS <span id="time"></span></p>
 
-    <!--DATE-->
-    <div class="p-3" style="background: #000080; width: 300px;">
-        <p class="h3 text-white">USER LOGS <span id="time"></span></p>
-
-        <form action="/action_page.php">
-            <input class="form-control" type="date" id="" name="date" value="<?php echo date('Y-m-d'); ?>">
-        </form>
-    </div>
-
-    <!--SEARCH-->
-    <div>
-        <nav class="navbar navbar-light p-3" style="background: #000080;">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="homepageSearch">
-
-                <select class="homepageSort form-control mr-2" placeholder="" id="select">
-                    <option>Sort</option>
-                    <option value="logged in">Logged In</option>
-                    <option value="logged out">Logged Out</option>
-                </select>
-
-                <select class="homepageShow form-control mr-2" placeholder="" id="show">
-                    <option>Show</option>
-                    <option value="Employee">Employee</option>
-                    <option value="Student">Student</option>
-                    <option value="Visitor">Visitor</option>
-                </select>
-            </form>
-
-            <div class="downloadButton">
-                <button type="button" class="btn download" id="download"> </button>
-
+            <div>
+                <input class="form-control" type="date" name="date_logs" 
+                    value="{{ $request->date_logs ?? date('Y-m-d') }}">
             </div>
+        </div>
 
-        </nav>
-    </div>
+        <!--SEARCH-->
+        <div>
+            <nav class="navbar navbar-light p-3" style="background: #000080;">
+                <div class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
+                    <!-- <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="homepageSearch"> -->
+                    <select class="homepageSort form-control mr-2" name="sortBy" id="select">
+                        <option value="">Sort</option>
+                        <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
+                        <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
+                    </select>
 
+                    <select class="homepageShow form-control mr-2" name="category" id="show">
+                        <option value="">Show</option>
+                        <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                        <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                        <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary" id="submit-home">Search</button>
+                </div>
+                <div class="downloadButton">
+                    <button type="button" class="btn download" id="download"> </button>
+
+                </div>
+
+            </nav>
+        </div>
+    </form>
     <!--TABLE-->
     <div class="table-responsive">
         <table class="table table-borderless table-hover" id="homepageTable">
@@ -112,7 +113,13 @@
             <tbody>
             @foreach ($parking_logs as $log)
                 <tr>
-                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">{{ $log->vehicle->user->name }}</td>
+                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
+                        @if(isset($log->vehicle->user->detail->firstname))
+                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
+                        @else
+                            {{ $log->vehicle->user->name }}
+                        @endif
+                    </td>
                     <td>{{ ucfirst($log->vehicle->user->category) }}</td>
                     <td>{{ $log->login_time }}</td>
                     <td>{{ $log->login_date }}</td>

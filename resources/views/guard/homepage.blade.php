@@ -64,54 +64,40 @@
                             <h3 class="mt-3">Parking Slots</h3>
                         </div>
 
-                        <div class="card-deck">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <p class="card-title h5">7BA</p>
-                                        <p class="h2">5/25</p>
-                                        <p>VEHICLES</p>
+                        <div class="row">
+                            @foreach ($parking_lots as $parking_lot)
+                                <div class="col-4">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <p class="card-title h5">{{ $parking_lot->area_code }}</p>
+                                                <p class="h2">{{ count($parking_lot->parking_logs).'/'.$parking_lot->capacity }}</p>
+                                                <p>{{ strtoupper($parking_lot->parking_type) }}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <p class="card-title h5">1COE</p>
-                                        <h1 class="h2">35/50</h1>
-                                        <p>MOTORCYCLE</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <p class="card-title h5">09CAS</p>
-                                        <p class="h2">15/15</p>
-                                        <p>VEHICLES</p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="">
-                        <div class="card mt-4 mb-4 p-2 border border-primary">
+                        <div class="card mb-4 p-2 border border-primary">
                             <div class="guardStatistics">
                                 <div class="row">
                                     <div class="col">
                                         <label class="" style="font-size: .7em;">USERS</label>
-                                        <p class="h2" id="numberLoggedIn">70/250</p>
+                                        <p class="h2" id="numberLoggedIn">{{ $users_login.'/'.$users_count }}</p>
                                         <label class="" style="font-size: .7em;">LOGGED IN</label>
                                     </div>
                                     <div class="col-5">
                                         <label class="text-left" style="font-size: .7em;">PARKING SLOTS</label>
-                                        <p class="h2" id="numberParkingSlots">65/70</p>
+                                        <p class="h2" id="numberParkingSlots">{{ $users_login.'/'.$parking_slots }}</p>
                                         <label class="" style="font-size: .7em;">PARKED USER</label>
                                     </div>
                                     <div class="col">
                                         <label class="" style="font-size: .7em;">VISITORS REGISTERED</label>
-                                        <p class="h2" id="numberVisitorRegistered">10/50</p>
+                                        <p class="h2" id="numberVisitorRegistered">{{ $visitors_login.'/'.$visitors_count }}</p>
                                         <label class="" style="font-size: .7em;">LOGGED IN VISITORS</label>
                                     </div>
                                 </div>
@@ -119,7 +105,9 @@
                             <div class="text-center">
                                 <div>
                                     <p class="h6">TODAYS EVENT</p>
-                                    <p class="h2">Intrams</p>
+                                    @foreach ($todays_events as $event)
+                                        <p class="h2">{{ $event->event_title }}</p>
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -135,31 +123,33 @@
             </div>
         </div>
 
-        <div class=" ">
+        <form method="GET" action="/guard-homepage">
             <nav class="navbar navbar-light" style="background: #000080;">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 440px;">
+                <div class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" style="width: 440px;"
+                         value="{{ $request->search ?? '' }}">
 
-                    <select class="homepageSort form-control mr-2" placeholder="" id="select">
-                        <option>Sort</option>
-                        <option>Logged In</option>
-                        <option>Logged Out</option>
+                    <select class="homepageSort form-control mr-2" name="sortBy" id="select">
+                        <option value="">Sort</option>
+                        <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
+                        <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
                     </select>
 
-                    <select class="homepageShow form-control mr-2" placeholder="" id="select">
-                        <option>Show</option>
-                        <option>Employees</option>
-                        <option>Students</option>
-                        <option>Visitors</option>
+                    <select class="homepageShow form-control mr-2" name="category" id="show">
+                        <option value="">Show</option>
+                        <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                        <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                        <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
                     </select>
-                </form>
+                    <button type="submit" class="btn btn-primary" id="submit-home">Search</button>
+                </div>
 
                 <div class="downloadButton">
                     <button type="button" class="btn btn-success" id="download"> Download </button>
                 </div>
             </nav>
 
-        </div>
+        </form>
 
         <div class="">
             <table class="table table-bordered">
@@ -175,42 +165,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Sheryl Kate Monserrat</td>
-                        <td>Student</td>
-                        <td>7:00 AM</td>
-                        <td>4-9-2021</td>
-                        <td>5:00 PM</td>
-                        <td>4-9-2021</td>
-                        <td>No Violation</td>
-                    </tr>
-                    <tr>
-                        <td>Nathalie Butic</td>
-                        <td>Student</td>
-                        <td>7:00 AM</td>
-                        <td>4-9-2021</td>
-                        <td>7:00 PM</td>
-                        <td>4-9-2021</td>
-                        <td>Violation</td>
-                    </tr>
-                    <tr>
-                        <td>Riza Titar</td>
-                        <td>Student</td>
-                        <td>7:00 AM</td>
-                        <td>4-9-2021</td>
-                        <td>7:00 PM</td>
-                        <td>4-9-2021</td>
-                        <td>Violation</td>
-                    </tr>
-                    <tr>
-                        <td>Millie Brown</td>
-                        <td>Employee</td>
-                        <td>7:00 AM</td>
-                        <td>4-9-2021</td>
-                        <td>7:00 PM</td>
-                        <td>4-9-2021</td>
-                        <td> No Violation</td>
-                    </tr>
+                    @foreach ($parking_logs as $log)
+                        <tr>
+                            <td>
+                                @if(isset($log->vehicle->user->detail->firstname))
+                                    {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
+                                @else
+                                    {{ $log->vehicle->user->name }}
+                                @endif
+                            </td>
+                            <td>{{ ucfirst($log->vehicle->user->category) }}</td>
+                            <td>{{ $log->login_time }}</td>
+                            <td>{{ $log->login_date }}</td>
+                            <td>{{ $log->logout_time }}</td>
+                            <td>{{ $log->logout_date }}</td>
+                            @if(count($log->vehicle->violations) > 0)
+                                <td>{{ $log->vehicle->violations[0]->specification }}</td>
+                            @else
+                                <td>No Violation</td>
+                            @endif
+                            
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -220,24 +196,27 @@
     <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">REPORT VIOLATION</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label>ENTER PLATE NUMBER</label>
-                        <input type="text" class="form-control" placeholder="">
-                        <label>VIOLATION SPECIFICATION</label>
-                        <input type="text" class="form-control" placeholder="">
+                <form method="POST" action="/guard-violation">
+                @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">REPORT VIOLATION</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>ENTER PLATE NUMBER</label>
+                            <input type="text" class="form-control" name="violation_id" placeholder="">
+                            <label>VIOLATION SPECIFICATION</label>
+                            <input type="text" class="form-control" name="specification" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
