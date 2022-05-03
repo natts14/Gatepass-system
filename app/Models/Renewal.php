@@ -21,8 +21,8 @@ class Renewal extends Model
         return $this->belongsTo(UserLicense::class, 'renewal_id', 'id');
     }
 
-    public function notifications()
+    public function notification()
     {
-        return $this->hasMany(Notification::class, 'renewal_id', 'id');
+        return $this->hasOne(Notification::class, 'renewal_id', 'id');
     }
 }
