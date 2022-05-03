@@ -63,7 +63,7 @@
     </nav>
 
     <!-- profile content -->
-    @include('includes.profile-admin-guard');
+    @include('includes.profile-content');
 
     <!-- Report Modal -->
     @include('modal.report');

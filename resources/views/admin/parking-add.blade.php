@@ -6,6 +6,15 @@
 <div class="container w-50 p-4 mt-4 bg-light mx-auto">
     <div class="p-4">
         <p class="h3 text-center p-1">ADD PARKING SLOTS</p>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif 
         <div class="row">
             <div class="col-sm">
                 <label class="text-center">AREA CODE</label>
@@ -40,8 +49,10 @@
         </div>
 
         <div class="addParkingSlotButton text-center">
-            <button type="submit" class="btn btn-success" id="submitAddedParkingSpace" > SUBMIT </button>
-            <button type="button" class="btn btn-danger" id="cancelAddedParkingSpace"onclick="javascript:window.history.back();"> CANCEL </button>
+            <button type="submit" class="btn btn-success" id="submitAddedParkingSpace"> SUBMIT </button>
+            <a href="/admin-parking-space">
+                <button type="button" class="btn btn-danger" id="cancelAddedParkingSpace"> CANCEL </button>
+            </a>
         </div>
     </div>
 </div>

@@ -43,6 +43,7 @@
                                 <option {{ $user->license->license_type == 'non-prof' ? 'selected': '' }} value="non-prof">Non-Professional</option>
                                 <option {{ $user->license->license_type == 'prof' ? 'selected': '' }} value="prof">Professional</option>
                             </select>
+                            <input type="hidden" value="{{$user->license->status ?? 2}}" name="status">
                             @else
                             <select class="form-control mb-2" name="license_type">
                                 <option value="student">Student Permit</option>

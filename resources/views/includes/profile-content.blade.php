@@ -14,7 +14,7 @@
 
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a>
-                @if($user->category != 'admin' || $user->category != 'guard')
+                @if($user->category != 'admin' && $user->category != 'guard')
                 <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
                 <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a>
                 @endif
@@ -100,7 +100,7 @@
 
 
                         <h4>LICENSE DETAILS</h4>
-
+                        @if(isset($user->license))
                         <div class="form-row">
                             <div class="form-group col-sm-3">
                                 <label for="DriversLicenseNo" class="font-weight-bold">DRIVERS LICENSE NUMBER</label>
@@ -134,7 +134,7 @@
                                 <!-- <input type="text" readonly class="form-control-plaintext" id="licenseType" value="NON-PROFESSIONAL"> -->
                             </div>
                         </div>
-
+                        @endif
                         <div class="form-row">
                             <div class="form-group col-sm-3">
                                 <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>

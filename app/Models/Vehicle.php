@@ -17,6 +17,7 @@ class Vehicle extends Model
         'model',
         'type',
         'color',
+        'status',
         'rfid'
     ];
 

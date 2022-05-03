@@ -3,6 +3,6 @@
 <!-- inject laravel date formatter -->
 @inject('carbon', 'Carbon\Carbon')
 <!-- profile content -->
-@include('includes.profile-admin-guard');
+@include('includes.profile-content');
 
 @stop

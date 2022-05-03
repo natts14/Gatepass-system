@@ -89,20 +89,20 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          * Admin Request
          */
         Route::get('/admin-request', 'Admin\Request\RequestController@index')->name('admin.request');
-        Route::put('/admin-request-vehicle/{id}', 'Admin\Request\RequestController@approve_vehicle');
-        Route::delete('/admin-request-vehicle/{id}', 'Admin\Request\RequestController@decline_vehicle');
+        Route::put('/admin-request-vehicle/{vehicle}', 'Admin\Request\RequestController@approve_vehicle');
+        Route::delete('/admin-request-vehicle/{vehicle}', 'Admin\Request\RequestController@decline_vehicle');
 
         Route::get('/admin-request-event', 'Admin\Request\RequestController@event')->name('event.request');
-        Route::put('/admin-request-event/{id}', 'Admin\Request\RequestController@approve_event');
-        Route::delete('/admin-request-event/{id}', 'Admin\Request\RequestController@decline_event');
+        Route::put('/admin-request-event/{event}', 'Admin\Request\RequestController@approve_event');
+        Route::delete('/admin-request-event/{event}', 'Admin\Request\RequestController@decline_event');
 
         Route::get('/admin-request-license', 'Admin\Request\RequestController@license')->name('license.request');
-        Route::put('/admin-request-license/{id}', 'Admin\Request\RequestController@approve_license');
-        Route::delete('/admin-request-license/{id}', 'Admin\Request\RequestController@decline_license');
+        Route::put('/admin-request-license/{license}', 'Admin\Request\RequestController@approve_license');
+        Route::delete('/admin-request-license/{license}', 'Admin\Request\RequestController@decline_license');
 
         Route::get('/admin-request-renewal', 'Admin\Request\RequestController@renewal')->name('renewal.request');
-        Route::put('/admin-request-renewal/{id}', 'Admin\Request\RequestController@approve_renewal');
-        Route::delete('/admin-request-renewal/{id}', 'Admin\Request\RequestController@decline_renewal');
+        Route::put('/admin-request-renewal/{renewal}', 'Admin\Request\RequestController@approve_renewal');
+        Route::delete('/admin-request-renewal/{renewal}', 'Admin\Request\RequestController@decline_renewal');
 
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
         Route::get('/admin-user-add', 'Admin\Users\UsersController@create');

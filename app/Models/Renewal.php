@@ -11,6 +11,11 @@ class Renewal extends Model
 
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class, 'renewal_id', 'id');

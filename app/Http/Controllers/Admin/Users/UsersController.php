@@ -51,15 +51,7 @@ class UsersController extends Controller
         })->where('logout_date', null)->count();
         $visitors_count = User::where('category', 'visitor')->where('status',1)->count();
 
-        /* return view('admin.userpage', [
-            'parking_logs' => $parking_logs, 
-            'parking_slots' => $parking_slots,
-            'users_login' => $users_login,
-            'users_count' => $users_count,
-            'visitors_login' => $visitors_login,
-            'visitors_count' => $visitors_count
-        ]); */
-        return view('develop.userpage', [
+        return view('admin.userpage', [
             'parking_logs' => $parking_logs, 
             'parking_slots' => $parking_slots,
             'users_login' => $users_login,

@@ -1,29 +1,37 @@
 @extends('layouts.default')
 @section('content')
+<!-- inject laravel date formatter -->
+@inject('carbon', 'Carbon\Carbon')
 
 <nav class="navBarRequest mt-3 mb-3 mx-auto nav nav-pills nav-justified w-75" style="background: #000080;">
-    <a class="nav-item nav-link active text-white" href="/admin-request">VEHICLE <span class="badge badge-danger" id="">1</span></a>
-    <a class="nav-item nav-link text-white" href="/admin-request-renewal">VEHICLE RENEWAL </a>
-    <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT</a>
-    <a class="nav-item nav-link text-white" href="/admin-request-license">DRIVERS LICENSE</a>
+    <a class="nav-item nav-link active text-white" href="/admin-request">VEHICLE @if($vehicles_count > 0)<span class="badge badge-danger">{{$vehicles_count}}</span>@endif</a></a>
+    <a class="nav-item nav-link text-white" href="/admin-request-renewal">VEHICLE RENEWAL @if($renewals_count > 0)<span class="badge badge-danger">{{$renewals_count}}</span>@endif</a>
+    <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT @if($events_count > 0)<span class="badge badge-danger">{{$events_count}}</span>@endif</a>
+    <a class="nav-item nav-link text-white" href="/admin-request-license">DRIVERS LICENSE @if($license_count > 0)<span class="badge badge-danger">{{$license_count}}</span>@endif</a>
 </nav>
 
-
-<div class="">
-    <div class="card border border-primary p-4" id="" style="margin: 0vw 10vw 0vw 10vw;">
+@foreach ($vehicles as $vehicle)
+<div>
+    <div class="card border border-primary p-4" style="margin: 0vw 10vw 0vw 10vw;">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">USER</label>
-                    <p class="h4" id="UserInfoLastname">SHERYL KATE MONSERRAT</p>
+                    <p class="h4" id="UserInfoLastname">
+                    @if(isset($vehicle->user->detail))
+                        {{ $vehicle->user->detail->firstname.' '.$vehicle->user->detail->middlename.' '.$vehicle->user->detail->lastname }}
+                    @else
+                        {{ $vehicle->user->name }}
+                    @endif
+                    </p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">PLATE NUMBER</label>
-                    <p class="h4" id="plateNo">ABC 123</p>
+                    <p class="h4" id="plateNo">{{ $vehicle->vehicle_plate_number }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">CATEGORY</label>
-                    <p class="h4" id="category">STUDENT</p>
+                    <p class="h4" id="category">{{ strtoupper($vehicle->user->category) }}</p>
                 </div>
             </div>
         </div>
@@ -32,15 +40,15 @@
             <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">VEHICLE REGISTRATION NO.</label>
-                    <p id="userID">NF10454</p>
+                    <p>{{ $vehicle->vehicle_registration_number }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">EXPIRY DATE</label>
-                    <p id="category">MAY 1, 2023</p>
+                    <p>{{ $carbon::parse($vehicle->vehicle_registration_expiry)->toFormattedDateString() }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">MODEL</label>
-                    <p id="contactNo">TOYOTA FORTUNER</p>
+                    <p>{{ $vehicle->model }}</p>
                 </div>
             </div>
         </div>
@@ -64,15 +72,24 @@
                             <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                         </svg></button>
                 </div>
-                <div><br>
-                    <button type="button" class="btn btn-success" id="submitEvent" onclick=""> APPROVE </button>
-                    <button type="button" class="btn btn-dark" id="cancelEvent" onclick=""> DECLINE </button>
+                <div>
+                    <br>
+                    <form action="{{ url('/admin-request-vehicle', ['vehicle' => $vehicle->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success" id="submitEvent"> APPROVE </button>
+                    </form>
+                    <form action="{{ url('/admin-request-vehicle', ['vehicle' => $vehicle->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-dark" id="cancelEvent"> DECLINE </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
+   
     <br>
 </div>
-
+@endforeach
 @stop

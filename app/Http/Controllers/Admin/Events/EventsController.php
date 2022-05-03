@@ -10,7 +10,7 @@ class EventsController extends Controller
 {
     public function index() 
     {
-        $events = Event::whereDate('date_ended_at', '>=', now())->get();
+        $events = Event::whereStatus(1)->whereDate('date_ended_at', '>=', now())->get();
         return view('admin.events',['events'=>$events]);
     }
 
@@ -40,7 +40,7 @@ class EventsController extends Controller
             'time_started_at'=> request('time_started_at'),
             'date_ended_at' => request('date_ended_at'),
             'time_ended_at' => request ('time_ended_at'),
-            'status' => 2
+            'status' => 0
         ]);
         return  redirect('/admin-events');
     }
@@ -88,16 +88,16 @@ class EventsController extends Controller
 
     public function history(Request $request) 
     {
-        if (isset($request->search)) {
+        if (isset($request->search) || $request->search != '') {
             $events = Event::where('event_title', 'like', "%".$request->search."%")->whereDate('date_ended_at', '<', now())->get();
         }else {
             $events = Event::whereDate('date_ended_at', '<', now())->get();
         }
 
-        if (isset($request->sortBy)) {
+        if (isset($request->sortBy) || $request->sortBy != '') {
             $events = $events->sortBy($request->sortBy, SORT_NATURAL);
         }
         
-        return view('admin.event-history', ['events' => $events]);
+        return view('admin.event-history', ['events' => $events, 'request' => $request]);
     }
 }

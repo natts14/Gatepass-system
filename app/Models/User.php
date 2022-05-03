@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserLicense::class,'user_id','id');
     }
+
+    public function renewals()
+    {
+        return $this->hasMany(Renewal::class, 'user_id', 'id');
+    }
 }

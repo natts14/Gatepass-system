@@ -14,7 +14,8 @@ class UserLicense extends Model
         'drivers_license_number',
         'drivers_license_expiry',
         'license_type',
-        'status'
+        'status',
+        'remarks'
     ];
 
     public function user()

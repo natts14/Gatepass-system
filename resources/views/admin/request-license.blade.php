@@ -1,33 +1,35 @@
 @extends('layouts.default')
 @section('content')
+<!-- inject laravel date formatter -->
+@inject('carbon', 'Carbon\Carbon')
 
 <nav class="navBarRequest mt-3 mb-3 mx-auto nav nav-pills nav-justified w-75" style="background: #000080;">
-    <a class="nav-item nav-link text-white" href="/admin-request">VEHICLE <span class="badge badge-danger" id="">1</span></a>
-    <a class="nav-item nav-link text-white" href="/admin-request-renewal">VEHICLE RENEWAL </a>
-    <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT</a>
-    <a class="nav-item nav-link active text-white" href="/admin-request-license">DRIVERS LICENSE</a>
+<a class="nav-item nav-link text-white" href="/admin-request">VEHICLE @if($vehicles_count > 0)<span class="badge badge-danger">{{$vehicles_count}}</span>@endif</a></a>
+    <a class="nav-item nav-link text-white" href="/admin-request-renewal">VEHICLE RENEWAL @if($renewals_count > 0)<span class="badge badge-danger">{{$renewals_count}}</span>@endif</a>
+    <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT @if($events_count > 0)<span class="badge badge-danger">{{$events_count}}</span>@endif</a>
+    <a class="nav-item nav-link text-white active" href="/admin-request-license">DRIVERS LICENSE @if($license_count > 0)<span class="badge badge-danger">{{$license_count}}</span>@endif</a>
 </nav>
 
-
+@foreach ($licenses as $license)
 <div class="driversLicenseRequestCard">
     <div class="card border border-primary p-4" id="requestVehicle" style="margin: 0vw 10vw 0vw 10vw;">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">FIRST NAME</label>
-                    <p class="h4" id="UserInfoLastname">SHERYL KATE</p>
+                    <p class="h4" id="UserInfoLastname">{{ $license->user->detail->firstname ?? $license->user->name }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">MIDDLE NAME</label>
-                    <p class="h4" id="plateNo">ABC 123</p>
+                    <p class="h4" id="plateNo">{{ $license->user->detail->middlename ?? 'null' }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">LAST NAME</label>
-                    <p class="h4" id="plateNo">ABC 123</p>
+                    <p class="h4" id="plateNo">{{ $license->user->detail->lastname ?? 'null' }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">CATEGORY</label>
-                    <p class="h4" id="category">VISITOR</p>
+                    <p class="h4" id="category">{{ strtoupper($license->user->category) }}</p>
                 </div>
             </div>
         </div>
@@ -37,11 +39,11 @@
             <div class="row">
                 <div class="col-9">
                     <label class="font-weight-bold">ADDRESS</label>
-                    <p class="secondlineInfo" id="address">BUKIDNON STATE </p>
+                    <p class="secondlineInfo" id="address">{{ $license->user->detail->address ?? null }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">DRIVERS LICENSE NO.</label>
-                    <p class="secondlineInfo" id="category">NF 10454</p>
+                    <p class="secondlineInfo" id="category">{{ $license->drivers_license_number }}</p>
                 </div>
             </div>
         </div>
@@ -49,11 +51,11 @@
             <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">LICENSE TYPE</label>
-                    <p class="thirdlineInfo" id="licenseType">NON-PROFESSIONAL</p>
+                    <p class="thirdlineInfo" id="licenseType">{{ strtoupper($license->license_type) }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">EXPIRY DATE</label>
-                    <p class="thirdlineInfo" id="licenseExpiryDate">MAY 1 2024</p>
+                    <p class="thirdlineInfo" id="licenseExpiryDate">{{ $carbon::parse($license->drivers_license_expiry)->toFormattedDateString() }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">ATTACHED DOCUMENT</label><br>
@@ -65,13 +67,23 @@
                         </svg></button>
                 </div>
                 <div class="col text-right">
-                    <button type="button" class="btn btn-success" id="submitEvent" onclick=""> APPROVE </button>
-                    <button type="button" class="btn btn-dark" id="cancelEvent" onclick=""> DECLINE </button>
+                    <!-- <button type="button" class="btn btn-success" id="submitEvent" onclick=""> APPROVE </button>
+                    <button type="button" class="btn btn-dark" id="cancelEvent" onclick=""> DECLINE </button> -->
+                    <form action="{{ url('/admin-request-license', ['license' => $license->id]) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success"> APPROVE </button>
+                    </form>
+                    <form action="{{ url('/admin-request-license', ['license' => $license->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-dark"> DECLINE </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
+    <br>
 </div>
-
+@endforeach
 @stop

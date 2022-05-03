@@ -17,38 +17,62 @@ class RequestController extends Controller
     public function index() 
     {
         $vehicles = Vehicle::whereStatus(2)->get();
-        return view('admin.request', ['vehicles' => $vehicles]);
+        return view('admin.request', [
+            'vehicles' => $vehicles,
+            'vehicles_count' => count($vehicles),
+            'renewals_count' => Renewal::whereType('vehicle')->whereStatus(1)->count(), 
+            'events_count' => Event::whereStatus(0)->count(),
+            'license_count' => UserLicense::whereStatus(2)->count()
+        ]);
     }
 
     public function event() 
     {
-        $events = Event::whereStatus(2)->get();
-        return view('admin.request-event', ['events' => $events]);
+        $events = Event::whereStatus(0)->get();
+        return view('admin.request-event', [
+            'events' => $events,
+            'renewals_count' => Renewal::whereType('vehicle')->whereStatus(1)->count(), 
+            'vehicles_count' => Vehicle::whereStatus(2)->count(),
+            'events_count' => count($events),
+            'license_count' => UserLicense::whereStatus(2)->count()
+        ]);
     }
 
     public function license() 
     {
         $licenses = UserLicense::whereStatus(2)->get();
-        return view('admin.request-license', ['licenses' => $licenses]);
+        return view('admin.request-license', [
+            'licenses' => $licenses,
+            'renewals_count' => Renewal::whereType('vehicle')->whereStatus(1)->count(), 
+            'vehicles_count' => Vehicle::whereStatus(2)->count(),
+            'events_count' => Event::whereStatus(0)->count(),
+            'license_count' => count($licenses)
+        ]);
     }
 
-    public function renewal() 
+    public function renewal() //vehicle renewal
     {
-        $renewals = Renewal::whereStatus(1)->get();
-        return view('admin.request-renewal', ['renewals' => $renewals]);
+        $renewals = Renewal::whereType('vehicle')->whereStatus(1)->get();
+        return view('admin.request-renewal', [
+            'renewals' => $renewals, 
+            'renewals_count' => count($renewals), 
+            'vehicles_count' => Vehicle::whereStatus(2)->count(),
+            'events_count' => Event::whereStatus(0)->count(),
+            'license_count' => UserLicense::whereStatus(2)->count()
+        ]);
     }
 
     public function approve_vehicle(Vehicle $vehicle) {
         $vehicle->update([
             'status' => 1
         ]);
-        return redirect(route('admin.request'));
+        return redirect()->back();
     }
     public function decline_vehicle(Vehicle $vehicle) 
     {
         $vehicle->delete();
 
-        return redirect(route('admin.request'));
+        return redirect()->back();
     }
 
     public function approve_event(Event $event) {
@@ -68,39 +92,42 @@ class RequestController extends Controller
         $license->update([
             'status' => 1
         ]);
-        return redirect(route('license.request'));
+        return redirect()->back();
     }
     public function decline_license(UserLicense $license) 
     {
         $license->delete();
-        return redirect(route('license.request'));
+        return redirect()->back();
     }
 
-    public function approve_renewal(Reqeust $request, Renewal $renewal) {
+    public function approve_renewal(Request $request, Renewal $renewal) {
         if ($renewal->type == 'license') {
             $user_license = UserLicense::find($renewal->user_id);
-            $user_license->update([
-                'status' => 1
-            ]);
+            if ($user_license != null) {
+                $user_license->update([
+                    'status' => 1
+                ]);
+            }
         }else {
             $vehicle = Vehicle::find($renewal->vehicle_id);
-            $vehicle->update([
-                'status' => 1
-            ]);
+            if ($vehicle != null) {
+                $vehicle->update([
+                    'status' => 1
+                ]);
+            }
         }
-        
+        $renewal->update(['status' => 0]);
         Notification::create([
             'user_id' => $renewal->user_id,
             'admin_id' => Auth::user()->id,
             'renewal_id' => $renewal->id,
-            'remarks' => $request->remarks ?? 'Approve'
+            'remarks' => $request->remarks ?? 'Approved'
         ]);
-        $renewal->update(['status' => 0]);
-        return redirect(route('renewal.request'));
+        return redirect()->back();
     }
     public function decline_renewal(Renewal $renewal) 
     {
         $renewal->delete();
-        return redirect(route('renewal.request'));
+        return redirect()->back();
     }
 }

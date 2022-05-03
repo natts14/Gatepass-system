@@ -89,7 +89,8 @@ class ProfileController extends Controller
                     [
                         'drivers_license_number' => request('drivers_license_number'),
                         'drivers_license_expiry' => request('drivers_license_expiry'),
-                        'license_type' => request('license_type')
+                        'license_type' => request('license_type'),
+                        'status' => $request->status ?? 2
                     ]
                 );
 
@@ -118,7 +119,7 @@ class ProfileController extends Controller
         }else {
             $view = 'user';
         }
-        return redirect(route($view.'.profile.index'));
+        return redirect()->back();
         
     }
 
