@@ -15,7 +15,7 @@ class UsersController extends Controller
 {
     public function index(Request $request) 
     {
-        if (isset($request->search)) {
+        if (isset($request->search) || $request->search != '') {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->where('status', 1)
                     ->whereHas('detail', function($query) use ($request) {
@@ -24,28 +24,29 @@ class UsersController extends Controller
                         ->orWhere('middlename', 'like', "%".$request->search."%")
                         ->orWhere('lastname', 'like', "%".$request->search."%");
                     });
-                if (isset($request->category)) {
+                if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
             })->get();
         } else {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->where('status', 1);
-                if (isset($request->category)) {
+                if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
             })->get();
         }
 
-        if (isset($request->sortBy)) {
+        if (isset($request->sortBy) || $request->sortBy != '') {
             $parking_logs = $parking_logs->sortBy($request->sortBy, SORT_NATURAL);
         }
 
         $parking_slots = ParkingLot::sum('capacity');
         $users_login = ParkingLogs::whereHas('user', function($query){
-            $query->where('status',1)->where('category', '!=', 'admin');
+            $query->where('status',1);
         })->where('logout_date', null)->count();
-        $users_count = User::where('status',1)->where('category', '!=', 'admin')->count();
+        $users_count = User::where('status',1)->count();
+
         $visitors_login = ParkingLogs::whereHas('user', function($query) {
             $query->where('category', 'visitor')->where('status',1);
         })->where('logout_date', null)->count();
@@ -57,7 +58,8 @@ class UsersController extends Controller
             'users_login' => $users_login,
             'users_count' => $users_count,
             'visitors_login' => $visitors_login,
-            'visitors_count' => $visitors_count
+            'visitors_count' => $visitors_count,
+            'request' => $request
         ]);
     }
 
@@ -132,6 +134,7 @@ class UsersController extends Controller
                 'model' => request('model'),
                 'type' => request('type'),
                 'color' => request('color'),
+                'rfid' => request('rfid'),
                 'status' => 2
             ];
             $vehicle = $user->vehicles()->create($user_vehicle);

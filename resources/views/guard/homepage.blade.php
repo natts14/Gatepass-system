@@ -24,7 +24,13 @@
 
     <div class="">
         <nav class="navbar navbar-expand-lg navbar-light" style="background: #000080;">
-            <a class="navbar-brand text-white" href="/guard-homepage">JOSHUA GARCIA</a>
+            <a class="navbar-brand text-white" href="/guard-homepage">
+                @if(isset($user->detail))
+                    {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
+                @else
+                    {{ $user->name }}
+                @endif
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -126,6 +132,7 @@
         <form method="GET" action="/guard-homepage">
             <nav class="navbar navbar-light" style="background: #000080;">
                 <div class="form-inline">
+                    <button type="submit" class="btn btn-primary mr-2">Search</button>
                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" style="width: 440px;"
                          value="{{ $request->search ?? '' }}">
 
@@ -141,7 +148,6 @@
                         <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
                         <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
                     </select>
-                    <button type="submit" class="btn btn-primary" id="submit-home">Search</button>
                 </div>
 
                 <div class="downloadButton">

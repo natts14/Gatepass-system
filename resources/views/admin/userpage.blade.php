@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">USERS</label>
-                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">70/350</p>
+                                <p class="" id="numberLoggedIn" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login }}/{{ $users_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col-6 my-auto">
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">PARKING SLOTS</label>
-                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">65/70</p>
+                                <p class="" id="numberParkingSlots" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $users_login }}/{{ $parking_slots }}</p>
                                 <label class="">PARKED USER</label>
                             </div>
                             <div class="col my-auto">
@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col me-2">
                                 <label class="font-weight-bold">VISITORS</label>
-                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">10/50</p>
+                                <p class="" id="numberVisitorRegistered" style="font-size: 2.5em; margin: 0; padding: 0;">{{ $visitors_login }}/{{ $visitors_count }}</p>
                                 <label class="">LOGGED IN</label>
                             </div>
                             <div class="col my-auto">
@@ -63,28 +63,30 @@
     </div>
 
     <!--SEARCH-->
-    <div>
+    <form method="GET" action="/admin-userpage">
         <nav class="navbar navbar-light p-3" style="background: #000080;">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" id="userSearch" aria-label="Search" style="width: 440px;">
+            <div class="form-inline">
+                <button type="submit" class="btn btn-primary mr-2">Search</button>
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" style="width: 440px;"
+                value="{{ $request->search ?? '' }}">
 
-                <select class="homepageSort form-control mr-2" placeholder="" id="select">
-                    <option>Sort</option>
-                    <option>Logged In</option>
-                    <option>Logged Out</option>
+                <select class="homepageSort form-control mr-2" name="sortBy" placeholder="" id="select">
+                    <option value="">Sort</option>
+                    <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
+                    <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
                 </select>
 
-                <select class="homepageShow form-control mr-2" placeholder="" id="select">
-                    <option>Show</option>
-                    <option>Employees</option>
-                    <option>Students</option>
-                    <option>Visitors</option>
+                <select class="homepageShow form-control mr-2" name="category" placeholder="" id="select">
+                    <option value="">Show</option>
+                    <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                    <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                    <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
                 </select>
 
                 <div>
                     <a class="btn btn-primary w-100" id="addUserButton" href="/admin-user-add">Add User</a>
                 </div>
-            </form>
+            </div>
 
             <div class="downloadButton">
                 <button type="button" class="btn" id="download"></button>
@@ -92,7 +94,7 @@
 
 
         </nav>
-    </div>
+    </form>
 
     <!--TABLE-->
     <div class="table-responsive">
@@ -108,22 +110,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr onclick="window.location='/admin'">
-                    <td id="clickableName" onclick="popUserInfo()">Sheryl Kate Monserrat</td>
-                    <td>Student</td>
-                    <td>7:00 AM</td>
-                    <td>4-9-2021</td>
-                    <td>5:00 PM</td>
-                    <td>4-9-2021</td>
-                </tr>
+            @foreach ($parking_logs as $log)
                 <tr>
-                    <td>Nathalie Butic</td>
-                    <td>Student</td>
-                    <td>7:00 AM</td>
-                    <td>4-9-2021</td>
-                    <td>7:00 PM</td>
-                    <td>4-9-2021</td>
+                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
+                        @if(isset($log->vehicle->user->detail->firstname))
+                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
+                        @else
+                            {{ $log->vehicle->user->name }}
+                        @endif
+                    </td>
+                    <td>{{ ucfirst($log->vehicle->user->category) }}</td>
+                    <td>{{ $log->login_time }}</td>
+                    <td>{{ $log->login_date }}</td>
+                    <td>{{ $log->logout_time }}</td>
+                    <td>{{ $log->logout_date }}</td>
                 </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

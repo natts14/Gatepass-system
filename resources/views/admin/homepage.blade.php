@@ -73,6 +73,7 @@
         <div>
             <nav class="navbar navbar-light p-3" style="background: #000080;">
                 <div class="form-inline">
+                    <button type="submit" class="btn btn-primary mr-2">Search</button>
                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
                     <!-- <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="homepageSearch"> -->
                     <select class="homepageSort form-control mr-2" name="sortBy" id="select">
@@ -87,7 +88,6 @@
                         <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
                         <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
                     </select>
-                    <button type="submit" class="btn btn-primary" id="submit-home">Search</button>
                 </div>
                 <div class="downloadButton">
                     <button type="button" class="btn download" id="download"> </button>
