@@ -28,8 +28,8 @@ class UserLicense extends Model
         return $this->hasOne(Renewal::class, 'renewal_id', 'id')->where('type', 'license');
     }
 
-    public function documents()
+    public function document()
     {
-        return $this->hasMany(Document::class, 'document_id', 'id')->where('type', 'license');
+        return $this->hasOne(Document::class, 'document_id', 'id')->where('type', 'license');
     }
 }

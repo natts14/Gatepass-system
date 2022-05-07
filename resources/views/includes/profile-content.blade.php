@@ -138,7 +138,11 @@
                         <div class="form-row">
                             <div class="form-group col-sm-3">
                                 <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-                                <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                                <img src="{{url('image/documents/'.$user->license->document->name)}}" class="img-fluid" alt="Responsive image">
+                                <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
+                                    <i class="fas fa-paperclip"></i>
+                                </button> -->
+                                
                             </div>
                             <div class="form-group col-sm-5 text-right"><br>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#licenseModal">EDIT </button>
@@ -250,7 +254,7 @@
                     $('#exampleModal').modal('show');
                 });
                 </script>
-            @elseif($errors->license->any())
+            @elseif($errors->license->any() || $errors->document->any())
                 <script>
                 $(function() {
                     $('#licenseModal').modal('show');

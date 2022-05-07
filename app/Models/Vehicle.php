@@ -36,9 +36,9 @@ class Vehicle extends Model
         return $this->hasOne(Vehicle::class,'renewal_id','id')->where('type', 'vehicle');
     }
 
-    public function documents()
+    public function document()
     {
-        return $this->hasMany(Document::class, 'document_id', 'id')->where('type', 'vehicle');
+        return $this->hasOne(Document::class, 'document_id', 'id')->where('type', 'vehicle');
     }
 
     public function violations()

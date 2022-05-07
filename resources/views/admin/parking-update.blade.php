@@ -1,8 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
-<form method="POST" action="/admin-parking-space" class="needs-validation" id="updateParking">
+<form method="POST" action="/admin-parking-space/{{$parking->id}}" class="needs-validation" id="updateParking">
  @csrf
+ @method('PUT')
 <div class="container w-50 p-4 bg-light my-auto mx-auto">
     <div class="p-4">
         <p class="h3 text-center p-1">UPDATE PARKING SLOTS</p>

@@ -40,7 +40,6 @@ class HomepageController extends Controller
             })->get();
         } else {
             $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
-                $query->where('status', 1);
                 if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
@@ -63,16 +62,14 @@ class HomepageController extends Controller
         }])->get();
         $parking_slots = $parking_lots->sum('capacity');//total parking capacity
 
-        $users_login = ParkingLogs::whereHas('user', function($query){
-            $query->where('status',1);
-        })->where('logout_date', null)->count(); //all users login
-        $users_count = User::where('status',1)->count(); //all users count
+        $users_login = ParkingLogs::where('logout_date', null)->count(); //all users login
+        $users_count = User::count(); //all users count
 
         $visitors_login = ParkingLogs::whereHas('user', function($query) {
-            $query->where('category', 'visitor')->where('status',1);
+            $query->where('category', 'visitor');
         })->where('logout_date', null)->count();
 
-        $visitors_count = User::where('category', 'visitor')->where('status',1)->count();
+        $visitors_count = User::where('category', 'visitor')->count();
 
         $todays_events = Event::whereDate('date_started_at', '=', now())->get(); //for guaards event
 

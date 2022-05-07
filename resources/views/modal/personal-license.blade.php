@@ -1,6 +1,6 @@
 <div class="modal fade bd-example-modal-lg" id="licenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="{{ route('admin.profile.update', ['license']) }}" method="POST">
+        <form action="{{ route('admin.profile.update', ['license']) }}" enctype="multipart/form-data" method="POST">
             {{ method_field('PUT') }}
             {{ csrf_field() }}
             <div class="modal-content">
@@ -15,6 +15,15 @@
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->license->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif 
+                    @if ($errors->document->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->document->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -55,8 +64,9 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-                            <button type="button" class="btn btn-default btn-sm " onclick=""><i class="fas fa-paperclip"></i></button>
+                            <label for="attachedoc" class="font-weight-bold">ATTACH DOCUMENT</label><br>
+                            <input type="file" name="document" id="document">
+                            <!-- <button type="button" class="btn btn-default btn-sm " onclick=""><i class="fas fa-paperclip"></i></button> -->
                         </div>
                     </div>
                     <hr>

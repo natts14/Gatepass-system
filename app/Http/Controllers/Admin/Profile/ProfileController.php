@@ -95,19 +95,24 @@ class ProfileController extends Controller
                 );
 
                 if (isset($request->document)) {
-                    $request->validate([
+                    $request->validateWithBag('document', [
                         'document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     ]);
-                    $imageName = time().'.'.$request->document->extension(); 
-        
-                    $request->document->move(public_path('image/documents'), $imageName);
-                    //save to table
-                    Document::create([
-                        'user_id' => $user->id,
-                        'document_id' => $license->id,
-                        'name' => $imageName,
-                        'type' => 'license'
-                    ]);
+                    $document = Document::where(['document_id' => $license->id, 'user_id' => $user->id, 'type' => 'license'])->first();
+                    if ($document != null) {
+                        $request->file('document')->move(public_path('image/documents'), $document->name);//replace old uploaded file
+                    }else {
+                        $imageName = time().'.'.$request->file('document')->extension(); 
+                        $request->file('document')->move(public_path('image/documents'), $imageName);
+                        //save to table
+                        Document::create([
+                            'user_id' => $user->id,
+                            'document_id' => $license->id,
+                            'name' => $imageName,
+                            'type' => 'license'
+                        ]);
+                    }
+                    
                 }
                 break;
             default:
