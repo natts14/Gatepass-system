@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function index(Request $request) 
     {
         if (isset($request->search) || $request->search != '') {
-            $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
+            /* $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->where('status', 1)
                     ->whereHas('detail', function($query) use ($request) {
                     //search 
@@ -27,33 +27,73 @@ class UsersController extends Controller
                 if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
-            })->get();
+            })->get(); */
+            $users = User::where(function($query) use ($request) {
+                    if (isset($request->category) || $request->category != '') {
+                        $query->where('category', $request->category);
+                    }
+                })->whereHas('detail', function($query) use ($request) {
+                    //search 
+                    $query->where('firstname', 'like', "%".$request->search."%")
+                        ->orWhere('middlename', 'like', "%".$request->search."%")
+                        ->orWhere('lastname', 'like', "%".$request->search."%");
+                })->get();
         } else {
-            $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
+            /* $parking_logs = ParkingLogs::whereHas('user', function($query) use ($request) {
                 $query->where('status', 1);
                 if (isset($request->category) || $request->category != '') {
                     $query->where('category', $request->category);
                 }
-            })->get();
-        }
-
-        if (isset($request->sortBy) || $request->sortBy != '') {
-            $parking_logs = $parking_logs->sortBy($request->sortBy, SORT_NATURAL);
+            })->get(); */
+            
+            if (isset($request->sortBy) || $request->sortBy != '') {
+                $users = User::where(function($query) use ($request) {
+                    if (isset($request->category) || $request->category != '') {
+                        $query->where('category', $request->category);
+                    }
+                })->get();
+                if ($request->sortBy == 'asc') {
+                    $users = $users->sortBy(function($query) use ($request) {
+                        if (isset($query->detail)) {
+                            return $query->detail->firstname;
+                        }else {
+                            return $query->name;
+                        }
+                    })->all();
+                }else {
+                    $users = $users->sortByDesc(function($query) use ($request) {
+                        if (isset($query->detail)) {
+                            return $query->detail->firstname;
+                        }else {
+                            return $query->name;
+                        }
+                    })->all();
+                }
+                /* $users->load(['detail', function($query) use ($request) {
+                    $query->orderBy('firstname', $request->sortBy);
+                }]); */
+            } else {
+                $users = User::where(function($query) use ($request) {
+                    if (isset($request->category) || $request->category != '') {
+                        $query->where('category', $request->category);
+                    }
+                })->get();
+            }
         }
 
         $parking_slots = ParkingLot::sum('capacity');
         $users_login = ParkingLogs::whereHas('user', function($query){
             $query->where('status',1);
         })->where('logout_date', null)->count();
-        $users_count = User::where('status',1)->count();
+        $users_count = count($users);
 
         $visitors_login = ParkingLogs::whereHas('user', function($query) {
             $query->where('category', 'visitor')->where('status',1);
         })->where('logout_date', null)->count();
         $visitors_count = User::where('category', 'visitor')->where('status',1)->count();
-
         return view('admin.userpage', [
-            'parking_logs' => $parking_logs, 
+            'users' => $users,
+            // 'parking_logs' => $parking_logs, 
             'parking_slots' => $parking_slots,
             'users_login' => $users_login,
             'users_count' => $users_count,

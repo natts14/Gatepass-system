@@ -72,8 +72,8 @@
 
                 <select class="homepageSort form-control mr-2" name="sortBy" placeholder="" id="select">
                     <option value="">Sort</option>
-                    <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
-                    <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
+                    <option value="asc" {{ $request->sortBy == 'asc' ? 'selected': '' }}>NAME ASCENDING</option>
+                    <option value="desc" {{ $request->sortBy == 'desc' ? 'selected': '' }}>NAME DESCENDING</option>
                 </select>
 
                 <select class="homepageShow form-control mr-2" name="category" placeholder="" id="select">
@@ -81,6 +81,8 @@
                     <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
                     <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
                     <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                    <option value="guard" {{ $request->category == 'guard' ? 'selected': '' }}>Guard</option>
+                    <option value="admin" {{ $request->category == 'admin' ? 'selected': '' }}>Admin</option>
                 </select>
 
                 <div>
@@ -101,29 +103,37 @@
         <table class="table table-borderless table-hover" id="userTable">
             <thead class="thead-dark ">
                 <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">NAME</th>
+                    <th scope="col">PLATE NUMBER</th>
+                    <th scope="col">VEHICLE REGISTRATION</th>
                     <th scope="col">CATEGORY</th>
-                    <th scope="col">LOGIN TIME</th>
-                    <th scope="col">LOGIN DATE</th>
-                    <th scope="col">LOGOUT TIME</th>
-                    <th scope="col">LOGOUT DATE</th>
+                    <th scope="col">STATUS</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach ($parking_logs as $log)
+            @foreach ($users as $user)
                 <tr>
-                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
-                        @if(isset($log->vehicle->user->detail->firstname))
-                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
+                    <td>{{ $user->id }}</td>
+                    <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">
+                        @if(isset($user->detail->firstname))
+                            {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
                         @else
-                            {{ $log->vehicle->user->name }}
+                            {{ $user->name }}
                         @endif
                     </td>
-                    <td>{{ ucfirst($log->vehicle->user->category) }}</td>
-                    <td>{{ $log->login_time }}</td>
-                    <td>{{ $log->login_date }}</td>
-                    <td>{{ $log->logout_time }}</td>
-                    <td>{{ $log->logout_date }}</td>
+                    <td>
+                        @if(isset($user->vehicles))
+                            {{ $user->vehicles->last()->vehicle_plate_number }}
+                        @endif
+                    </td>
+                    <td>
+                        @if(isset($user->vehicles))
+                            {{ $user->vehicles->last()->vehicle_registration_number }}
+                        @endif
+                    </td>
+                    <td>{{ ucfirst($user->category) }}</td>
+                    <td>{{ $user->status == 1 ? 'ACTIVE' : 'INACTIVE' }}</td>
                 </tr>
             @endforeach
             </tbody>
