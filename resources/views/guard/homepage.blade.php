@@ -24,11 +24,11 @@
 
     <div class="">
         <nav class="navbar navbar-expand-lg navbar-light" style="background: #000080;">
-            <a class="navbar-brand text-white" href="/guard-homepage">
+            <a class="navbar-brand text-white text-capitalize" href="/guard-homepage">
                 @if(isset($user->detail))
-                    {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
+                {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
                 @else
-                    {{ $user->name }}
+                {{ $user->name }}
                 @endif
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,27 +52,45 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a href="/guard-profile" class="dropdown-item">PROFILE</a>
-                                <a href="#" class="dropdown-item">LOGOUT</a>
+                                <a href="/logout" class="dropdown-item">LOGOUT</a>
                             </div>
                         </li>
                     </ul>
                 </form>
             </div>
-
-
         </nav>
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col">
+                <div class="col-sm">
+                    <div class="col-sm-12 py-4">
+                        <form action="/scan/rfid" method="POST">
+                            <div class="input-group mb-2">
+                                <input name="rfid" type="text" class="form-control" placeholder="Scan RFID" aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="this.form.submit()" autofocus>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Scan RFID</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="">
                         <div>
-                            <h3 class="mt-3">Parking Slots</h3>
+                            <h3 class="mt-1">Parking Slots</h3>
                         </div>
 
+                        <?php
+                        //Columns must be a factor of 12 (1,2,3,4,6,12)
+                        $numOfCols = 3;
+                        $rowCount = 0;
+                        $bootstrapColWidth = 12 / $numOfCols;
+                        ?>
+
                         <div class="row">
-                            @foreach ($parking_lots as $parking_lot)
-                                <div class="col-4">
+                            <?php
+                            foreach ($parking_lots as $parking_lot) {
+                            ?>
+
+                                <div class="col-md-<?php echo $bootstrapColWidth; ?> mb-3">
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <div class="text-center">
@@ -83,7 +101,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            <?php
+                                $rowCount++;
+                                if ($rowCount % $numOfCols == 0) echo '</div><div class="row">';
+                            }
+                            ?>
                         </div>
                     </div>
 
@@ -112,7 +134,7 @@
                                 <div>
                                     <p class="h6">TODAYS EVENT</p>
                                     @foreach ($todays_events as $event)
-                                        <p class="h2">{{ $event->event_title }}</p>
+                                    <p class="h2">{{ $event->event_title }}</p>
                                     @endforeach
                                 </div>
                             </div>
@@ -131,33 +153,44 @@
 
         <form method="GET" action="/guard-homepage">
             <nav class="navbar navbar-light" style="background: #000080;">
-                <div class="form-inline">
-                    <button type="submit" class="btn btn-primary mr-2">Search</button>
-                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" style="width: 440px;"
-                         value="{{ $request->search ?? '' }}">
+                <div class="form-row w-100">
 
-                    <select class="homepageSort form-control mr-2" name="sortBy" id="select">
-                        <option value="">Sort</option>
-                        <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
-                        <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
-                    </select>
+                    <div class="col-sm-4">
+                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
+                    </div>
 
-                    <select class="homepageShow form-control mr-2" name="category" id="show">
-                        <option value="">Show</option>
-                        <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
-                        <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
-                        <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
-                    </select>
+                    <div class="col-sm-1">
+                        <select class="homepageSort form-control mr-2" name="sortBy" id="select">
+                            <option value="">Sort</option>
+                            <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
+                            <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <select class="homepageShow form-control mr-2" name="category" id="show">
+                            <option value="">Show</option>
+                            <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                            <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                            <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-success" id="download"> Download </button>
+                    </div>
+
                 </div>
 
-                <div class="downloadButton">
-                    <button type="button" class="btn btn-success" id="download"> Download </button>
-                </div>
             </nav>
 
         </form>
 
-        <div class="">
+        <div class="table-responsive">
             <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -172,26 +205,26 @@
                 </thead>
                 <tbody>
                     @foreach ($parking_logs as $log)
-                        <tr>
-                            <td>
-                                @if(isset($log->vehicle->user->detail->firstname))
-                                    {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
-                                @else
-                                    {{ $log->vehicle->user->name }}
-                                @endif
-                            </td>
-                            <td>{{ ucfirst($log->vehicle->user->category) }}</td>
-                            <td>{{ $log->login_time }}</td>
-                            <td>{{ $log->login_date }}</td>
-                            <td>{{ $log->logout_time }}</td>
-                            <td>{{ $log->logout_date }}</td>
-                            @if(count($log->vehicle->violations) > 0)
-                                <td>{{ $log->vehicle->violations[0]->specification }}</td>
+                    <tr>
+                        <td>
+                            @if(isset($log->vehicle->user->detail->firstname))
+                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
                             @else
-                                <td>No Violation</td>
+                            {{ $log->vehicle->user->name }}
                             @endif
-                            
-                        </tr>
+                        </td>
+                        <td>{{ ucfirst($log->vehicle->user->category) }}</td>
+                        <td>{{ $log->login_time }}</td>
+                        <td>{{ $log->login_date }}</td>
+                        <td>{{ $log->logout_time }}</td>
+                        <td>{{ $log->logout_date }}</td>
+                        @if(count($log->vehicle->violations) > 0)
+                        <td>{{ $log->vehicle->violations[0]->specification }}</td>
+                        @else
+                        <td>No Violation</td>
+                        @endif
+
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -200,6 +233,7 @@
 
     <!-- Report Modal -->
     @include('modal.report');
+
 </body>
 
 </html>

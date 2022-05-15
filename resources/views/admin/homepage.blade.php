@@ -64,33 +64,44 @@
             <p class="h3 text-white">USER LOGS <span id="time"></span></p>
 
             <div>
-                <input class="form-control" type="date" name="date_logs" 
-                    value="{{ $request->date_logs ?? date('Y-m-d') }}">
+                <input class="form-control" type="date" name="date_logs" value="{{ $request->date_logs ?? date('Y-m-d') }}">
             </div>
         </div>
 
         <!--SEARCH-->
         <div>
             <nav class="navbar navbar-light p-3" style="background: #000080;">
-                <div class="form-inline">
-                    <button type="submit" class="btn btn-primary mr-2">Search</button>
-                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
+                <div class="form-row w-100">
+                    <!-- <button type="submit" class="btn btn-primary mr-2">Search</button> -->
+                    <div class="col-sm-4">
+                        <input class="form-control mb-1" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
+                    </div>
                     <!-- <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" id="homepageSearch"> -->
-                    <select class="homepageSort form-control mr-2" name="sortBy" id="select">
-                        <option value="">Sort</option>
-                        <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
-                        <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
-                    </select>
 
-                    <select class="homepageShow form-control mr-2" name="category" id="show">
-                        <option value="">Show</option>
-                        <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
-                        <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
-                        <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
-                    </select>
-                </div>
-                <div class="downloadButton">
-                    <button type="button" class="btn download" id="download"> </button>
+                    <div class="col-sm-1">
+                        <select class="homepageSort form-control mb-1" name="sortBy" id="select">
+                            <option value="">Sort</option>
+                            <option value="login_date" {{ $request->sortBy == 'login_date' ? 'selected': '' }}>Logged In</option>
+                            <option value="logout_date" {{ $request->sortBy == 'logout_date' ? 'selected': '' }}>Logged Out</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <select class="homepageShow form-control mb-1" name="category" id="show">
+                            <option value="">Show</option>
+                            <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                            <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                            <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+
+                    <div class="col text-right">
+                        <button type="button" class="btn download mb-1" id="download"></button>
+                    </div>
 
                 </div>
 
@@ -111,13 +122,13 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($parking_logs as $log)
+                @foreach ($parking_logs as $log)
                 <tr>
                     <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
                         @if(isset($log->vehicle->user->detail->firstname))
-                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
+                        {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
                         @else
-                            {{ $log->vehicle->user->name }}
+                        {{ $log->vehicle->user->name }}
                         @endif
                     </td>
                     <td>{{ ucfirst($log->vehicle->user->category) }}</td>
@@ -126,7 +137,7 @@
                     <td>{{ $log->logout_time }}</td>
                     <td>{{ $log->logout_date }}</td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -165,10 +176,10 @@
                 btns.removeClass('dt-button');
             },
             filterDropDown: {
-                    columns: [
-                        1
-                    ]
-                }
+                columns: [
+                    1
+                ]
+            }
             // dom: 'Q',
             // searchBuilder: {
             //     columns: [1]

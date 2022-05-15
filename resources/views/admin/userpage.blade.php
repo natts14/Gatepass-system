@@ -65,36 +65,43 @@
     <!--SEARCH-->
     <form method="GET" action="/admin-userpage">
         <nav class="navbar navbar-light p-3" style="background: #000080;">
-            <div class="form-inline">
-                <button type="submit" class="btn btn-primary mr-2">Search</button>
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" style="width: 440px;"
-                value="{{ $request->search ?? '' }}">
+            <div class="form-row w-100">
 
-                <select class="homepageSort form-control mr-2" name="sortBy" placeholder="" id="select">
-                    <option value="">Sort</option>
-                    <option value="asc" {{ $request->sortBy == 'asc' ? 'selected': '' }}>NAME ASCENDING</option>
-                    <option value="desc" {{ $request->sortBy == 'desc' ? 'selected': '' }}>NAME DESCENDING</option>
-                </select>
+                <div class="col-sm-3">
+                    <input class="form-control mb-1" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ $request->search ?? '' }}">
+                </div>
 
-                <select class="homepageShow form-control mr-2" name="category" placeholder="" id="select">
-                    <option value="">Show</option>
-                    <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
-                    <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
-                    <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
-                    <option value="guard" {{ $request->category == 'guard' ? 'selected': '' }}>Guard</option>
-                    <option value="admin" {{ $request->category == 'admin' ? 'selected': '' }}>Admin</option>
-                </select>
+                <div class="col-sm-1">
+                    <select class="homepageSort form-control mr-2" name="sortBy" placeholder="" id="select">
+                        <option value="">Sort</option>
+                        <option value="asc" {{ $request->sortBy == 'asc' ? 'selected': '' }}>NAME ASCENDING</option>
+                        <option value="desc" {{ $request->sortBy == 'desc' ? 'selected': '' }}>NAME DESCENDING</option>
+                    </select>
+                </div>
 
-                <div>
-                    <a class="btn btn-primary w-100" id="addUserButton" href="/admin-user-add">Add User</a>
+                <div class="col-sm-1">
+                    <select class="homepageShow form-control mr-2" name="category" placeholder="" id="select">
+                        <option value="">Show</option>
+                        <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
+                        <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
+                        <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                        <option value="guard" {{ $request->category == 'guard' ? 'selected': '' }}>Guard</option>
+                        <option value="admin" {{ $request->category == 'admin' ? 'selected': '' }}>Admin</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-1">
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                </div>
+
+                <div class="col text-left">
+                    <a class="btn btn-primary" id="" href="/admin-user-add">Add User</a>
+                </div>
+
+                <div class="col text-right">
+                    <button type="button" class="btn download" id="download"></button>
                 </div>
             </div>
-
-            <div class="downloadButton">
-                <button type="button" class="btn" id="download"></button>
-            </div>
-
-
         </nav>
     </form>
 
@@ -112,30 +119,30 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($users as $user)
-                <tr>
+                @foreach ($users as $user)
+                <tr onclick="window.location=''">
                     <td>{{ $user->id }}</td>
                     <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">
                         @if(isset($user->detail->firstname))
-                            {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
+                        {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
                         @else
-                            {{ $user->name }}
+                        {{ $user->name }}
                         @endif
                     </td>
                     <td>
                         @if(isset($user->vehicles))
-                            {{ $user->vehicles->last()->vehicle_plate_number }}
+                        {{ $user->vehicles->last()->vehicle_plate_number }}
                         @endif
                     </td>
                     <td>
                         @if(isset($user->vehicles))
-                            {{ $user->vehicles->last()->vehicle_registration_number }}
+                        {{ $user->vehicles->last()->vehicle_registration_number }}
                         @endif
                     </td>
                     <td>{{ ucfirst($user->category) }}</td>
                     <td>{{ $user->status == 1 ? 'ACTIVE' : 'INACTIVE' }}</td>
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
     </div>

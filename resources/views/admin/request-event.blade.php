@@ -36,17 +36,17 @@
 
         <div class="container p-4">
             <div class="row">
-                <div class="col">
+                <div class="col-9">
                     <label class="font-weight-bold">TYPE</label>
                     <p class="requestEventType" id="type">VEHICLE</p>
                 </div>
-                <div class="col text-right">
+                <div class="col text-right d-flex">
                     <!-- <button type="button" class="btn btn-success" id="submitEvent" onclick=""> APPROVE </button>
                     <button type="button" class="btn btn-dark" id="cancelEvent" onclick=""> DECLINE </button> -->
                     <form action="{{ url('/admin-request-event', ['event' => $event->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <button type="submit" class="btn btn-success" id="submitEvent"> APPROVE </button>
+                        <button type="submit" class="btn btn-success mr-3" id="submitEvent"> APPROVE </button>
                     </form>
                     <form action="{{ url('/admin-request-event', ['event' => $event->id]) }}" method="POST">
                         @csrf

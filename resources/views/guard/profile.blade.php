@@ -53,7 +53,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a href="/guard-profile" class="dropdown-item">PROFILE</a>
-                            <a href="#" class="dropdown-item">LOGOUT</a>
+                            <a href="/logout" class="dropdown-item">LOGOUT</a>
                         </div>
                     </li>
                 </ul>

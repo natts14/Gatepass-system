@@ -138,9 +138,7 @@
                         <div class="form-row">
                             <div class="form-group col-sm-3">
                                 <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-                                @if(isset($user->license))
-                                <img src="{{url('image/documents/'.$user->license->document->name)}}" class="img-fluid" alt="Responsive image">
-                                @endif
+                                <!--  -->
                                 <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
                                 </button> -->
@@ -222,7 +220,7 @@
                         <h2>ACTIVE VEHICLES</h2>
                         <hr>
                         <div class="form-group col-sm-8 text-right">
-                            <button type="button" class="btn btn-default btn-sm ">ADD</button>
+                            <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button>
                         </div>
                         
                         @include('includes.vehicles_active')
@@ -260,6 +258,12 @@
                 <script>
                 $(function() {
                     $('#licenseModal').modal('show');
+                });
+                </script>
+            @else($errors->vehicles->any() || $errors->document->any())
+                <script>
+                $(function() {
+                    $('#vehicleModal').modal('show');
                 });
                 </script>
             @endif
