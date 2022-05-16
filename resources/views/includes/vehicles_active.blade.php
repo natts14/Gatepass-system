@@ -42,7 +42,7 @@
             <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#"><i class="fas fa-paperclip"></i></button>
         </div>
         <div class="form-group col-sm-5 text-right"><br>
-            <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">EDIT</button>
+      <!--      <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">EDIT</button> -->
             <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">REMOVE</button>
         </div>
     </div> 
