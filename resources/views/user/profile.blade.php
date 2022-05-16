@@ -65,9 +65,10 @@
 
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a>
-                    @if($user->category != 'admin' && $user->category != 'guard')
-                    <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
-                    <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a>
+                    @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
+                    <a class="nav-link" id="v-pills-event-tab" data-toggle="pill" href="#v-pills-event" role="tab" aria-controls="v-pills-event" aria-selected="false">EVENT</a>
+         <!--       <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
+                <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a> -->
                     @endif
                     <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">ACTIVE VEHICLE</a>
                     <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">INACTIVE VEHICLE</a>
@@ -202,32 +203,22 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-notif" role="tabpanel" aria-labelledby="v-pills-notif-tab">
-                        <div class="notification" id="notification">
-                            @if (count($notifications) == 0)
-                            No new notification
-                            @endif
-                            @foreach ($notifications as $notification)
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <h6>{{ $notification->remarks }}</h6>
-                                    @if ($notification->type == 'license')
-                                    <h6>DRIVER NUMBER: {{ $notification->renewal->license->drivers_lilcense_number }}</h6>
-                                    @else
-                                    <h6>PLATE NUMBER: {{ $notification->renewal->vehicle->vehicle_plate_number }}</h6>
-                                    @endif
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <h6>{{ $carbon::parse($notification->created_at)->toFormattedDateString() }}</h6>
-                                    <h6>{{ $carbon::parse($notification->created_at)->toTimeString() }}</h6>
-                                </div>
-                            </div>
-                            <hr>
-                            @endforeach
+                    <div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
+                    <div class="notification" id="notification">
+                    <br>
+                        <h2>EVENT</h2>
+                        <hr>
+                        <div class="form-group col-sm-8 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#eventModal">ADD </button>
                         </div>
+                        
+                      
+                        <br>
+                        <hr>
                     </div>
+                </div>
 
-
+<!--
                     <div class="tab-pane fade" id="v-pills-trans" role="tabpanel" aria-labelledby="v-pills-trans-tab">
                         <table class="table table-bordered">
                             <thead class="thead-light">
@@ -263,7 +254,7 @@
                             </tbody>
                         </table>
                     </div>
-
+-->
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                         <div class="activeVehicle" id="activeVehicle">
                             <br>

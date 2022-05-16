@@ -1,6 +1,6 @@
 <div class="modal fade bd-example-modal-lg" id="vehicleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="" method="">
+    <form id="regForm" action="/" class="needs-validation" method="POST" id="admin_adduser" required>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">ADD VEHICLE</h5>
@@ -31,8 +31,7 @@
                     <div class="form-row">
                         <div class="form-group col-sm-4">
                             <label class="font-weight-bold">DOCUMENTS</label><br>
-                            <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
-                            <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                            <input type="file" name="document" id="document">
                         </div>
 
                         <div class="form-group col-sm-4">
@@ -55,15 +54,11 @@
                             <input type="text" name="color" value="" class="form-control" id="vehicleColor" required>
                         </div>
 
-                        <div class="form-group col-sm-4">
-                            <label class="font-weight-bold">RFID</label><br>
-                            <input type="text" name="rfid" value="" class="form-control" id="RFID" maxlength="10" required>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
