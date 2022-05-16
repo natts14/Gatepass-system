@@ -18,7 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
+    <!-- Barcode CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 </head>
 
 <body>
@@ -81,8 +82,6 @@
             </div>
 
             <div class="col-md-9">
-
-
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         <div id="profile" class="">
@@ -135,6 +134,7 @@
                                     <label for="emailAddress" class="font-weight-bold">EMAIL ADDRESSS</label>
                                     <input type="text" readonly class="form-control-plaintext" id="emailAddress" value="{{ $user->email ?? 'NULL' }}">
                                 </div>
+
                             </div>
 
                             <div class="form-row">
@@ -146,6 +146,14 @@
                                 <div class="form-group col-md-3">
                                     <label for="Password" class="font-weight-bold"> PASSWORD</label>
                                     <input type="password" readonly class="form-control-plaintext" id="Password" value="******">
+                                </div>
+
+                                <div class="form-group col-md-3 text-center">
+                                    <!-- BARCODE -->
+                                    @if(isset($user->vehicles))
+                                    <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">
+                                    <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
+                                    @endif
                                 </div>
                             </div>
 
@@ -323,6 +331,29 @@
         });
     </script>
     @endif
+
+    <script>
+        JsBarcode(".barcode").init();
+
+        var barcodeCtrl;
+        $(function() {
+            $("#barcode").ejBarcode({
+                text: "HTTP://WWW.SYNCFUSION.COM",
+                symbologyType: "qrbarcode",
+                xDimension: 12,
+            });
+            barcodeCtrl = $("#barcode").data("ejBarcode");
+        });
+
+        function Download(link, canvasId, filename) {
+            link.href = document.querySelector(canvasId).toDataURL();
+            link.download = filename;
+        }
+
+        document.getElementById('downloadBarcode').addEventListener('click', function() {
+            Download(this, '#barcode canvas', 'Barcode.png');
+        }, false);
+    </script>
 </body>
 
 </html>
