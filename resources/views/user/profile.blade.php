@@ -147,16 +147,18 @@
                                     <label for="Password" class="font-weight-bold"> PASSWORD</label>
                                     <input type="password" readonly class="form-control-plaintext" id="Password" value="******">
                                 </div>
-
+                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                                 <div class="form-group col-md-3 text-center">
                                     <!-- BARCODE -->
                                     @if(isset($user->vehicles))
-                                    <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">
+                                      <img id="barcode"  value="{{ $user->vehicles->rfid ?? 'NULL' }}"class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"> 
                                     <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
                                     @endif
                                 </div>
-                            </div>
+                                @endif
 
+                            </div>
+                          
 
 
                             <h4>LICENSE DETAILS</h4>
