@@ -147,16 +147,18 @@
                                     <label for="Password" class="font-weight-bold"> PASSWORD</label>
                                     <input type="password" readonly class="form-control-plaintext" id="Password" value="******">
                                 </div>
-
+                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                                 <div class="form-group col-md-3 text-center">
                                     <!-- BARCODE -->
                                     @if(isset($user->vehicles))
-                                    <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->id }}123456789" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">
+                                      <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"> 
                                     <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
                                     @endif
                                 </div>
-                            </div>
+                                @endif
 
+                            </div>
+                          
 
 
                             <h4>LICENSE DETAILS</h4>
@@ -335,13 +337,24 @@
     <script>
         JsBarcode(".barcode").init();
 
-        function download() {
-            var dt = canvas.toDataURL();
-            this.href = dt;
+        var barcodeCtrl;
+        $(function() {
+            $("#barcode").ejBarcode({
+                text: "HTTP://WWW.SYNCFUSION.COM",
+                symbologyType: "qrbarcode",
+                xDimension: 12,
+            });
+            barcodeCtrl = $("#barcode").data("ejBarcode");
+        });
+
+        function Download(link, canvasId, filename) {
+            link.href = document.querySelector(canvasId).toDataURL();
+            link.download = filename;
         }
 
-        var canvas = document.getElementById('myCanvasId');
-        document.getElementById('#downloadBarcode').addEventListener('click', download, false);
+        document.getElementById('downloadBarcode').addEventListener('click', function() {
+            Download(this, '#barcode canvas', 'Barcode.png');
+        }, false);
     </script>
 </body>
 
