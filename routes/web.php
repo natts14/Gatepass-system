@@ -53,6 +53,9 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::get('/guard-profile', 'Admin\Profile\ProfileController@index')->name('guard.profile.index');//same admin profile
         Route::get('/guard-events', 'Admin\Events\EventsController@today_events');
         Route::post('/guard-violation', [ViolationController::class, 'report']);
+        Route::post('/guard-scan-entrance', 'Admin\Home\HomepageController@entrance')->name('guard.entrance');
+        Route::post('/guard-scan-exit', 'Admin\Home\HomepageController@exit')->name('guard.exit');
+        Route::post('/guard-scan-barcode', 'Admin\Home\HomepageController@barcode')->name('guard.barcode');
         /**
          * Admin Profile
          */

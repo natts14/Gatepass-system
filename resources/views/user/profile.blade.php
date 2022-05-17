@@ -150,7 +150,7 @@
                                 <div class="form-group col-md-3 text-center">
                                     <!-- BARCODE -->
                                     @if(isset($user->vehicles))
-                                    <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">
+                                    <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->id }}123456789" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">
                                     <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
                                     @endif
                                 </div>
@@ -344,24 +344,13 @@
     <script>
         JsBarcode(".barcode").init();
 
-        var barcodeCtrl;
-        $(function() {
-            $("#barcode").ejBarcode({
-                text: "HTTP://WWW.SYNCFUSION.COM",
-                symbologyType: "qrbarcode",
-                xDimension: 12,
-            });
-            barcodeCtrl = $("#barcode").data("ejBarcode");
-        });
-
-        function Download(link, canvasId, filename) {
-            link.href = document.querySelector(canvasId).toDataURL();
-            link.download = filename;
+        function download() {
+            var dt = canvas.toDataURL();
+            this.href = dt;
         }
 
-        document.getElementById('downloadBarcode').addEventListener('click', function() {
-            Download(this, '#barcode canvas', 'Barcode.png');
-        }, false);
+        var canvas = document.getElementById('myCanvasId');
+        document.getElementById('#downloadBarcode').addEventListener('click', download, false);
     </script>
 </body>
 
