@@ -142,7 +142,7 @@
 
                 <div class="form-group col-sm-3">
                     <label for="password" class="font-weight-bold">CATEGORY</label>
-                    <select class="form-control mb-2" name="category" value="" id="select" placeholder="CATEGORY" required>
+                    <select class="form-control mb-2" name="category" value="" id="category" placeholder="CATEGORY" required>
                         <option></option>
                         <option value="student">STUDENT</option>
                         <option value="employee">EMPLOYEE</option>

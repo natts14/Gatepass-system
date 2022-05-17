@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Sweat Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
     <title>Automated Vehicle Gate Pass System with e-Monitoring Parking Space</title>
     <style>
         body {
@@ -21,6 +29,7 @@
 
         body {
             margin: auto;
+            font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
     </style>
 </head>
@@ -33,6 +42,23 @@
 
             </div>
             <div class="col-sm-4 my-auto" style="padding: 8rem 3rem 0rem 3rem">
+
+                @if ($errors->any())
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    @foreach ($errors->all() as $error)
+                    {{ $error }}
+                    @endforeach
+                </div>
+                @endif
+
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{ $message }}
+                </div>
+                @endif
+
                 <div class="my-auto">
                     <form action="{{ route('login.perform') }}" method="POST" name="loginForm" class="needs-validation text-left p-5 bg-light text-dark rounded" required>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -89,5 +115,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 
 </body>
+
+<script>
+    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+    $(".alert-dismissible").alert('close');
+});
+</script>
 
 </html>
