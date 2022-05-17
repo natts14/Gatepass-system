@@ -151,7 +151,7 @@
                                 <div class="form-group col-md-3 text-center">
                                     <!-- BARCODE -->
                                     @if(isset($user->vehicles))
-                                      <img id="barcode"  value="{{ $user->vehicles->rfid ?? 'NULL' }}"class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"> 
+                                      <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"> 
                                     <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
                                     @endif
                                 </div>

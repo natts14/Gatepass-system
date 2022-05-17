@@ -9,7 +9,17 @@ class ParkingLogs extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'login_date',
+        'login_time',
+        'vehicle_id',
+        'parking_id',
+        'rfid'
+    ];
+    protected $guarded = [
+        
+    ];
 
     public function vehicle()
     {
