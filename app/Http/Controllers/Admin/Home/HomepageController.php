@@ -89,11 +89,7 @@ class HomepageController extends Controller
             'request' => $request
         ]);
     }
-    public function scan(Request $request){
-        //GET RFID INPUT =
-        //FIND RFID OR USER_ID IS EQUAL TO RFID INPUT
-        //IF TRUE GET USER_ID
-        //SAVE USER_ID IN PARKINGLOGS =
+    public function userEntrance(Request $request){
         $dt = Carbon::now()->toTimeString();
         $vehicle = Vehicle::select('*')->get();
       
@@ -109,8 +105,24 @@ class HomepageController extends Controller
                 ]);
             }
         }
-        return redirect('/guard-homepage');
-        
-        
+        return redirect('/guard-homepage'); 
    }
+   public function visitourEntrance(Request $request){
+    $dt = Carbon::now()->toTimeString();
+    $vehicle = Vehicle::select('*')->get();
+  
+    foreach($vehicle as $vehicles){
+        if($vehicles->id == request('id')){
+           ParkingLogs::create([
+               'rfid'=>request('rfid'),
+                'user_id'=>$vehicles->user_id,
+                'vehicle_is'=>$vehicles->id,
+                'parking_id'=>1,
+                'login_date'=> now(),
+                 'login_time'=>$dt
+            ]);
+        }
+    }
+    return redirect('/guard-homepage'); 
+}
 }
