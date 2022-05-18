@@ -41,8 +41,13 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <button type="button" class="btn btn-secondary mr-2" data-toggle="modal" data-target="#reportModal">REPORT</button>
-
+                <!-- <button type="button" class="btn btn-secondary mr-2" data-toggle="modal" data-target="#reportModal">REPORT</button> -->
+                <a href="/guard-homepage">
+                <button type="button" class="btn btn-secondary mr-2">ENTRANCE GATE</button>
+                </a>
+                <a href="/guard-homepage-exit">
+                <button type="button" class="btn btn-secondary mr-2">EXIT GATE</button>
+                </a>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

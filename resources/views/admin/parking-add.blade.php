@@ -25,8 +25,6 @@
                         <label>CAPACITY</label>
                         <input type="text" class="form-control" id="" name="capacity" placeholder="">
                     </div>
-                </div> <br>
-                <div class="row ">
                     <div class="col-sm">
                         <label>PARKING TYPE</label>
                         <div class="ml-4">
@@ -37,15 +35,19 @@
                             <input class="form-check-input" type="radio" name="parking_type" id="" value="motorcycle">
                             <label class="form-check-label">MOTORCYCLE</label>
                         </div>
+
                     </div>
+                </div> <br>
+                <div class="row ">
+
                     <div class="col-sm">
-                        <label>SENSOR ID</label>
+                        <!-- <label>SENSOR ID</label>
                         <select class="form-control" id="sensorID" name="sensor_id" placeholder="">
                             <option value="ABC">ABC</option>
                             <option value="DEF">DEF</option>
                         </select>
                         <label for="favcolor">SLOT COLOR: </label>
-                        <input type="color" class="mt-1" id="slotColor" name="slot_color" value=""><br><br>
+                        <input type="color" class="mt-1" id="slotColor" name="slot_color" value=""><br><br> -->
                     </div>
                 </div>
 

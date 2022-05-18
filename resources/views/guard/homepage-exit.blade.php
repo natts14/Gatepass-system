@@ -17,7 +17,13 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    
 
+    <!-- QRCODE SCANNER --->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 
 <body>
@@ -40,6 +46,9 @@
 
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
+                    <a href="/guard-homepage">
+                        <button type="button" class="btn btn-secondary mr-2">ENTRANCE GATE</button>
+                    </a>
                     <button type="button" class="btn btn-secondary mr-2" data-toggle="modal" data-target="#reportModal">REPORT</button>
 
                     <ul class="navbar-nav">
@@ -63,8 +72,16 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm">
+                    <div class="col-sm-12 pt-4">
+                        <center><h1>EXIT GATE</h1></center>
+                        <video id="preview" width="100%"></video>
+                        <form id="qrcodeForm" action="/guard-scan-visitour-exit" method="POST">
+                            @csrf
+                            <input type="hidden" name="qrcode" id="text" class="form-control" onchange="this.form.submit()">
+                        </form>
+                    </div>
                     <div class="col-sm-12 py-4">
-                        <form action="/guard-scan-{{ $user->type }}" method="POST">
+                        <form action="/guard-scan-user-exit" method="POST">
                         @csrf
                             <div class="input-group mb-2">
                                 <input value="{{ $request->rfid ?? '' }}" name="rfid" type="text" class="form-control" placeholder="Scan RFID" aria-label="Recipient's username" aria-describedby="basic-addon2" onchange="this.form.submit()" autofocus>
@@ -152,7 +169,7 @@
             </div>
         </div>
 
-        <form method="GET" action="/guard-homepage">
+        <form method="GET" action="/guard-homepage-exit">
             <nav class="navbar navbar-light" style="background: #000080;">
                 <div class="form-row w-100">
 
@@ -182,7 +199,7 @@
                     </div>
 
                     <div class="col">
-                        <button type="button" class="btn btn-success" id="download"> Download </button>
+                        <!-- <button type="button" class="btn btn-success" id="download"> Download </button> -->
                     </div>
 
                 </div>
@@ -192,11 +209,12 @@
         </form>
 
         <div class="table-responsive">
-            <table class="table table-bordered">
+        <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">NAME</th>
                         <th scope="col">CATEGORY</th>
+                        <th scope="col">PLATE NUMBER</th>
                         <th scope="col">LOGIN TIME</th>
                         <th scope="col">LOGIN DATE</th>
                         <th scope="col">LOGOUT TIME</th>
@@ -208,33 +226,50 @@
                     @foreach ($parking_logs as $log)
                     <tr>
                         <td>
-                            @if(isset($log->vehicle->user->detail->firstname))
-                            {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
-                            @else
-                            {{ $log->vehicle->user->name }}
-                            @endif
+                            {{$log->fullname}}
                         </td>
-                        <td>{{ ucfirst($log->vehicle->user->category) }}</td>
+                        <td>{{$log->category }}</td>
+                        <td>{{ $log->plate_number }}</td>
                         <td>{{ $log->login_time }}</td>
                         <td>{{ $log->login_date }}</td>
                         <td>{{ $log->logout_time }}</td>
                         <td>{{ $log->logout_date }}</td>
-                        @if(count($log->vehicle->violations) > 0)
-                        <td>{{ $log->vehicle->violations[0]->specification }}</td>
-                        @else
-                        <td>No Violation</td>
-                        @endif
-
+                        <td>
+                            @if($log->remarks)
+                                {{$log->remarks}}
+                            @else
+                                No Violation
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-
+    </div>  
+    
+    <script>
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview')});
+            Instascan.Camera.getCameras().then(function(cameras){
+                if(cameras.length > 0){
+                    scanner.start(cameras[0]);
+                }else{
+                    alert('No camera found');
+                }
+            }).catch(function(e){
+                console.error(e)
+            });
+            scanner.addListener('scan', function(e){
+                console.log(e);
+                document.getElementById('text').value=e;
+                //submit qrcode
+                document.getElementById("qrcodeForm").submit();
+            });
+     </script>
+    
     <!-- Report Modal -->
     @include('modal.report');
-
+                        
 </body>
 
 </html>

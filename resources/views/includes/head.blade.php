@@ -35,3 +35,10 @@
 <!-- Sweat Alert -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="sweetalert2.all.min.js"></script>
+
+<script src="./node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+
+<link href="./node_modules/@grapecity/spread-sheets/styles/gc.spread.sheets.excel2013white.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./node_modules/@grapecity/spread-sheets/dist/gc.spread.sheets.all.min.js"></script>
+<script type="text/javascript" src="./node_modules/@grapecity/spread-excelio/dist/gc.spread.excelio.min.js"></script>

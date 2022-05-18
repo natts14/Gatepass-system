@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="col text-right">
-                    <button type="button" class="btn download" id="download"></button>
+                    <!-- <button type="button" class="btn btn-success" id="download">download</button> -->
                 </div>
             </div>
         </nav>
@@ -164,35 +164,37 @@
     };
 
     $(document).ready(function() {
+        var workbook = new GC.Spread.Sheets.Workbook(document.getElementById("ss"));
+    });
+
+    $(document).ready(function() {
         dTable = $('#userTable').DataTable({
             "paging": false,
             "ordering": false,
             "info": false,
             "dom": "lrtip",
-            dom: 'B',
-            lengthChange: false,
-            buttons: [{
-                text: 'Download',
-                className: 'btn btn-success',
-                extend: 'excelHtml5',
-            }, ],
-            initComplete: function() {
-                var btns = $('.dt-button');
-                btns.addClass('btn btn-success');
-                btns.removeClass('dt-button');
+            // dom: 'B',
+            // lengthChange: false,
+            // buttons: [{
+            //     text: 'Download',
+            //     className: 'btn btn-success',
+            //     extend: 'excelHtml5',
+            // }, ],
+            // initComplete: function() {
+            //     var btns = $('.dt-button');
+            //     btns.addClass('btn btn-success');
+            //     btns.removeClass('dt-button');
 
-            },
-            "columnDefs": [{
-                "targets": [0, 2],
-                "orderable": false
-            }],
-            "order": [
-                [1, "asc"]
-            ]
+            // },
+            // filterDropDown: {
+            //     columns: [
+            //         1
+            //     ]
+            // }
         });
 
 
-        dTable.buttons().container().appendTo($('#download'))
+        // dTable.buttons().container().appendTo($('#download'))
 
 
         $('#userSearch').keyup(function() {
