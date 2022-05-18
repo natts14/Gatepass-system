@@ -47,11 +47,67 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" name="status" value="1" />
 
+              <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                               
+                            </svg></span>
+                    </div>
+                   
+                    <input type="text" name="vehicle_plate_number" class="form-control" placeholder="Plate Number" id="plateNo" required>
+            
+                </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                              
+                            </svg></span>
+                    </div>
+                   
+                    <input type="text" name="vehicle_registration_number" class="form-control" placeholder="Vehicle Registration Number" id="vehicleRegistrationNo" required>
+                    <input type="file" name="license_document"  class="form-control" id="document" placeholder="Vehicle ORC">
+                </div>
+
+                <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              
+                            </svg></span>
+                    </div>
+                   
+                    <input class="form-control" type="date" name="vehicle_registration_expiry">
+                </div>
+
+                <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">       
+                            </svg></span>
+                    </div>
+                    <select class="form-control" name="type" value="" id="vehicleType" placeholder="Type" required>
+                        <option>TYPE</option>
+                        <option value="vehicle">VEHICLE</option>
+                        <option value="motercycle">MOTORCYCLE</option>
+                    </select>
+              
+                    <input type="text" name="model" class="form-control" id="plateNo" placeholder="Model" required>
+                </div>
+                
+                <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                
+                            </svg></span>
+                    </div>
+                   
+                    <input type="text" name="color" class="form-control" placeholder="Color" id="" required>
+                    <input type="file" name="license_document"  class="form-control" id="document" placeholder="Vehicle Photo">
+                </div>
+
+                <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                               
                             </svg></span>
                     </div>
                     <input type="text" autocomplete="off" name="name" id="name" value="{{ old('name') }}" class="form-control" placeholder="Username" required>
