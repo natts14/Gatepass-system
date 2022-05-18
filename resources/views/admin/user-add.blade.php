@@ -178,8 +178,9 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
-                    <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                    <input type="file" name="document" class="" id="document">
+                    <!-- <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
+                    <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button> -->
                 </div>
             </div>
         </div>
