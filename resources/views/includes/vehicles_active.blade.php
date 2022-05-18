@@ -5,7 +5,7 @@
             <h1>{{ $vehicle->vehicle_plate_number }}</h1>
         </div>
         <div class="form-group col-sm-3">
-            <h1>BARCODE</h1>
+            <h1></h1>
         </div>
     </div>
 

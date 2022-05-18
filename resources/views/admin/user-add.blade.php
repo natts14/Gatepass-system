@@ -18,7 +18,6 @@
         padding: 10px;
         width: 100%;
         font-size: 17px;
-        font-family: Raleway;
         border: 1px solid #aaaaaa;
     }
 
@@ -38,7 +37,6 @@
         border: none;
         padding: 10px 20px;
         font-size: 17px;
-        font-family: Raleway;
         cursor: pointer;
     }
 
@@ -178,8 +176,10 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
+                    <input type="file" class="form-control" name="document2" id="document">
+                    <!-- <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
+                 -->
                 </div>
             </div>
         </div>
@@ -205,7 +205,7 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file" name="document" id="document">
+                    <input type="file"class="form-control" name="document" id="document">
                     <!--
                     <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
@@ -216,7 +216,7 @@
             <div class="form-row">
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">TYPE</label>
-                    <select class="form-control mb-2" name="type" value="" id="vehicleType" placeholder="type" required>
+                    <select class="form-control mb-2" name="type" id="vehicleType" placeholder="type" required>
                         <option></option>
                         <option value="vehicle">VEHICLE</option>
                         <option value="motercycle">MOTORCYCLE</option>
@@ -225,17 +225,17 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">MODEL</label>
-                    <input type="text" name="model" value="" class="form-control" id="vehicleModel" required>
+                    <input type="text" name="model" class="form-control" id="vehicleModel" required>
                 </div>
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">COLOR</label>
-                    <input type="text" name="color" value="" class="form-control" id="vehicleColor" required>
+                    <input type="text" name="color" class="form-control" id="vehicleColor" required>
                 </div>
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">RFID</label><br>
-                    <input type="text" name="rfid" value="" class="form-control" id="RFID" maxlength="10" required>
+                    <input type="text" name="rfid" class="form-control" id="RFID" maxlength="10" required>
                 </div>
             </div>
         </div>

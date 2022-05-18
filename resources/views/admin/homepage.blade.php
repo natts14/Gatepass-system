@@ -100,7 +100,8 @@
                     </div>
 
                     <div class="col text-right">
-                        <button type="button" class="btn download mb-1" id="download"></button>
+                        <!-- <button type="button" class="btn btn-success" id="download"> Download </button> -->
+                        <!-- <button type="button" class="btn download mb-1" id="download"></button> -->
                     </div>
 
                 </div>
@@ -110,36 +111,43 @@
     </form>
     <!--TABLE-->
     <div class="table-responsive">
-        <table class="table table-borderless table-hover" id="homepageTable">
-            <thead class="thead-dark ">
-                <tr>
-                    <th scope="col">NAME</th>
-                    <th scope="col">CATEGORY</th>
-                    <th scope="col">LOGIN TIME</th>
-                    <th scope="col">LOGIN DATE</th>
-                    <th scope="col">LOGOUT TIME</th>
-                    <th scope="col">LOGOUT DATE</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($parking_logs as $log)
-                <tr>
-                    <td id="{{ 'clickableName'.$log->id }}" onclick="popUserInfo()">
-                        @if(isset($log->vehicle->user->detail->firstname))
-                        {{ $log->vehicle->user->detail->firstname.' '.$log->vehicle->user->detail->middlename.' '.$log->vehicle->user->detail->lastname }}
-                        @else
-                        {{ $log->vehicle->user->name }}
-                        @endif
-                    </td>
-                    <td>{{ ucfirst($log->vehicle->user->category) }}</td>
-                    <td>{{ $log->login_time }}</td>
-                    <td>{{ $log->login_date }}</td>
-                    <td>{{ $log->logout_time }}</td>
-                    <td>{{ $log->logout_date }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">NAME</th>
+                        <th scope="col">CATEGORY</th>
+                        <th scope="col">PLATE NUMBER</th>
+                        <th scope="col">LOGIN TIME</th>
+                        <th scope="col">LOGIN DATE</th>
+                        <th scope="col">LOGOUT TIME</th>
+                        <th scope="col">LOGOUT DATE</th>
+                        <th scope="col">REMARKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($parking_logs as $log)
+                    <tr>
+                        <td>
+                            {{$log->fullname}}
+                        </td>
+                        <td>{{$log->category }}</td>
+                        <td>{{ $log->plate_number }}</td>
+                        <td>{{ $log->login_time }}</td>
+                        <td>{{ $log->login_date }}</td>
+                        <td>{{ $log->logout_time }}</td>
+                        <td>{{ $log->logout_date }}</td>
+                        <td>
+                            @if($log->remarks)
+                                {{$log->remarks}}
+                            @else
+                                No Violation
+                            @endif
+                        </td>
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
     </div>
 
 </div>
@@ -165,11 +173,11 @@
             "dom": "lrtip",
             dom: 'B',
             lengthChange: false,
-            buttons: [{
-                text: 'Download',
-                className: 'btn btn-success',
-                extend: 'excelHtml5',
-            }],
+            // buttons: [{
+            //     text: 'Download',
+            //     className: 'btn btn-success',
+            //     extend: 'excelHtml5',
+            // }],
             initComplete: function() {
                 var btns = $('.dt-button');
                 btns.addClass('btn btn-success');
@@ -180,14 +188,10 @@
                     1
                 ]
             }
-            // dom: 'Q',
-            // searchBuilder: {
-            //     columns: [1]
-            // }
         });
 
 
-        dTable.buttons().container().appendTo($('#download'))
+        //dTable.buttons().container().appendTo($('#download'))
 
         // SEARCH
         $('#homepageSearch').keyup(function() {

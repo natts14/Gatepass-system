@@ -14,9 +14,9 @@ use App\Http\Controllers\Guard\ViolationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
  
 Route::group(['namespace'=> 'App\Http\Controllers'],function()
@@ -30,9 +30,9 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
     /**
     * Login Routes
     */
+    Route::get('/', 'Auth\LoginController@show')->name('login.show');
     Route::get('/login', 'Auth\LoginController@show')->name('login.show');
     Route::post('/login', 'Auth\LoginController@login')->name('login.perform');
-   
 
     Route::group(['middleware' => ['auth']], function() {
         /**
@@ -50,12 +50,14 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
          * Guard Homepage Dashboard
          */
         Route::get('/guard-homepage', 'Admin\Home\HomepageController@index')->name('guard.homepage');//same homepage
+        Route::get('/guard-homepage-exit', 'Admin\Home\HomepageController@exit')->name('guard.homepageExit');//same homepage
         Route::get('/guard-profile', 'Admin\Profile\ProfileController@index')->name('guard.profile.index');//same admin profile
         Route::get('/guard-events', 'Admin\Events\EventsController@today_events');
         Route::post('/guard-violation', [ViolationController::class, 'report']);
-        Route::post('/guard-scan-entrance', 'Admin\Home\HomepageController@entrance')->name('guard.entrance');
-        Route::post('/guard-scan-exit', 'Admin\Home\HomepageController@exit')->name('guard.exit');
-        Route::post('/guard-scan-barcode', 'Admin\Home\HomepageController@barcode')->name('guard.barcode');
+        Route::post('/guard-scan-user-entrance', 'Admin\Home\HomepageController@userEntrance')->name('user.entrance');
+        Route::post('/guard-scan-user-exit', 'Admin\Home\HomepageController@userExit')->name('user.exit');
+        Route::post('/guard-scan-visitour-entrance', 'Admin\Home\HomepageController@visitourEntrance')->name('visitour.entrance');
+        Route::post('/guard-scan-visitour-exit', 'Admin\Home\HomepageController@visitourExit')->name('visitour.exit');
         /**
          * Admin Profile
          */

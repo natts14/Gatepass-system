@@ -20,6 +20,9 @@
 
     <!-- Barcode CDN -->
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <!-- QRCODE -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
 </head>
 
 <body>
@@ -72,7 +75,7 @@
                 <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a> -->
                     @endif
                     <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">ACTIVE VEHICLE</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">INACTIVE VEHICLE</a>
+                    <!-- <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">INACTIVE VEHICLE</a> -->
                 </div>
 
                 <hr><br>
@@ -149,11 +152,15 @@
                                 </div>
                                 @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                                 <div class="form-group col-md-3 text-center">
+                                    <!--QRCODE -->
+                                    <input type="hidden" id="myID" value="{{$user->id}}">
+                                    <div id="qrcode"></div>
+
                                     <!-- BARCODE -->
-                                    @if(isset($user->vehicles))
-                                      <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold"> 
+                                    <!-- @if(isset($user->vehicles))
+                                      <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">  -->
                                     <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
-                                    @endif
+                                    <!-- @endif -->
                                 </div>
                                 @endif
 
@@ -271,7 +278,7 @@
                             <h2>ACTIVE VEHICLES</h2>
                             <hr>
                             <div class="form-group col-sm-8 text-right">
-                                <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button>
+                                <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button> -->
                             </div>
 
                             @include('includes.vehicles_active')
@@ -325,6 +332,11 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+
+        new QRCode(document.getElementById("qrcode"), $('#myID').val());
+    </script>
 
     @if($errors->report->any())
     <script>

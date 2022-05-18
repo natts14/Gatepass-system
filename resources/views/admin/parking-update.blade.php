@@ -26,8 +26,6 @@
                         <label>CAPACITY</label>
                         <input type="text" class="form-control" id="" name="capacity" value="{{$parking->capacity}}" placeholder="">
                     </div>
-                </div> <br>
-                <div class="row ">
                     <div class="col-sm">
                         <label>PARKING TYPE</label>
                         <div class="ml-4">
@@ -39,14 +37,17 @@
                             <label class="form-check-label">MOTORCYCLE</label>
                         </div>
                     </div>
+                </div> <br>
+                <div class="row ">
+
                     <div class="col-sm">
-                        <label>SENSOR ID</label>
+                        <!-- <label>SENSOR ID</label>
                         <select class="form-control" id="sensorID" name="sensor_id" placeholder="">
                             <option {{ $parking->sensor_id == 'ABC' ? 'selected': '' }} value="ABC">ABC</option>
                             <option {{ $parking->sensor_id == 'DEF' ? 'selected': '' }} value="DEF">DEF</option>
                         </select>
                         <label for="favcolor">SLOT COLOR: </label>
-                        <input type="color" class="mt-1" id="slotColor" name="slot_color" value="{{$parking->slot_color}}"><br><br>
+                        <input type="color" class="mt-1" id="slotColor" name="slot_color" value="{{$parking->slot_color}}"><br><br> -->
                     </div>
                 </div>
 
