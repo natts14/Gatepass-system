@@ -89,7 +89,7 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::post('/admin-parking-space', 'Admin\ParkingSpace\ParkingSpaceController@store');
         Route::get('/admin-parking-space/{parking}/edit', 'Admin\ParkingSpace\ParkingSpaceController@edit');
         Route::put('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@update');
-        Route::delete('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@destroy');
+        Route::get('/admin-parking-space/{parking}', 'Admin\ParkingSpace\ParkingSpaceController@destroy');
          /**
          * Admin Request
          */

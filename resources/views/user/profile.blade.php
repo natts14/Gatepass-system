@@ -70,7 +70,7 @@
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a>
                     @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
-                    <a class="nav-link" id="v-pills-event-tab" data-toggle="pill" href="#v-pills-event" role="tab" aria-controls="v-pills-event" aria-selected="false">EVENT</a>
+                    <!-- <a class="nav-link" id="v-pills-event-tab" data-toggle="pill" href="#v-pills-event" role="tab" aria-controls="v-pills-event" aria-selected="false">EVENT</a> -->
          <!--       <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
                 <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a> -->
                     @endif
@@ -205,7 +205,7 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-sm-3">
-                                    <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
+                                    <!-- <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> -->
                                     <!--  -->
                                     <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
@@ -220,7 +220,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
+                    <!-- <div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
                     <div class="notification" id="notification">
                     <br>
                         <h2>EVENT</h2>
@@ -233,7 +233,7 @@
                         <br>
                         <hr>
                     </div>
-                </div>
+                </div> -->
 
 <!--
                     <div class="tab-pane fade" id="v-pills-trans" role="tabpanel" aria-labelledby="v-pills-trans-tab">

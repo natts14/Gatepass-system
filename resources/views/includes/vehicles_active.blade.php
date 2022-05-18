@@ -38,12 +38,12 @@
 
     <div class="form-row">
         <div class="form-group col-sm-3">
-            <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-            <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#"><i class="fas fa-paperclip"></i></button>
+            <!-- <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br> -->
+
         </div>
         <div class="form-group col-sm-5 text-right"><br>
       <!--      <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">EDIT</button> -->
-            <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">REMOVE</button>
+            <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">REMOVE</button> -->
         </div>
     </div> 
 </div>

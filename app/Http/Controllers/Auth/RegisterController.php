@@ -79,7 +79,7 @@ class RegisterController extends Controller
         // $user = User::create($request->validated());
         // $vehicle = Vehicle::create($request->validated());
         
-        // auth()->login($user);
+         auth()->login($user);
 
         return redirect('/login')->with('success', "Account successfully registered.");
     }
