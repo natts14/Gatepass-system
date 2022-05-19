@@ -65,12 +65,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="attachedoc" class="font-weight-bold">ATTACH DOCUMENT</label><br>
-                            <input type="file" name="license_document" id="document">
+                            <input type="file" name="document" id="document" required>
                             <!-- <button type="button" class="btn btn-default btn-sm " onclick=""><i class="fas fa-paperclip"></i></button> -->
                         </div>
                     </div>
                     <hr>
-                    <p class="text-center">Upon submitting your application status will will be pending and to be approved</p>
+                    <!-- <p class="text-center">Upon submitting your application status will will be pending and to be approved</p> -->
 
                 </div>
                 <div class="modal-footer">

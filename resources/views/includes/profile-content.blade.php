@@ -138,7 +138,7 @@
                         @endif
                         <div class="form-row">
                             <div class="form-group col-sm-3">
-                                <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
+                                <!-- <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> -->
                                 <!--  -->
                                 <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
@@ -147,7 +147,7 @@
                             </div>
                             <div class="form-group col-sm-5 text-right"><br>
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#licenseModal">EDIT </button>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="enterLicenseDetails()">RENEW</button>
+                                <!-- <button type="button" class="btn btn-primary btn-sm" onclick="enterLicenseDetails()">RENEW</button> -->
                             </div>
                         </div>
                     </div>
