@@ -43,7 +43,7 @@
         <h3>Create Account</h3>
         <p>It's quick and easy!</p>
         <div class="signUpForm">
-            <form action="{{ route('register.perform') }}" method="POST" class="needs-validation" id="signup" required>
+            <form action="{{ route('register.perform') }}" method="POST" class="needs-validation" id="signup" enctype="multipart/form-data" required>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" name="status" value="1" />
                 <input type="hidden" name="rfid" value="2"/>
