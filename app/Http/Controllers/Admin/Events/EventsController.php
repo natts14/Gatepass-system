@@ -10,7 +10,9 @@ class EventsController extends Controller
 {
     public function index() 
     {
-        $events = Event::whereStatus(1)->whereDate('date_ended_at', '>=', now())->get();
+       // $events= Event::all();
+    //    whereStatus(1)->
+         $events = Event::whereDate('date_ended_at', '>=', now())->get();
         return view('admin.events',['events'=>$events]);
     }
 

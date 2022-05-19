@@ -26,15 +26,15 @@ class ParkingSpaceController extends Controller
             'area_code'=> 'required',
             'capacity' => 'required',
             'parking_type' => 'required',
-            'sensor_id' => 'required',
-            'slot_color' => 'required'
+           // 'sensor_id' => 'required',
+           // 'slot_color' => 'required'
         ]);
         ParkingLot::create([
             'area_code'=>request('area_code'),
             'capacity'=>request('capacity'),
             'parking_type'=>request('parking_type'),
-            'sensor_id' => request ('sensor_id'),
-            'slot_color' => request ('slot_color')
+           // 'sensor_id' => request ('sensor_id'),
+          //  'slot_color' => request ('slot_color')
         ]);
 
         return redirect('/admin-parking-space');
@@ -51,16 +51,16 @@ class ParkingSpaceController extends Controller
             'area_code'=> 'required',
             'capacity' => 'required',
             'parking_type' => 'required',
-            'sensor_id' => 'required',
-            'slot_color' => 'required'
+          //  'sensor_id' => 'required',
+           // 'slot_color' => 'required'
         ]);
 
         $parking->update([
             'area_code'=> request('area_code'),
             'capacity'=> request('capacity'),
             'parking_type' => request('parking_type'),
-            'sensor_id' => request ('sensor_id'),
-            'slot_color' => request ('slot_color')
+          //  'sensor_id' => request ('sensor_id'),
+           // 'slot_color' => request ('slot_color')
         ]);
 
         return redirect ('/admin-parking-space');

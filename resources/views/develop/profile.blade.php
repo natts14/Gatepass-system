@@ -313,7 +313,7 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="Password" class="font-weight-bold">PASSWORD</label>
-                                        <input type="password" placeholder="******" class="form-control" name="password">
+                                        <input type="password" placeholder="********" class="form-control" name="password">
                                     </div>
                                 </div>
                                 

@@ -65,7 +65,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="attachedoc" class="font-weight-bold">ATTACH DOCUMENT</label><br>
-                            <input type="file" name="document" id="document">
+                            <input type="file" name="license_document" id="document">
                             <!-- <button type="button" class="btn btn-default btn-sm " onclick=""><i class="fas fa-paperclip"></i></button> -->
                         </div>
                     </div>

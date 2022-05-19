@@ -71,7 +71,7 @@
 
                 <img src="{{ asset('image/BukSUMap.jpg') }}" width="100%" alt="">
 
-                <div class="text-right mt-2">
+                <!-- <div class="text-right mt-2">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customInput" required>
                         <label class="custom-file-label" for="customInput">
@@ -79,7 +79,7 @@
                         </label>
                     </div>
 
-                </div>
+                </div> -->
 
             </div>
         </div>
