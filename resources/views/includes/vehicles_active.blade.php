@@ -44,8 +44,10 @@
 
     <div class="form-row">
         <div class="form-group col-sm-3">
-            <!-- <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br> -->
-
+            <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
+            @if(isset($user->vehicle))
+                 <img src="{{url('image/documents/'.$user->vehicle->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
+              @endif
         </div>
         <div class="form-group col-sm-5 text-right"><br>
       <!--      <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">EDIT</button> -->

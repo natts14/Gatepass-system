@@ -203,11 +203,13 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-sm-3">
-                                    <!-- <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> -->
-                                    <!--  -->
-                                    <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
+                                    <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> 
+                                    @if(isset($user->license))
+                                   <img src="{{url('image/documents/'.$user->license->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
+                                   @endif
+                                   <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
-                                </button> -->
+                                </button>  -->
 
                                 </div>
                                 @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
