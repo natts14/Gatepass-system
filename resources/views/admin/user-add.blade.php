@@ -220,7 +220,7 @@
                     <select class="form-control mb-2" name="type" id="vehicleType" placeholder="type" required>
                         <option></option>
                         <option value="vehicle">VEHICLE</option>
-                        <option value="motercycle">MOTORCYCLE</option>
+                        <option value="motorcycle">MOTORCYCLE</option>
                     </select>
                 </div>
 
