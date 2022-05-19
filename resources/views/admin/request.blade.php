@@ -5,7 +5,6 @@
 
 <nav class="navBarRequest mt-3 mb-3 mx-auto nav nav-pills nav-justified w-75" style="background: #000080;">
     <a class="nav-item nav-link active text-white" href="/admin-request">VEHICLE @if($vehicles_count > 0)<span class="badge badge-danger">{{$vehicles_count}}</span>@endif</a></a>
-    <a class="nav-item nav-link text-white" href="/admin-request-renewal">VEHICLE RENEWAL @if($renewals_count > 0)<span class="badge badge-danger">{{$renewals_count}}</span>@endif</a>
     <!-- <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT @if($events_count > 0)<span class="badge badge-danger">{{$events_count}}</span>@endif</a> -->
     <a class="nav-item nav-link text-white" href="/admin-request-license">DRIVERS LICENSE @if($license_count > 0)<span class="badge badge-danger">{{$license_count}}</span>@endif</a>
 </nav>
