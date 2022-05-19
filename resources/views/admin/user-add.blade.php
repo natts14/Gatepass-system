@@ -84,7 +84,7 @@
         @endif
     </div>
 
-    <form id="regForm" action="/admin-userpage/register" class="needs-validation" method="POST" id="admin_adduser" required>
+    <form id="regForm" action="/admin-userpage/register" class="needs-validation" method="POST" id="admin_adduser" enctype="multipart/form-data" required>
         @csrf
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
@@ -177,7 +177,7 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file" class="form-control" name="document" id="document" required>
+                    <input type="file"  name="license_document" id="document" required>
                     <!-- <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
                  -->
@@ -206,7 +206,7 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file"class="form-control" name="document" id="document" required>
+                    <input type="file" name="vehicle_document" id="document" required>
                     <!--
                     <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>

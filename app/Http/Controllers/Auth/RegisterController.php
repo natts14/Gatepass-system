@@ -60,7 +60,7 @@ class RegisterController extends Controller
     $vehicle = $user->vehicles()->create($user_vehicle);
     if (isset($request->vehicle_document)) {
         $request->validate([
-            'license_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           
             'vehicle_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $imageName = time().'.'.$request->vehicle_document->extension(); 
@@ -73,6 +73,31 @@ class RegisterController extends Controller
             'name' => $imageName,
             'type' => 'vehicle'
         ]);
+    }
+      //create drives license
+      if (isset($request->drivers_license_number)) {
+        $user_license = [
+            // 'drivers_license_number' => request('drivers_license_number'),
+            // 'drivers_license_expiry' => request('drivers_license_expiry'),
+            // 'license_type' => request('license_type'),
+            // 'status' => 2
+        ];
+        $license = $user->license()->create($user_license);
+        if (isset($request->license_document)) {
+            $request->validate([
+                'license_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $imageName = time().'.'.$request->license_document->extension(); 
+
+            $request->license_document->move(public_path('image/documents'), $imageName);
+            //save to table
+            Document::create([
+                'user_id' => $user->id,
+                'document_id' => $license->id,
+                'name' => $imageName,
+                'type' => 'license'
+            ]);
+        }
     }
 }
 

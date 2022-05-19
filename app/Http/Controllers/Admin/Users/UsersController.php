@@ -180,7 +180,7 @@ class UsersController extends Controller
             $vehicle = $user->vehicles()->create($user_vehicle);
             if (isset($request->vehicle_document)) {
                 $request->validate([
-                    'license_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'vehicle_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 ]);
                 $imageName = time().'.'.$request->vehicle_document->extension(); 
     
