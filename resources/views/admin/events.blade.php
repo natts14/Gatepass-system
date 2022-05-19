@@ -4,7 +4,7 @@
 <div>
     <div class="text-right p-2">
         <a href="/admin-events-add"><button type="button" class="btn btn-success" id="eventHistry"> ADD EVENT </button></a>
-        <a href="/admin-events-history"><button type="button" class="btn btn-success" id="eventHistry"> HISTORY </button></a>
+        
     </div>
 </div>
 
