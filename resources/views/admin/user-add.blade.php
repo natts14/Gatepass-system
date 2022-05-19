@@ -145,6 +145,7 @@
                         <option value="student">STUDENT</option>
                         <option value="employee">EMPLOYEE</option>
                         <option value="guard">GUARD</option>
+                        <option value="admin">ADMIN</option>
                     </select>
                 </div>
             </div>
@@ -176,7 +177,7 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file" class="form-control" name="document2" id="document">
+                    <input type="file" class="form-control" name="document" id="document" required>
                     <!-- <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
                  -->
@@ -205,7 +206,7 @@
 
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file"class="form-control" name="document" id="document">
+                    <input type="file"class="form-control" name="document" id="document" required>
                     <!--
                     <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
                     <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>

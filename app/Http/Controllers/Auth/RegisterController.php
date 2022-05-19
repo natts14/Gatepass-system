@@ -54,7 +54,7 @@ class RegisterController extends Controller
         'model' => request('model'),
         'type' => request('type'),
         'color' => request('color'),
-       // 'rfid' => request('rfid'),
+        'rfid' => 2,
         'status' => 1
     ];
     $vehicle = $user->vehicles()->create($user_vehicle);
@@ -79,7 +79,7 @@ class RegisterController extends Controller
         // $user = User::create($request->validated());
         // $vehicle = Vehicle::create($request->validated());
         
-         auth()->login($user);
+        // auth()->login($user);
 
         return redirect('/login')->with('success', "Account successfully registered.");
     }

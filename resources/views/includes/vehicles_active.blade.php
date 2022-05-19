@@ -19,6 +19,12 @@
             <input type="text" readonly class="form-control-plaintext" id="vehicleExpiryDate" 
                 value="{{ $carbon::parse($vehicle->vehicle_registration_expiry)->toFormattedDateString() }}">
         </div>
+        @if($user->category != 'visitor') 
+        <div class="form-group col-sm-3">
+            <label for="vehicleRegistarationNo" class="font-weight-bold">RFID</label>
+            <input type="text" readonly class="form-control-plaintext" id="vehicleRegistarationNo" value="{{ $vehicle->rfid}}">
+        </div>
+        @endif
     </div>
 
     <div class="form-row">

@@ -190,6 +190,9 @@
                             <option value="employee" {{ $request->category == 'employee' ? 'selected': '' }}>Employee</option>
                             <option value="student" {{ $request->category == 'student' ? 'selected': '' }}>Student</option>
                             <option value="visitor" {{ $request->category == 'visitor' ? 'selected': '' }}>Visitor</option>
+                            <option value="visitor" {{ $request->category == 'guard' ? 'selected': '' }}>Guard</option>
+                            <option value="visitor" {{ $request->category == 'admin' ? 'selected': '' }}>Admin</option>
+                       
                         </select>
                     </div>
 

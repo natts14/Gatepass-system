@@ -31,7 +31,7 @@
                     <div class="form-row">
                         <div class="form-group col-sm-4">
                             <label class="font-weight-bold">DOCUMENTS</label><br>
-                            <input type="file" name="document" id="document">
+                            <input type="file" name="document" id="document" required>
                         </div>
 
                         <div class="form-group col-sm-4">

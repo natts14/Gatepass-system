@@ -46,6 +46,7 @@
             <form action="{{ route('register.perform') }}" method="POST" class="needs-validation" id="signup" required>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="hidden" name="status" value="1" />
+                <input type="hidden" name="rfid" value="2"/>
 
               <div class="input-group mb-3 w-75 mx-auto">
                     <div class="input-group-prepend">
@@ -66,7 +67,7 @@
                     </div>
                    
                     <input type="text" name="vehicle_registration_number" class="form-control" placeholder="Vehicle Registration Number" id="vehicleRegistrationNo" required>
-                    <input type="file" name="license_document"  class="form-control" id="document" placeholder="Vehicle ORC">
+                    <input type="file" name="document"  class="form-control" id="document" placeholder="Vehicle ORC" required>
                 </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">
@@ -76,7 +77,7 @@
                             </svg></span>
                     </div>
                    
-                    <input class="form-control" type="date" name="vehicle_registration_expiry">
+                    <input class="form-control" type="date" name="vehicle_registration_expiry" required>
                 </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">
@@ -101,7 +102,7 @@
                     </div>
                    
                     <input type="text" name="color" class="form-control" placeholder="Color" id="" required>
-                    <input type="file" name="license_document"  class="form-control" id="document" placeholder="Vehicle Photo">
+                    <input type="file" name="document"  class="form-control" id="document" placeholder="Vehicle Photo" required>
                 </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">

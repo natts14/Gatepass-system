@@ -148,10 +148,12 @@
 
                                 <div class="form-group col-md-3">
                                     <label for="Password" class="font-weight-bold"> PASSWORD</label>
-                                    <input type="password" readonly class="form-control-plaintext" id="Password" value="******">
+                                    <input type="password" readonly class="form-control-plaintext" id="Password" value="********">
                                 </div>
-                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
-                                <div class="form-group col-md-3 text-center">
+                            </div>
+                            <div class="form-row">
+                            @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
+                                <div class="form-group col-md-3">
                                     <!--QRCODE -->
                                     <input type="hidden" id="myID" value="{{$user->id}}">
                                     <div id="qrcode"></div>
@@ -163,11 +165,7 @@
                                     <!-- @endif -->
                                 </div>
                                 @endif
-
-                            </div>
-                          
-
-
+                        </div>
                             <h4>LICENSE DETAILS</h4>
                             @if(isset($user->license))
                             <div class="form-row">
@@ -212,10 +210,12 @@
                                 </button> -->
 
                                 </div>
+                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                                 <div class="form-group col-sm-5 text-right"><br>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#licenseModal">EDIT </button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick="enterLicenseDetails()">RENEW</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#licenseModal">ADD</button>
+                                    <!-- <button type="button" class="btn btn-primary btn-sm" onclick="enterLicenseDetails()">RENEW</button> -->
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
