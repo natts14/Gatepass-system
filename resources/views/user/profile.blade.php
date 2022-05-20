@@ -114,10 +114,7 @@
                                     <input type="text" readonly class="form-control-plaintext" id="surname" value="{{ $user->detail->lastname ?? 'NULL' }}">
                                 </div>
 
-                                <div class="form-group col-md-3">
-                                    <label for="surname" class="font-weight-bold">SUFFIX</label>
-                                    <input type="text" readonly class="form-control-plaintext" id="suffix" value="">
-                                </div>
+                               
                             </div>
 
 

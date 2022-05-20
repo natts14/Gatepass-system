@@ -13,7 +13,7 @@
             </div>
 
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <!-- <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a> -->
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a>
                 @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                     <a class="nav-link" id="v-pills-event-tab" data-toggle="pill" href="#v-pills-event" role="tab" aria-controls="v-pills-event" aria-selected="false">EVENT</a>
          <!--       <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
@@ -22,6 +22,7 @@
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">ACTIVE VEHICLE</a>
                 <!-- <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">INACTIVE VEHICLE</a> -->
             </div>
+
 
             <hr><br>
             <footer class="container-fluid">
@@ -61,10 +62,7 @@
                                 <input type="text" readonly class="form-control-plaintext" id="surname" value="{{ $user->detail->lastname ?? 'NULL' }}">
                             </div>
 
-                            <div class="form-group col-md-3">
-                                <label for="surname" class="font-weight-bold">SUFFIX</label>
-                                <input type="text" readonly class="form-control-plaintext" id="suffix" value="">
-                            </div>
+                            
                         </div>
 
 
@@ -140,7 +138,7 @@
                             <div class="form-group col-sm-3">
                                 <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> 
                                 @if(isset($user->license))
-                                  <img src="{{url('image/documents/'.$user->license->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
+                                  
                                    @endif
                                 <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
