@@ -67,7 +67,7 @@
                     </div>
                    
                     <input type="text" name="vehicle_registration_number" class="form-control" placeholder="Vehicle Registration Number" id="vehicleRegistrationNo" required>
-                    <input type="file" name="vehicle_document"  class="form-control" id="document" placeholder="Vehicle ORC" required>
+                    <input type="text" name="color" class="form-control" placeholder="Color" id="" required>
                 </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">
@@ -93,16 +93,23 @@
               
                     <input type="text" name="model" class="form-control" id="plateNo" placeholder="Model" required>
                 </div>
-                
+                <div class="input-group mb-3 w-75 mx-auto">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                
+                        </svg></span>
+                    </div>
+                    <input type="file" name="vehicle_front"  class="form-control" id="document" placeholder="Vehicle ORC" required>
+                    <input type="file" name="vehicle_back"  class="form-control" id="document" placeholder="Vehicle Photo" required>
+                </div>
                 <div class="input-group mb-3 w-75 mx-auto">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 
                             </svg></span>
                     </div>
-                   
-                    <input type="text" name="color" class="form-control" placeholder="Color" id="" required>
-                    <input type="file" name="license_document"  class="form-control" id="document" placeholder="Vehicle Photo" required>
+                    <input type="file" name="vehicle_left"  class="form-control" id="document" placeholder="Vehicle ORC" required>
+                    <input type="file" name="vehicle_right"  class="form-control" id="document" placeholder="Vehicle Photo" required>
                 </div>
 
                 <div class="input-group mb-3 w-75 mx-auto">

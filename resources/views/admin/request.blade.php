@@ -32,15 +32,16 @@
                     <label class="font-weight-bold">CATEGORY</label>
                     <p class="h4" id="category">{{ strtoupper($vehicle->user->category) }}</p>
                 </div>
+                <div class="col">
+                    <label class="font-weight-bold">VEHICLE REGISTRATION NO.</label>
+                    <p>{{ $vehicle->vehicle_registration_number }}</p>
+                </div>
             </div>
         </div>
         <br>
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <label class="font-weight-bold">VEHICLE REGISTRATION NO.</label>
-                    <p>{{ $vehicle->vehicle_registration_number }}</p>
-                </div>
+
                 <div class="col">
                     <label class="font-weight-bold">EXPIRY DATE</label>
                     <p>{{ $carbon::parse($vehicle->vehicle_registration_expiry)->toFormattedDateString() }}</p>
@@ -49,11 +50,6 @@
                     <label class="font-weight-bold">MODEL</label>
                     <p>{{ $vehicle->model }}</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">TYPE</label>
                     <p id="type">VEHICLE</p>
@@ -62,16 +58,35 @@
                     <label class="font-weight-bold">COLOR</label>
                     <p id="color">WHITE</p>
                 </div>
-                <div class="col">
-                    <label class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-                    <button type="button" class="btn btn-outline-secondary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                            <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                        </svg></button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                            <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                        </svg></button>
+            </div>
+        </div>
+
+        <div class="container">
+             <label class="font-weight-bold">ATTACHED DOCUMENT</label><br>
+            <div class="row">
+            @if(isset($vehicle->document))
+                <div class="col-sm-3">
+                  <label class="font-weight-bold">FRONT</label><br>
+                  <img src="{{url('image/documents/'.$vehicle->document->front )}}" class="img-fluid" alt="Responsive image">
                 </div>
-                <div class="col d-flex text-right">
+                <div class="col-sm-3">
+                  <label class="font-weight-bold">BACK</label><br>
+                  <img src="{{url('image/documents/'.$vehicle->document->back )}}" class="img-fluid" alt="Responsive image">
+                </div>
+                <div class="col-sm-3">
+                  <label class="font-weight-bold">LEFT</label><br>
+                  <img src="{{url('image/documents/'.$vehicle->document->left )}}" class="img-fluid" alt="Responsive image">
+                </div>
+                <div class="col-sm-3">
+                  <label class="font-weight-bold">RIGHT</label><br>
+                  <img src="{{url('image/documents/'.$vehicle->document->right )}}" class="img-fluid" alt="Responsive image">
+                </div>
+                @endif
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                   </div>
+                <div class="col d-flex text-center">
                     <br>
                     <form action="{{ url('/admin-request-vehicle', ['vehicle' => $vehicle->id]) }}" method="POST">
                         @csrf
@@ -84,7 +99,7 @@
                         <button type="submit" class="btn btn-dark" id="cancelEvent"> DECLINE </button>
                     </form>
                 </div>
-            </div>
+            </div> 
         </div>
     </div>
    

@@ -193,7 +193,7 @@
                 </div>
 
                 <div class="form-group col-sm-3">
-                    <label class="font-weight-bold">VEHICLE REGISTRATION NO.</label>
+                    <label class="font-weight-bold">VEHICLE REGISTRATION</label>
                     <input type="text" name="vehicle_registration_number" class="form-control" id="vehicleRegistrationNo" required>
                 </div>
 
@@ -204,14 +204,6 @@
                     <!-- </form> -->
                 </div>
 
-                <div class="form-group col-sm-3">
-                    <label class="font-weight-bold">DOCUMENTS</label><br>
-                    <input type="file" name="vehicle_document" id="document" required>
-                    <!--
-                    <button type="button" class="btn btn-default btn-sm" name="licenseDocu"></button><i class="fas fa-paperclip"></i></button>
-                    <button type="button" class="btn btn-default btn-sm "></button><i class="fas fa-paperclip"></i></button>
--->
-                </div>
             </div>
 
             <div class="form-row">
@@ -237,6 +229,28 @@
                 <div class="form-group col-sm-3">
                     <label class="font-weight-bold">RFID</label><br>
                     <input type="text" name="rfid" class="form-control" id="RFID" maxlength="10" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-sm-3">
+                 <label class="font-weight-bold">FRONT</label><br>
+                    <input type="file" name="vehicle_front" id="document" required>
+                </div>
+
+                <div class="form-group col-sm-3">
+                    <label class="font-weight-bold">BACK</label><br>
+                    <input type="file" name="vehicle_back" id="document" required>
+                </div>
+
+                <div class="form-group col-sm-3">
+                   <label class="font-weight-bold">LEFT</label><br>
+                    <input type="file" name="vehicle_left" id="document" required>
+                </div>
+
+                <div class="form-group col-sm-3">
+                   <label class="font-weight-bold">RIGHT</label><br>
+                    <input type="file" name="vehicle_right" id="document" required>
                 </div>
             </div>
         </div>
