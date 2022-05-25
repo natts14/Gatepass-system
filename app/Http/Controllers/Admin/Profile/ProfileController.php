@@ -13,12 +13,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\ParkingLogs;
+use App\Models\Vehicle;
+use App\Models\Violation;
 
 class ProfileController extends Controller
 {
     public function index() 
     {
         $user = Auth::user();
+        $parking_logs = ParkingLogs::select('*')->get();
+        $my_vehicles = Vehicle::select('*')->get();
+        $violations = Violation::select('*')->get();
+        
+        $my_parking_logs=[];
+        $my_violation=[];
         //use in blade 
         // $user->detail; $user->licenses;  $user->vehicles
         $vehicles = [
@@ -40,7 +49,31 @@ class ProfileController extends Controller
         }else {
             $view = 'user';
         }
-        return view($view.'.profile', ['user' => $user, 'vehicles' => $vehicles, 'transactions' => $transactions, 'notifications' => $notifications]);
+        // return parking_logs($user->id);
+   
+        foreach($parking_logs as $parking_log){
+            if($parking_log->user_id==$user->id){
+                array_push($my_parking_logs, $parking_log);
+            }
+        }
+        foreach($my_vehicles as $vehicle){
+            if($vehicle->user_id == $user->id){
+                foreach($violations as $violation){
+                        if($violation->violation_id == $vehicle->vehicle_plate_number){
+                            array_push($my_violation, $violation);
+                        }
+                }
+            }
+        }
+      
+        return view($view.'.profile', [
+            'parking_logs'=>$my_parking_logs,
+            'violation'=>$my_violation,
+            'user' => $user, 
+            'vehicles' => $vehicles, 
+            'transactions' => $transactions, 
+            'notifications' => $notifications
+        ]);
     }
 
     public function update(Request $request, $profile) {

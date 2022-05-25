@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="HandheldFriendly" content="true">
 
-    <link rel="stylesheet" href="css/stylesheet.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -72,6 +71,12 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="col-sm-12 pt-4">
+                    @if ($message = Session::get('error'))
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ $message }}
+                    </div>
+                    @endif
                     <center><h1>ENTRANCE GATE</h1></center>
                         <video id="preview" width="100%"></video>
                         <form id="qrcodeForm" action="/guard-scan-visitour-entrance" method="POST">
@@ -251,6 +256,7 @@
     </div>  
     
     <script>
+        $( document ).ready(function() {
             let scanner = new Instascan.Scanner({ video: document.getElementById('preview')});
             Instascan.Camera.getCameras().then(function(cameras){
                 if(cameras.length > 0){
@@ -267,6 +273,7 @@
                 //submit qrcode
                 document.getElementById("qrcodeForm").submit();
             });
+        });
      </script>
     
     <!-- Report Modal -->

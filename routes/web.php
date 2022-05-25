@@ -105,6 +105,10 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
         Route::put('/admin-request-license/{license}', 'Admin\Request\RequestController@approve_license');
         Route::delete('/admin-request-license/{license}', 'Admin\Request\RequestController@decline_license');
 
+        Route::get('/admin-request-visitor', 'Admin\Request\RequestController@visitor')->name('visitor.request');
+        Route::put('/admin-request-visitor/{visitor}', 'Admin\Request\RequestController@approvevisitor');
+        Route::delete('/admin-request-visitor/{visitor}', 'Admin\Request\RequestController@decline_visitor');
+
         Route::get('/admin-request-renewal', 'Admin\Request\RequestController@renewal')->name('renewal.request');
         Route::put('/admin-request-renewal/{renewal}', 'Admin\Request\RequestController@approve_renewal');
         Route::delete('/admin-request-renewal/{renewal}', 'Admin\Request\RequestController@decline_renewal');

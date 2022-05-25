@@ -8,6 +8,7 @@
     
     <!-- <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT @if($events_count > 0)<span class="badge badge-danger">{{$events_count}}</span>@endif</a> -->
     <a class="nav-item nav-link text-white active" href="/admin-request-license">DRIVERS LICENSE @if($license_count > 0)<span class="badge badge-danger">{{$license_count}}</span>@endif</a>
+    <a class="nav-item nav-link text-white" href="/admin-request-visitor">VISITOR @if($user_count > 0)<span class="badge badge-danger">{{$user_count}}</span>@endif</a></a>
 </nav>
 
 @foreach ($licenses as $license)
@@ -17,7 +18,7 @@
             <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">FIRST NAME</label>
-                    <p class="h4" id="UserInfoLastname">{{ $license->user->detail->firstname ?? $license->user->name }}</p>
+                    <p class="h4" id="UserInfoLastname">{{ $license->user->detail->firstname ?? $license->name }}</p>
                 </div>
                 <div class="col">
                     <label class="font-weight-bold">MIDDLE NAME</label>

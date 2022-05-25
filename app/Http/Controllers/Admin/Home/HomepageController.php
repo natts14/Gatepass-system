@@ -222,7 +222,8 @@ class HomepageController extends Controller
     public function userEntrance(Request $request){
         $dt = Carbon::now()->toTimeString();
         $vehicle = Vehicle::select('*')->get();
-      
+
+
         foreach($vehicle as $vehicles){
             if($vehicles->rfid == request('rfid')){
                ParkingLogs::create([
@@ -266,8 +267,14 @@ class HomepageController extends Controller
    public function visitourEntrance(Request $request){
     $dt = Carbon::now()->toTimeString();
     $vehicle = Vehicle::select('*')->get();
-  
+    $users = User::select('*')->get();
+    
     foreach($vehicle as $vehicles){
+        foreach($users as $user){
+            if($user->id == $vehicles->user_id && $user->status == 2){
+                return redirect('/guard-homepage')->with('error', "Visitor is not verfied!");
+            }
+        }
         if($vehicles->user_id == request('qrcode')){
            ParkingLogs::create([
                'rfid'=> $vehicles->rfid,
