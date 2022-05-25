@@ -6,8 +6,8 @@
         <div class="col-md-3">
             <div class="profile-header text-center"><br>
                 <img src="{{ asset('image/avatar.png') }}" class="rounded-circle" alt="profile" width="200" height="200">
-                <h3 id="surname">MONSERRAT</h3>
-                <h4 id="firstname">SHERYL KATE</h4>
+                <h3 id="surname"> </h3>
+                <h4 id="firstname"> </h4>
                 <hr>
             </div>
 

@@ -42,7 +42,7 @@ class RegisterController extends Controller
           'name' => request('name'), //username
           'email' => request('email'),
           'password' => request('password'),
-         'status' => 1
+         'status' => 2
          ];
          $user = User::create($user_data);
 
@@ -56,7 +56,7 @@ class RegisterController extends Controller
         'type' => request('type'),
         'color' => request('color'),
         'rfid' => 2,
-        'status' => 1
+        'status' => 2
     ];
     $vehicle = $user->vehicles()->create($user_vehicle);
     if (isset($request->vehicle_document)) {

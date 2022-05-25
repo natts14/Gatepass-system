@@ -71,10 +71,12 @@
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">PROFILE</a>
                     @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
                     <!-- <a class="nav-link" id="v-pills-event-tab" data-toggle="pill" href="#v-pills-event" role="tab" aria-controls="v-pills-event" aria-selected="false">EVENT</a> -->
-         <!--       <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
+                    <!--       <a class="nav-link" id="v-pills-notif-tab" data-toggle="pill" href="#v-pills-notif" role="tab" aria-controls="v-pills-notif" aria-selected="false">NOTIFICATION</a>
                 <a class="nav-link" id="v-pills-trans-tab" data-toggle="pill" href="#v-pills-trans" role="tab" aria-controls="v-pills-trans" aria-selected="false">TRANSACTION</a> -->
                     @endif
                     <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">ACTIVE VEHICLE</a>
+                    <a class="nav-link" id="v-pills-history-tab" data-toggle="pill" href="#v-pills-history" role="tab" aria-controls="v-pills-history" aria-selected="false">HISTORY LOGS</a>
+                    <a class="nav-link" id="v-pills-violation-tab" data-toggle="pill" href="#v-pills-violation" role="tab" aria-controls="v-pills-violation" aria-selected="false">VIOLATION</a>
                     <!-- <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">INACTIVE VEHICLE</a> -->
                 </div>
 
@@ -114,7 +116,7 @@
                                     <input type="text" readonly class="form-control-plaintext" id="surname" value="{{ $user->detail->lastname ?? 'NULL' }}">
                                 </div>
 
-                               
+
                             </div>
 
 
@@ -149,7 +151,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                            @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
+                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student' &&$user->status == 1)
                                 <div class="form-group col-md-3">
                                     <!--QRCODE -->
                                     <input type="hidden" id="myID" value="{{$user->id}}">
@@ -162,7 +164,7 @@
                                     <!-- @endif -->
                                 </div>
                                 @endif
-                        </div>
+                            </div>
                             <h4>LICENSE DETAILS</h4>
                             @if(isset($user->license))
                             <div class="form-row">
@@ -174,7 +176,8 @@
                                     <label for="DriversLicenseExpiry" class="font-weight-bold">DRIVERS LICENSE EXPIRY</label>
                                     <div class="form-row">
                                         <div>
-                                            {{ $user->license->drivers_license_expiry ?? 'NULL' }}
+                                            <!-- <img src="" class="img-fluid" alt="Responsive image"> -->
+
                                         </div>
                                         <!-- <div class="for-group col-sm-3">
                                         <input type="text" readonly class="form-control-plaintext" id="DriversLicenseExpiry" value="MAY">
@@ -200,11 +203,11 @@
                             @endif
                             <div class="form-row">
                                 <div class="form-group col-sm-3">
-                                    <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br> 
+                                    <label for="attachedoc" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
                                     @if(isset($user->license))
-                                   <img src="{{url('image/documents/'.$user->license->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
-                                   @endif
-                                   <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
+                                    <!-- <img src="" class="img-fluid" alt="Responsive image"> -->
+                                    @endif
+                                    <!-- <button type="button" class="btn btn-default btn-sm " for="license_document">
                                     <i class="fas fa-paperclip"></i>
                                 </button>  -->
 
@@ -234,7 +237,7 @@
                     </div>
                 </div> -->
 
-<!--
+                    <!--
                     <div class="tab-pane fade" id="v-pills-trans" role="tabpanel" aria-labelledby="v-pills-trans-tab">
                         <table class="table table-bordered">
                             <thead class="thead-light">
@@ -286,7 +289,34 @@
                         </div>
                     </div>
 
+                    <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
+                        <div class="activeVehicle" id="activeVehicle">
+                            <br>
+                            <h2>HISTORY LOGS</h2>
+                            <hr>
+                            <div class="form-group col-sm-8 text-right">
+                                <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button> -->
+                            </div>
 
+                            @include('includes.history')
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-violation" role="tabpanel" aria-labelledby="v-pills-violation-tab">
+                        <div class="activeVehicle" id="activeVehicle">
+                            <br>
+                            <h2>VIOLATIONS</h2>
+                            <hr>
+                            <div class="form-group col-sm-8 text-right">
+                                <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button> -->
+                            </div>
+
+                            @include('includes.violation')
+                            <br>
+                            <hr>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                         <div class="inactiveVehicle" id="inactiveVehicle">
                             <br>
@@ -333,7 +363,6 @@
     </div>
 
     <script type="text/javascript">
-
         new QRCode(document.getElementById("qrcode"), $('#myID').val());
     </script>
 
