@@ -36,38 +36,40 @@
         </div>
         <br />
 
-        <div class="container mb-2">
+        <div class="container">
             <div class="row">
-                <div class="col-9">
+                <div class="col">
                     <label class="font-weight-bold">ADDRESS</label>
                     <p class="secondlineInfo" id="address">{{ $license->user->detail->address ?? null }}</p>
                 </div>
-                <div class="col">
-                    <label class="font-weight-bold">DRIVERS LICENSE NO.</label>
-                    <p class="secondlineInfo" id="category">{{ $license->drivers_license_number }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
                 <div class="col">
                     <label class="font-weight-bold">LICENSE TYPE</label>
                     <p class="thirdlineInfo" id="licenseType">{{ strtoupper($license->license_type) }}</p>
                 </div>
                 <div class="col">
+                    <label class="font-weight-bold">DRIVERS LICENSE NO.</label>
+                    <p class="secondlineInfo" id="category">{{ $license->drivers_license_number }}</p>
+                </div>
+                <div class="col">
                     <label class="font-weight-bold">EXPIRY DATE</label>
                     <p class="thirdlineInfo" id="licenseExpiryDate">{{ $carbon::parse($license->drivers_license_expiry)->toFormattedDateString() }}</p>
                 </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+
                 <div class="col">
                     <label class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-                    <button type="button" class="btn btn-outline-secondary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                            <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                        </svg></button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" fill="currentColor" class="bi bi-paperclip" viewBox="0 0 16 16">
-                            <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                        </svg></button>
+                    @if(isset($license->document))
+                       <img src="{{url('image/documents/'.$license->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
+                     @endif
                 </div>
-                <div class="col d-flex text-right">
+          </div>  
+         <div class="row">
+                    <div class="col-sm-9">
+                   </div>
+                 <div class="col d-flex text-right">
                     <!-- <button type="button" class="btn btn-success" id="submitEvent" onclick=""> APPROVE </button>
                     <button type="button" class="btn btn-dark" id="cancelEvent" onclick=""> DECLINE </button> -->
                     <form action="{{ url('/admin-request-license', ['license' => $license->id]) }}" method="POST">

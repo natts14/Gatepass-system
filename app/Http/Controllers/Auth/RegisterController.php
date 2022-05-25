@@ -59,19 +59,36 @@ class RegisterController extends Controller
         'status' => 2
     ];
     $vehicle = $user->vehicles()->create($user_vehicle);
-    if (isset($request->vehicle_document)) {
+    if (isset($request->vehicle_front)&&($request->vehicle_back)&&($request->vehicle_left)&&($request->vehicle_right)) {
         $request->validate([
            
-            'vehicle_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //'vehicle_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'vehicle_front' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'vehicle_back' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'vehicle_left' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'vehicle_right' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $imageName = time().'.'.$request->vehicle_document->extension(); 
+     //   $imageName = time().rand(1,99).'.'.$request->vehicle_document->extension(); 
+        $imageFront = time().rand(1,99).'.'.$request->vehicle_front->extension(); 
+        $imageBack = time().rand(1,99).'.'.$request->vehicle_back->extension(); 
+        $imageLeft = time().rand(1,99).'.'.$request->vehicle_left->extension(); 
+        $imageRight = time().rand(1,99).'.'.$request->vehicle_right->extension(); 
 
-        $request->vehicle_document->move(public_path('image/documents'), $imageName);
+       // $request->vehicle_document->move(public_path('image/documents'), $imageName);
+        $request->vehicle_front->move(public_path('image/documents'), $imageFront);
+        $request->vehicle_back->move(public_path('image/documents'), $imageBack);
+        $request->vehicle_left->move(public_path('image/documents'), $imageLeft);
+        $request->vehicle_right->move(public_path('image/documents'), $imageRight);
+
         //save to table
         Document::create([
             'user_id' => $user->id,
             'document_id' => $vehicle->id,
-            'name' => $imageName,
+         //   'name' => $imageName,
+            'front'=>$imageFront,
+            'back'=>$imageBack,
+            'left'=>$imageLeft,
+            'right'=>$imageRight,
             'type' => 'vehicle'
         ]);
     }

@@ -41,14 +41,26 @@
             <input type="text" readonly class="form-control-plaintext" id="model" value="{{ strtoupper($vehicle->color) }}">
         </div>
     </div>
-
+    <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
     <div class="form-row">
+          @if(isset($vehicle->document))
         <div class="form-group col-sm-3">
-            <label for="model" class="font-weight-bold">ATTACHED DOCUMENT</label><br>
-            @if(isset($user->vehicle))
-                 <img src="{{url('image/documents/'.$user->vehicle->document->name ?? 'NO ATTACHED DOCUMENT')}}" class="img-fluid" alt="Responsive image">
-              @endif
+            <label for="model" class="font-weight-bold">FRONT</label><br>
+            <img src="{{url('image/documents/'.$vehicle->document->front )}}" class="img-fluid" alt="Responsive image">
         </div>
+        <div class="form-group col-sm-3">
+           <label for="model" class="font-weight-bold">BACK</label><br>
+           <img src="{{url('image/documents/'.$vehicle->document->back )}}" class="img-fluid" alt="Responsive image">
+        </div>
+        <div class="form-group col-sm-3">
+           <label for="model" class="font-weight-bold">LEFT</label><br>
+            <img src="{{url('image/documents/'.$vehicle->document->left )}}" class="img-fluid" alt="Responsive image">  
+        </div>
+        <div class="form-group col-sm-3">
+           <label for="model" class="font-weight-bold">RIGHT</label><br>
+            <img src="{{url('image/documents/'.$vehicle->document->right )}}" class="img-fluid" alt="Responsive image">  
+     </div>
+        @endif
         <div class="form-group col-sm-5 text-right"><br>
       <!--      <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">EDIT</button> -->
             <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="">REMOVE</button> -->
