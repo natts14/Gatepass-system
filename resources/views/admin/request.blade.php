@@ -8,6 +8,7 @@
     <!-- <a class="nav-item nav-link text-white" href="/admin-request-event">EVENT @if($events_count > 0)<span class="badge badge-danger">{{$events_count}}</span>@endif</a> -->
     <a class="nav-item nav-link text-white" href="/admin-request-license">DRIVERS LICENSE @if($license_count > 0)<span class="badge badge-danger">{{$license_count}}</span>@endif</a>
     <a class="nav-item nav-link text-white" href="/admin-request-visitor">VISITOR @if($user_count > 0)<span class="badge badge-danger">{{$user_count}}</span>@endif</a></a>
+
 </nav>
 
 @foreach ($vehicles as $vehicle)
@@ -86,6 +87,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-9">
+                </div>
                    </div>
                 <div class="col d-flex text-center">
                     <br>

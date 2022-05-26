@@ -22,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'category'
+        'category',
+        'expiration_date'
     ];
 
 

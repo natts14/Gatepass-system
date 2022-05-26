@@ -222,10 +222,19 @@ class HomepageController extends Controller
     public function userEntrance(Request $request){
         $dt = Carbon::now()->toTimeString();
         $vehicle = Vehicle::select('*')->get();
-
+        $users = User::select('*')->get();
 
         foreach($vehicle as $vehicles){
             if($vehicles->rfid == request('rfid')){
+                foreach($users as $user){
+                    $currentDate = date('Y-m-d');
+                    $currentDate = date('Y-m-d', strtotime($currentDate));   
+                    $startDate = date('Y-m-d', strtotime($user->expiration_date));
+                    if($user->id == $vehicles->user_id && $currentDate > $startDate){
+                        return redirect('/guard-homepage')->with('error', "Visitor is expired!");
+                    }
+    
+                }
                ParkingLogs::create([
                    'rfid'=>request('rfid'),
                     'user_id'=>$vehicles->user_id,
@@ -268,12 +277,20 @@ class HomepageController extends Controller
     $dt = Carbon::now()->toTimeString();
     $vehicle = Vehicle::select('*')->get();
     $users = User::select('*')->get();
-    
+
     foreach($vehicle as $vehicles){
-        foreach($users as $user){
+        foreach($users as $user){       
+            $currentDate = date('Y-m-d');
+            $currentDate = date('Y-m-d', strtotime($currentDate));   
+            $startDate = date('Y-m-d', strtotime($user->expiration_date));
+
             if($user->id == $vehicles->user_id && $user->status == 2){
                 return redirect('/guard-homepage')->with('error', "Visitor is not verfied!");
             }
+            if($user->id == $vehicles->user_id && $currentDate > $startDate){
+                return redirect('/guard-homepage')->with('error', "Visitor is expired!");
+            }
+            
         }
         if($vehicles->user_id == request('qrcode')){
            ParkingLogs::create([

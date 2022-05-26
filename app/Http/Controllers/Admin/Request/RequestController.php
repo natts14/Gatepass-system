@@ -9,6 +9,7 @@ use App\Models\Renewal;
 use App\Models\Notification;
 use App\Models\User;
 use App\Models\UserDetail;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -141,11 +142,16 @@ class RequestController extends Controller
     }
 
     public function approvevisitor(Request $request) {
+        // $dt = Carbon::now();
+        // echo $dt->addYear();
+        $next_year = date("Y-m-d", strtotime("-1 day"));
         $users = User::select('*')->get();
         foreach($users as $user){
             if($user->id == request('id')){
                 $user->status = 1;
+                $user->expiration_date = $next_year;
                 $user->update();
+              //  $user-> expiration_date=$dt;
             }
         }
         return redirect()->back();

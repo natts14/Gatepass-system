@@ -8,6 +8,8 @@ use App\Models\ParkingLogs;
 use App\Models\ParkingLot;
 use App\Models\Document;
 
+use Carbon\Carbon;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -110,6 +112,7 @@ class UsersController extends Controller
 
     //register a user from admin page
     public function store(Request $request) {
+        $next_year = date("Y-m-d", strtotime("+365 day"));
         request()->validate([
             'name'=> 'required|unique:users',
             'email' => 'required|unique:users',
@@ -120,16 +123,20 @@ class UsersController extends Controller
             'lastname' => 'required',
             'address' => 'required',
             'contact_number' => 'required'
+                         
         ]);
-
+      
         //create user in users table
         $user_data = [
             'name' => request('name'), //username
             'email' => request('email'),
             'password' => request('password'),
             'category' => request('category'),
-            'status' => 1
+            'status' => 1,
+            'expiration_date'=>$next_year
+         
         ];
+
         $user = User::create($user_data);
         //create users details
         $user_detail = [
@@ -137,7 +144,8 @@ class UsersController extends Controller
             'middlename' => request('middlename'),
             'lastname' => request('lastname'),
             'address' => request('address'),
-            'contact_number' => request('contact_number')
+            'contact_number' => request('contact_number'),
+
         ];
         $user->detail()->create($user_detail);
         //create drives license
