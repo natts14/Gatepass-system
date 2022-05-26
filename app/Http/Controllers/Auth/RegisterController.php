@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\RegisterRequest;
 
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -37,12 +38,14 @@ class RegisterController extends Controller
             'password' => 'required',
 
         ]);
+        // $dt = Carbon::now();
+        // echo $dt->addYear();
       //create user in users table
          $user_data = [
           'name' => request('name'), //username
           'email' => request('email'),
           'password' => request('password'),
-         'status' => 2
+          'status' => 2
          ];
          $user = User::create($user_data);
 
@@ -117,6 +120,7 @@ class RegisterController extends Controller
             ]);
         }
     }
+    return redirect('/login')->with('success', "Account successfully registered.");
 }
 
         // $user = User::create($request->validated());
@@ -124,6 +128,6 @@ class RegisterController extends Controller
         
         // auth()->login($user);
 
-        return redirect('/login')->with('success', "Account successfully registered.");
+        
     }
 }
