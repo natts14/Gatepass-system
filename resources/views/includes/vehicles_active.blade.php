@@ -2,6 +2,9 @@
 <div>
     <div class="form-row">
         <div class="form-group col-sm-3">
+   <!--QRCODE -->
+            <input type="hidden" id="myID-{{$vehicle->vehicle_plate_number}}" value="{{ $vehicle->id }}">
+            <div id="qrcode-{{$vehicle->vehicle_plate_number}}"></div>
             <h1>{{ $vehicle->vehicle_plate_number }}</h1>
         </div>
         <div class="form-group col-sm-3">
@@ -67,4 +70,9 @@
         </div>
     </div> 
 </div>
+<script type="text/javascript">
+    new QRCode(document.getElementById("qrcode-{{$vehicle->vehicle_plate_number}}"), $('#myID-{{$vehicle->vehicle_plate_number}}').val());
+</script>
 @endforeach
+
+

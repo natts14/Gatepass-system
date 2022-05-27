@@ -122,28 +122,22 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
+                @if($user->category == 'visitor' || $user->category == 'student'|| $user->category == 'employee')
                 <tr onclick="window.location=''">
                     <td>{{ $user->id }}</td>
-                    <td id="{{ 'clickableName'.$user->id }}" onclick="popUserInfo()">
-                        @if(isset($user->detail->firstname))
-                        {{ $user->detail->firstname.' '.$user->detail->middlename.' '.$user->detail->lastname }}
-                        @else
+                    <td>
                         {{ $user->name }}
-                        @endif
                     </td>
                     <td>
-                        @if(isset($user->vehicles))
-                        {{ $user->vehicles->last()->vehicle_plate_number }}
-                        @endif
+                        {{ $user->vehicle_plate_number }}
                     </td>
                     <td>
-                        @if(isset($user->vehicles))
-                        {{ $user->vehicles->last()->vehicle_registration_number }}
-                        @endif
+                        {{ $user->vehicle_registration_number }}
                     </td>
-                    <td>{{ ucfirst($user->category) }}</td>
+                    <td>{{ $user->category }}</td>
                     <td>{{ $user->status == 1 ? 'ACTIVE' : 'INACTIVE' }}</td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>
