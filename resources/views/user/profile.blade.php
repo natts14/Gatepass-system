@@ -150,21 +150,6 @@
                                     <input type="password" readonly class="form-control-plaintext" id="Password" value="********">
                                 </div>
                             </div>
-                            <div class="form-row">
-                                @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student' &&$user->status == 1)
-                                <div class="form-group col-md-3">
-                                    <!--QRCODE -->
-                                    <input type="hidden" id="myID" value="{{$user->id}}">
-                                    <div id="qrcode"></div>
-
-                                    <!-- BARCODE -->
-                                    <!-- @if(isset($user->vehicles))
-                                      <img id="barcode" class="barcode" jsbarcode-format="code128" jsbarcode-value="{{ $user->vehicles->last()->rfid }}" jsbarcode-textmargin="0" jsbarcode-fontoptions="bold">  -->
-                                    <!-- <button type="button" class="btn btn-success download" id="downloadBarcode">Download</button> -->
-                                    <!-- @endif -->
-                                </div>
-                                @endif
-                            </div>
                             <h4>LICENSE DETAILS</h4>
                             @if(isset($user->license))
                             <div class="form-row">
