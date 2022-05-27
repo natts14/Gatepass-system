@@ -77,8 +77,7 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $profile) {
-         Auth::user();
-
+        $user = Auth::user();
         switch ($profile) {
             case 'personal':
                 $request->validateWithBag('personal', [
