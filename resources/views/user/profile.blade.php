@@ -279,9 +279,9 @@
                             <br>
                             <h2>ACTIVE VEHICLES</h2>
                             <hr>
-                            <div class="form-group col-sm-8 text-right">
-                                <!-- <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button> -->
-                            </div>
+                            <!-- <div class="form-group col-sm-8 text-right">
+                                <button type="button" class="btn btn-default btn-sm " data-toggle="modal" data-target="#vehicleModal">ADD</button>
+                            </div> -->
 
                             @include('includes.vehicles_active')
                             <br>

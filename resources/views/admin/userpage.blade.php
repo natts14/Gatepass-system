@@ -94,10 +94,12 @@
                     <button type="submit" class="btn btn-primary mb-2">Search</button>
                 </div>
 
-                <div class="col text-left">
+                <div class="col-sm-1">
                     <a class="btn btn-primary" id="" href="/admin-user-add">Add User</a>
                 </div>
-
+                <div class="col-sm-1">
+                    <a class="btn btn-primary" id="" href="/admin-user-add-vehicle">Add Vehicle</a>
+                </div>
                 <div class="col text-right">
                     <!-- <button type="button" class="btn btn-success" id="download">download</button> -->
                 </div>
