@@ -13,7 +13,10 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Mail\Buksu_gatepass;
+use App\Mail\buksugatepass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
@@ -104,6 +107,17 @@ class RequestController extends Controller
     }
 
     public function approve_vehicle(Vehicle $vehicle) {
+        $users = User::select('*')->get();
+        foreach($users as $user){
+            if($user->id == request('id')){
+                $details = [
+                    'subject' =>'BUKSU GATEPASS',
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully accepted!'
+                ];
+                Mail::to($user->email)->send(new Buksu_gatepass($details));
+            }
+        }
         $vehicle->update([
             'status' => 1
         ]);
@@ -111,6 +125,16 @@ class RequestController extends Controller
     }
     public function decline_vehicle(Vehicle $vehicle) 
     {
+        $users = User::select('*')->get();
+        foreach($users as $user){
+            if($user->id == request('id')){
+                $details = [
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully decline!'
+                ];
+                Mail::to($user->email)->send(new buksugatepass($details));
+            }
+        }
         $vehicle->delete();
 
         return redirect()->back();
@@ -125,33 +149,56 @@ class RequestController extends Controller
     public function decline_event(Event $event) 
     {
         $event->delete();
-
         return redirect(route('event.request'));
     }
 
     public function approve_license(UserLicense $license) {
-        $license->update([
-            'status' => 1
-        ]);
-        return redirect()->back();
-    }
-    public function decline_license(UserLicense $license) 
-    {
-        $license->delete();
-        return redirect()->back();
-    }
-
-    public function approvevisitor(Request $request) {
-        // $dt = Carbon::now();
-        // echo $dt->addYear();
-        $next_year = date("Y-m-d", strtotime("-1 day"));
         $users = User::select('*')->get();
         foreach($users as $user){
             if($user->id == request('id')){
+                $details = [
+                    'subject' =>'BUKSU GATEPASS',
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully accepted!'
+                ];
+                Mail::to($user->email)->send(new Buksu_gatepass($details));
+                $license->update([
+                    'status' => 1
+                ]);
+                return redirect()->back();
+            }
+        }
+        
+    }
+    public function decline_license(UserLicense $license) 
+    {
+        $users = User::select('*')->get();
+        foreach($users as $user){
+            if($user->id == request('id')){
+                $details = [
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully decline!'
+                ];
+                Mail::to($user->email)->send(new buksugatepass($details));
+                $license->delete();
+                return redirect()->back();
+            }
+        }
+        
+    }
+
+    public function approvevisitor(Request $request) {
+        $users = User::select('*')->get();
+        foreach($users as $user){
+            if($user->id == request('id')){
+                $details = [
+                    'subject' =>'BUKSU GATEPASS',
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully accepted!'
+                ];
+                Mail::to($user->email)->send(new Buksu_gatepass($details));
                 $user->status = 1;
-                $user->expiration_date = $next_year;
                 $user->update();
-              //  $user-> expiration_date=$dt;
             }
         }
         return redirect()->back();
@@ -164,6 +211,12 @@ class RequestController extends Controller
         $UserDetails = UserDetail::select('*')->get();
         foreach($users as $user){
             if($user->id == request('id')){
+                $details = [
+                    'subject' =>'BUKSU GATEPASS',
+                    'title' =>'BUKSU GATEPASS',
+                    'body' => 'You have successfully decline!'
+                ];
+                Mail::to($user->email)->send(new buksugatepass($details));
                 $user->delete();
             }
         }
