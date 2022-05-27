@@ -75,11 +75,13 @@
                     <form action="{{ url('/admin-request-license', ['license' => $license->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
+                        <input name="id" type="hidden" value="{{ $license->user->id }}">
                         <button type="submit" class="btn btn-success mr-3"> APPROVE </button>
                     </form>
                     <form action="{{ url('/admin-request-license', ['license' => $license->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
+                        <input name="id" type="hidden" value="{{ $license->user->id }}">
                         <button type="submit" class="btn btn-dark"> DECLINE </button>
                     </form>
                 </div>

@@ -11,6 +11,7 @@ use App\Models\ParkingLogs;
 use App\Models\ParkingLot;
 use App\Models\UserDetail;
 use App\Models\Violation;
+use App\Models\UserLicense;
 
 use Carbon\Carbon;
 
@@ -222,27 +223,26 @@ class HomepageController extends Controller
     public function userEntrance(Request $request){
         $dt = Carbon::now()->toTimeString();
         $vehicle = Vehicle::select('*')->get();
-        $users = User::select('*')->get();
+        $UserLicenses = UserLicense::select('*')->get();
 
         foreach($vehicle as $vehicles){
             if($vehicles->rfid == request('rfid')){
-                foreach($users as $user){
+                foreach($UserLicenses as $UserLicense){
                     $currentDate = date('Y-m-d');
                     $currentDate = date('Y-m-d', strtotime($currentDate));   
-                    $startDate = date('Y-m-d', strtotime($user->expiration_date));
-                    if($user->id == $vehicles->user_id && $currentDate > $startDate){
-                        return redirect('/guard-homepage')->with('error', "Visitor is expired!");
+                    $startDate = date('Y-m-d', strtotime($UserLicense->drivers_license_expiry));
+                    if($UserLicense->user_id == $vehicles->user_id && $currentDate > $startDate){
+                        return redirect('/guard-homepage')->with('error', "Drivers license is expired!");
                     }
-    
                 }
-               ParkingLogs::create([
-                   'rfid'=>request('rfid'),
-                    'user_id'=>$vehicles->user_id,
-                    'vehicle_id'=>$vehicles->id,
-                    'parking_id'=>1,
-                    'login_date'=> now(),
-                     'login_time'=>$dt
-                ]);
+                ParkingLogs::create([
+                    'rfid'=>request('rfid'),
+                     'user_id'=>$vehicles->user_id,
+                     'vehicle_id'=>$vehicles->id,
+                     'parking_id'=>1,
+                     'login_date'=> now(),
+                      'login_time'=>$dt
+                 ]);
             }
         }
         return redirect('/guard-homepage'); 
@@ -265,7 +265,7 @@ class HomepageController extends Controller
         $parking = ParkingLogs::select('*')->get();
     
         foreach($parking as $parkingLog){
-            if($parkingLog->user_id == request('qrcode') && $parkingLog->logout_time == null && $parkingLog->logout_date==null){
+            if($parkingLog->vehicle_id == request('qrcode') && $parkingLog->logout_time == null && $parkingLog->logout_date==null){
                 $parkingLog->logout_date = now();
                 $parkingLog->logout_time = $dt;
                 $parkingLog->update();
@@ -277,22 +277,23 @@ class HomepageController extends Controller
     $dt = Carbon::now()->toTimeString();
     $vehicle = Vehicle::select('*')->get();
     $users = User::select('*')->get();
+    $UserLicenses = UserLicense::select('*')->get();
 
     foreach($vehicle as $vehicles){
-        foreach($users as $user){       
-            $currentDate = date('Y-m-d');
-            $currentDate = date('Y-m-d', strtotime($currentDate));   
-            $startDate = date('Y-m-d', strtotime($user->expiration_date));
-
+        if($vehicles->id == request('qrcode')){
+        foreach($users as $user){
             if($user->id == $vehicles->user_id && $user->status == 2){
                 return redirect('/guard-homepage')->with('error', "Visitor is not verfied!");
             }
-            if($user->id == $vehicles->user_id && $currentDate > $startDate){
-                return redirect('/guard-homepage')->with('error', "Visitor is expired!");
-            }
-            
         }
-        if($vehicles->user_id == request('qrcode')){
+        foreach($UserLicenses as $UserLicense){
+            $currentDate = date('Y-m-d');
+            $currentDate = date('Y-m-d', strtotime($currentDate));   
+            $startDate = date('Y-m-d', strtotime($UserLicense->drivers_license_expiry));
+            if($UserLicense->user_id == $vehicles->user_id && $currentDate > $startDate){
+                return redirect('/guard-homepage')->with('error', "Drivers license is expired!");
+            }
+        }
            ParkingLogs::create([
                'rfid'=> $vehicles->rfid,
                 'user_id'=>$vehicles->user_id,
