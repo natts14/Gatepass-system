@@ -91,8 +91,12 @@
             <div class="form-group com-sm-3">
 
             <label class="font-weight-bold">Input User</label>
-  
-            <input type="text" name="user_id" class="form-control" id="">
+            <select name="user_id" class="form-control" required>
+            <option value=""></option>
+                @foreach ($users as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+            </select>
     
             </div>
             <div class="form-row">

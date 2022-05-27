@@ -93,11 +93,13 @@
                     <form action="{{ url('/admin-request-vehicle', ['vehicle' => $vehicle->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
+                        <input name="id" type="hidden" value="{{ $vehicle->user->id }}">
                         <button type="submit" class="btn btn-success mr-3" id="submitEvent"> APPROVE </button>
                     </form>
                     <form action="{{ url('/admin-request-vehicle', ['vehicle' => $vehicle->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
+                        <input name="id" type="hidden" value="{{ $vehicle->user->id }}">
                         <button type="submit" class="btn btn-dark" id="cancelEvent"> DECLINE </button>
                     </form>
                 </div>

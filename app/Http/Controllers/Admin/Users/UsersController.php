@@ -94,6 +94,20 @@ class UsersController extends Controller
             $query->where('category', 'visitor')->where('status',1);
         })->where('logout_date', null)->count();
         $visitors_count = User::where('category', 'visitor')->where('status',1)->count();
+        $vehicles = Vehicle::select('*')->get();
+        
+        foreach($users as $all_user){
+            if($all_user->category=='student'||$all_user->category=='employee'||$all_user->category=='visitor'){
+                foreach($vehicles as $vehicle){
+                    if($vehicle->user_id ==$all_user->id){
+                        $all_user->vehicle_plate_number=$vehicle->vehicle_plate_number;
+                        $all_user->vehicle_registration_number=$vehicle->vehicle_registration_number;
+                    }
+                }
+            }
+        }
+
+
         return view('admin.userpage', [
             'users' => $users,
             // 'parking_logs' => $parking_logs, 
@@ -107,8 +121,17 @@ class UsersController extends Controller
     }
 
     public function create_vehicle()
-    {
-        return view ('admin.user-add-vehicle');
+    {   
+        $selectedUser=[];
+        $users = User::select('*')->get();
+        foreach($users as $user){
+            if($user->category=='visitor'||$user->category=='student'||$user->category=='employee'){
+                array_push($selectedUser,  $user);
+            }
+        }
+        return view ('admin.user-add-vehicle',[
+            'users'=> $selectedUser
+        ]);
     }
     public function store_vehicle(Request $request)
     {
