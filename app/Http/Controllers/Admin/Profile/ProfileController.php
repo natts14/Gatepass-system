@@ -77,7 +77,7 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $profile) {
-        $user = Auth::user();
+         Auth::user();
 
         switch ($profile) {
             case 'personal':

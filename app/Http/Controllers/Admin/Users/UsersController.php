@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Models\User;
+use App\Models\Vehicle;
 use App\Models\UserDetail;
 use App\Models\ParkingLogs;
 use App\Models\ParkingLot;
 use App\Models\Document;
-
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\Http\Controllers\Controller;
@@ -103,6 +104,73 @@ class UsersController extends Controller
             'visitors_count' => $visitors_count,
             'request' => $request
         ]);
+    }
+
+    public function create_vehicle()
+    {
+        return view ('admin.user-add-vehicle');
+    }
+    public function store_vehicle(Request $request)
+    {
+        $id =$request->input('user_id');
+        $user =  User::find($id);
+        request()->validate([
+            'vehicle_plate_number'=> 'required',
+            'vehicle_registration_number'=> 'required',
+            'vehicle_registration_expiry'=> 'required',
+            'model'=> 'required',
+            'type'=> 'required',
+            'color'=> 'required',
+            'rfid' => 'required',
+            //'user_id'=> 'required'
+        ]);
+      
+        $user_vehicle = [
+            'vehicle_plate_number' => request('vehicle_plate_number'),
+            'vehicle_registration_number' => request('vehicle_registration_number'),
+            'vehicle_registration_expiry' => request('vehicle_registration_expiry'),
+            'model' => request('model'),
+            'type' => request('type'),
+            'color' => request('color'),
+            'status' => 2,
+            'rfid'=>request('rfid'),
+            'user_id'=> request('user_id')
+        ];
+         $vehicle =  $user->vehicles()->create($user_vehicle);
+        if (isset($request->vehicle_front)&&($request->vehicle_back)&&($request->vehicle_left)&&($request->vehicle_right)) {
+            $request->validate([
+               
+                //'vehicle_document' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'vehicle_front' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'vehicle_back' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'vehicle_left' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'vehicle_right' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+         //   $imageName = time().rand(1,99).'.'.$request->vehicle_document->extension(); 
+            $imageFront = time().rand(1,99).'.'.$request->vehicle_front->extension(); 
+            $imageBack = time().rand(1,99).'.'.$request->vehicle_back->extension(); 
+            $imageLeft = time().rand(1,99).'.'.$request->vehicle_left->extension(); 
+            $imageRight = time().rand(1,99).'.'.$request->vehicle_right->extension(); 
+    
+           // $request->vehicle_document->move(public_path('image/documents'), $imageName);
+            $request->vehicle_front->move(public_path('image/documents'), $imageFront);
+            $request->vehicle_back->move(public_path('image/documents'), $imageBack);
+            $request->vehicle_left->move(public_path('image/documents'), $imageLeft);
+            $request->vehicle_right->move(public_path('image/documents'), $imageRight);
+    
+            //save to table
+            Document::create([
+                'user_id' => $vehicle->id,
+                'document_id' => $vehicle->id,
+             //   'name' => $imageName,
+                'front'=>$imageFront,
+                'back'=>$imageBack,
+                'left'=>$imageLeft,
+                'right'=>$imageRight,
+                'type' => 'vehicle'
+            ]);
+        }
+        return redirect('/admin-userpage');
     }
 
     public function create() 

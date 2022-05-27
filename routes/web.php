@@ -115,6 +115,8 @@ Route::group(['namespace'=> 'App\Http\Controllers'],function()
 
         Route::get('/admin-userpage', 'Admin\Users\UsersController@index')->name('admin.userpage');
         Route::get('/admin-user-add', 'Admin\Users\UsersController@create');
+        Route::post('/admin-userpage/vehicle', 'Admin\Users\UsersController@store_vehicle');
+        Route::get('/admin-user-add-vehicle', 'Admin\Users\UsersController@create_vehicle');
         Route::post('/admin-userpage/register', 'Admin\Users\UsersController@store')->name('admin.register');
     });
 });
