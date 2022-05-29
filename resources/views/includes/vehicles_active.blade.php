@@ -3,9 +3,11 @@
     <div class="form-row">
         <div class="form-group col-sm-3">
    <!--QRCODE -->
+   @if($user->category != 'admin' && $user->category != 'guard' && $user->category !='employee' && $user->category !='student')
             <input type="hidden" id="myID-{{$vehicle->vehicle_plate_number}}" value="{{ $vehicle->id }}">
             <div id="qrcode-{{$vehicle->vehicle_plate_number}}"></div>
             <h1>{{ $vehicle->vehicle_plate_number }}</h1>
+      @endif
         </div>
         <div class="form-group col-sm-3">
             <h1></h1>
