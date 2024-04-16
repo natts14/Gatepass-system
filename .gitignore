@@ -51,6 +51,7 @@ Thumbs.db
 /node_modules
 /public/hot
 /public/storage
+/public/image/documents/*
 /storage/*.key
 /vendor
 .env

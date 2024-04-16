@@ -158,6 +158,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'violation_id' => 'Plate Number',
+    ],
 
 ];

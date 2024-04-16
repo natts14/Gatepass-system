@@ -18,10 +18,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'status',
         'name',
         'email',
         'password',
+        'category',
+        'expiration_date'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +45,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+    * Always encrypt the password when it is updated.
+    *
+    * @param $value
+    * @return string
+    */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function parking_logs()
+    {
+        return $this->hasMany(ParkingLogs::class, 'user_id', 'id');
+    }
+
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'user_id', 'id');
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class,'user_id','id');
+    }
+
+    public function license()
+    {
+        return $this->hasOne(UserLicense::class,'user_id','id');
+    }
+
+    public function renewals()
+    {
+        return $this->hasMany(Renewal::class, 'user_id', 'id');
+    }
 }
